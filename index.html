@@ -72,10 +72,10 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 .hero-brand{display:flex;align-items:center;gap:16px;margin-bottom:40px}
 .hero-logo{width:56px;height:56px;filter:drop-shadow(0 0 12px rgba(212,168,83,0.3));animation:float 6s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.hero-brand-text{font-size:18px;color:var(--amber);font-weight:600;letter-spacing:4px;text-transform:uppercase;text-shadow:0 0 8px rgba(212,168,83,0.3)}
+.hero-brand-text{font-size:clamp(11px,3.5vw,18px);color:var(--amber);font-weight:600;letter-spacing:clamp(1px,0.5vw,4px);text-transform:uppercase;text-shadow:0 0 8px rgba(212,168,83,0.3);white-space:nowrap}
 .hero-quote{font-size:15px;color:var(--gold);font-style:italic;margin-bottom:32px;line-height:1.8;text-shadow:0 0 12px rgba(196,155,111,0.15);opacity:.85}
 .hero-prompt{font-size:13px;color:var(--text-muted);margin-bottom:12px;opacity:.6;letter-spacing:1px}
-.hero-title{font-size:clamp(28px,4.5vw,48px);font-weight:700;color:var(--text);line-height:1.25;margin-bottom:12px;min-height:2.5em}
+.hero-title{font-size:clamp(22px,5.5vw,48px);font-weight:700;color:var(--text);line-height:1.25;margin-bottom:12px;min-height:2.5em}
 .hero-title .cursor{display:inline-block;width:3px;height:.85em;background:var(--amber);margin-left:4px;animation:blink 1s step-end infinite;vertical-align:text-bottom}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .hero-subtitle{font-size:clamp(15px,2vw,20px);color:var(--amber);margin-bottom:28px;font-weight:500;text-shadow:0 0 16px rgba(212,168,83,0.2)}
@@ -90,7 +90,7 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 /* Chat */
 .chat-section{padding:60px 0;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 .section-label{font-size:11px;color:var(--amber);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;font-weight:600;opacity:.8}
-.section-title{font-size:clamp(24px,3.5vw,38px);font-weight:700;margin-bottom:14px;color:var(--text)}
+.section-title{font-size:clamp(18px,4.5vw,38px);font-weight:700;margin-bottom:14px;color:var(--text)}
 .section-desc{font-size:14px;color:var(--text-muted);max-width:720px;line-height:1.9;margin-bottom:32px;font-weight:300}
 .chat-panel{background:var(--panel-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:16px}
 .chat-panel-header{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-muted);font-weight:500}
