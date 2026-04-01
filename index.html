@@ -489,7 +489,7 @@ function setLang(lang) {
   if (heroEl) { heroEl.innerHTML = ''; runHeroTyping(); }
 
   // Re-render character grid with new language
-  if (typeof renderCharGrid === 'function') renderCharGrid();
+  if (typeof window.__renderCharGrid === 'function') window.__renderCharGrid();
 
   // Re-run chat if visible
   if (window.__chatStarted) {
@@ -840,6 +840,7 @@ function startChat() {
 }
 
 // ═══ Character grid ═══
+window.__renderCharGrid = renderCharGrid;
 function renderCharGrid() {
   const grid = document.getElementById('charGrid');
   if (!grid) return;
