@@ -457,6 +457,8 @@ const HERO_TEXT = {
 // ═══ Theme (follows device prefers-color-scheme) ═══
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
+  const logo = theme === 'light' ? 'images/logo.png' : 'images/logo_dark.png';
+  document.querySelectorAll('.hero-logo, .version-logo, .loader-brand img').forEach(el => { el.src = logo; });
 }
 
 function getSystemTheme() {
