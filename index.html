@@ -430,7 +430,7 @@ const I18N = {
   nav_flow:     { en: 'Flow', ko: 'Flow' },
   nav_status:   { en: 'Status', ko: 'Status' },
   hero_desc: {
-    en: 'The whole dwells in the part,\nand the part embraces the whole.\nGreat currents seep into small textures,\nand small textures mirror the greater flow.\n— In a single glance, we see it all.',
+    en: 'The whole lives in the part,\nand the part embraces the whole.\nMacro currents flow into small details,\nand small details reflect the greater tide.\n— In a single glance, see it all.',
     ko: '전체는 부분에 깃들고,\n부분은 다시 전체를 품는다.\n큰 흐름은 작은 결로 스며들고,\n작은 결은 다시 큰 흐름을 비춘다.\n— 한 번의 시선으로, 전체를 본다.'
   },
   hero_cta2:    { en: 'API Inquiry<span class="btn-tag">In Development</span>', ko: 'API 문의<span class="btn-tag">개발중</span>' },
@@ -440,7 +440,7 @@ const I18N = {
   arch_label:   { en: 'OneQAZ\'s Perspective', ko: 'OneQAZ의 시선' },
   arch_title:   { en: 'From the big picture to a single stock', ko: '큰 흐름에서 하나의 종목까지' },
   arch_desc:    { en: 'Reading macro flows, classifying market regimes, and connecting them to actionable signals.', ko: '거시 흐름을 읽고, 시장 국면을 나누고, 실행 가능한 시그널로 연결합니다.' },
-  agent_label:  { en: 'OneQAZ Agents', ko: 'ONEQAZ AGENTS' },
+  agent_label:  { en: 'OneQAZ Agents', ko: 'OneQAZ 에이전트' },
   agent_title:  { en: 'AI agents for every market', ko: '각 시장을 맡은 AI 에이전트들' },
   agent_desc:   { en: 'They read the movements of different markets and connect them into a single flow of judgment.', ko: '서로 다른 시장의 움직임을 읽고, 하나의 판단 흐름으로 연결합니다.' },
   status_label: { en: 'Right Now', ko: '지금 이 순간' },
@@ -623,7 +623,7 @@ const POOL = {
   cross_talk: [
     { who:'bond', en:'When I see credit spreads widening, I ping Eagle and Tiger immediately. <span class="hl" style="color:#6b9fc9">Macro leads micro</span> — always.', ko:'신용 스프레드가 벌어지면 멘쿤이랑 코숏한테 바로 알려. <span class="hl" style="color:#6b9fc9">매크로가 마이크로를 이끌어</span>. 항상.' },
     { who:'us_stock', en:'And when Brit flags a risk-off shift, I adjust my analysis instantly. That\'s why <span class="hl" style="color:#3B82F6">we work as a team</span>, not in silos.', ko:'브숏이 risk-off 전환을 알리면 난 즉시 분석을 조정해. 그래서 <span class="hl" style="color:#3B82F6">우리는 팀으로 일해</span>. 따로따로가 아니라.' },
-    { who:'forex', en:'Same here. When Siam sees dollar strength, it ripples through everything — stocks, commodities, crypto. <span class="hl" style="color:#5cb85c">Everything is connected</span>.', ko:'나도 마찬가지야. 달러 강세가 보이면 주식, 원자재, 코인 전부에 파급돼. <span class="hl" style="color:#5cb85c">모든 건 연결돼 있어</span>.' },
+    { who:'forex', en:'Same here. When I spot dollar strength, it ripples through everything — stocks, commodities, crypto. <span class="hl" style="color:#5cb85c">Everything is connected</span>.', ko:'나도 마찬가지야. 달러 강세가 보이면 주식, 원자재, 코인 전부에 파급돼. <span class="hl" style="color:#5cb85c">모든 건 연결돼 있어</span>.' },
     { who:'commodity', en:'Exactly. When oil spikes, I tell everyone — because it changes the <span class="hl" style="color:#10B981">inflation outlook</span> for every market we cover.', ko:'맞아. 원유가 급등하면 모두에게 알려. 왜냐면 우리가 커버하는 모든 시장의 <span class="hl" style="color:#10B981">인플레이션 전망</span>이 바뀌거든.' },
     { who:'news', en:'And I\'m feeding everyone at the same time. When a <span class="hl" style="color:#d9534f">major event breaks</span>, every agent gets the context they need within seconds.', ko:'그리고 난 동시에 모두에게 피딩해. <span class="hl" style="color:#d9534f">주요 이벤트가 터지면</span> 모든 에이전트가 몇 초 안에 필요한 맥락을 받아.' },
     { who:'crypto', en:'In crypto, things move fast. Having real-time intel from Ruble and macro context from Brit gives me a <span class="hl" style="color:#d4a853">massive edge</span>.', ko:'코인에서는 빠르게 움직여. 러블의 실시간 인텔과 브숏의 매크로 맥락 덕분에 <span class="hl" style="color:#d4a853">엄청난 엣지</span>를 갖게 돼.' },
@@ -676,12 +676,36 @@ const LINE_HEIGHT = 23;
 
 function stripHtml(html){ return html.replace(/<[^>]+>/g,'') }
 
+// ═══ Chat pause/resume state ═══
+let chatPaused = false;
+let chatResumeCallbacks = [];
+
+function pauseChat() { chatPaused = true; }
+function resumeChat() {
+  chatPaused = false;
+  const cbs = [...chatResumeCallbacks];
+  chatResumeCallbacks = [];
+  cbs.forEach(cb => cb());
+}
+
+function chatTimeout(fn, delay) {
+  if (chatPaused) {
+    chatResumeCallbacks.push(() => chatTimeout(fn, delay));
+    return;
+  }
+  setTimeout(() => {
+    if (chatPaused) {
+      chatResumeCallbacks.push(() => fn());
+    } else {
+      fn();
+    }
+  }, delay);
+}
+
 // ═══ Typing effect for a single bubble ═══
 function typeIntoBubble(bubble, html, speed, onDone) {
-  // We type the plain text but need to render HTML tags instantly
   const segments = [];
   let tmp = html;
-  // Parse into text and tag segments
   while (tmp.length > 0) {
     const tagStart = tmp.indexOf('<');
     if (tagStart === -1) { segments.push({ type:'text', val:tmp }); break; }
@@ -696,13 +720,14 @@ function typeIntoBubble(bubble, html, speed, onDone) {
   let segIdx = 0, charIdx = 0;
 
   function step() {
+    if (chatPaused) { chatResumeCallbacks.push(step); return; }
     if (segIdx >= segments.length) { bubble.innerHTML = html; if(onDone) onDone(); return; }
     const seg = segments[segIdx];
     if (seg.type === 'tag') {
       built += seg.val;
       segIdx++; charIdx = 0;
       bubble.innerHTML = built;
-      step(); // tags are instant
+      step();
     } else {
       if (charIdx < seg.val.length) {
         const ch = seg.val[charIdx];
@@ -710,7 +735,7 @@ function typeIntoBubble(bubble, html, speed, onDone) {
         charIdx++;
         bubble.innerHTML = built;
         const delay = (ch === ',' || ch === '.') ? 100 : speed;
-        setTimeout(step, delay);
+        chatTimeout(step, delay);
       } else {
         segIdx++; charIdx = 0;
         step();
@@ -768,7 +793,7 @@ function createAndAnimateMsg(entry, panelWidth, onDone) {
   });
 
   // Phase 2: After expand, start typing
-  setTimeout(() => {
+  chatTimeout(() => {
     autoScroll();
     typeIntoBubble(bubble, text, 25, () => {
       // Phase 3: Remove glow
@@ -776,7 +801,7 @@ function createAndAnimateMsg(entry, panelWidth, onDone) {
       bubble.classList.add('done');
       bubble.style.boxShadow = 'none';
       autoScroll();
-      if (onDone) setTimeout(onDone, 150);
+      if (onDone) chatTimeout(onDone, 150);
     });
   }, 500); // wait for accordion
 
@@ -829,19 +854,26 @@ function renderCharGrid() {
   }
 }
 
-// ═══ Observe chat panel ═══
+// ═══ Observe chat panel: start on first view, pause/resume on visibility ═══
 window.__chatStarted = false;
 const chatObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting && !window.__chatStarted) {
-      window.__chatStarted = true;
-      chatObs.unobserve(e.target);
-      startChat();
+    if (e.isIntersecting) {
+      if (!window.__chatStarted) {
+        window.__chatStarted = true;
+        startChat();
+      } else {
+        resumeChat();
+      }
+    } else {
+      if (window.__chatStarted) {
+        pauseChat();
+      }
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0.3 });
 
-window.chatObs = chatObs; // expose for lang toggle
+window.chatObs = chatObs;
 
 document.addEventListener('DOMContentLoaded', () => {
   renderCharGrid();
