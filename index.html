@@ -488,6 +488,9 @@ function setLang(lang) {
   const heroEl = document.getElementById('heroTyping');
   if (heroEl) { heroEl.innerHTML = ''; runHeroTyping(); }
 
+  // Re-render character grid with new language
+  if (typeof renderCharGrid === 'function') renderCharGrid();
+
   // Re-run chat if visible
   if (window.__chatStarted) {
     const body = document.getElementById('chatBody');
@@ -839,7 +842,8 @@ function startChat() {
 // ═══ Character grid ═══
 function renderCharGrid() {
   const grid = document.getElementById('charGrid');
-  if (!grid || grid.children.length > 0) return;
+  if (!grid) return;
+  grid.innerHTML = '';
   const lang = document.documentElement.getAttribute('data-lang') || 'en';
   for (const [key, c] of Object.entries(CHARS)) {
     const card = document.createElement('div');
