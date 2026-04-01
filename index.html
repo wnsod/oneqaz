@@ -51,6 +51,8 @@ body::before{
 nav{position:fixed;top:0;right:0;z-index:100;padding:16px 24px;display:flex;gap:20px;align-items:center;font-size:12px}
 nav a{color:var(--text-muted);text-decoration:none;letter-spacing:1.5px;transition:color .2s;text-transform:uppercase;font-weight:500}
 nav a:hover{color:var(--amber)}
+.nav-logo{display:none}
+.nav-logo img{width:22px;height:22px;vertical-align:middle}
 .lang-toggle{
   display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-left:4px;
 }
@@ -246,10 +248,10 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 
 @media(max-width:768px){
   .hero{padding-top:100px}.hero-logo{width:44px;height:44px}
-  nav{padding:8px 10px;gap:6px;justify-content:flex-end;background:var(--nav-bg);backdrop-filter:blur(8px);width:100%;left:0;right:0}
+  nav{padding:8px 10px;gap:6px;background:var(--nav-bg);backdrop-filter:blur(8px);width:100%;left:0;right:0}
   nav a{font-size:9px;letter-spacing:.5px}
-  .version-tag{top:6px;left:10px;z-index:101}
-  .version-logo{width:22px;height:22px}
+  .nav-logo{display:block;margin-right:auto}
+  .version-tag{display:none}
   .container{padding:0 16px}
   section,.chat-section{padding:40px 0;min-height:auto}
   .char-grid{grid-template-columns:repeat(2,1fr);gap:8px}
@@ -285,6 +287,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 <div class="version-tag"><img src="images/logo_dark.png" alt="OneQAZ" class="version-logo"></div>
 
 <nav>
+  <a href="#hero" class="nav-logo"><img src="images/logo_dark.png" alt="OneQAZ" class="version-logo"></a>
   <a href="#hero" data-i18n="nav_hero">OneQAZ</a>
   <a href="#team" data-i18n="nav_team">Team</a>
   <a href="#chat" data-i18n="nav_chat">Chat</a>
@@ -458,7 +461,7 @@ const HERO_TEXT = {
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   const logo = theme === 'light' ? 'images/logo.png' : 'images/logo_dark.png';
-  document.querySelectorAll('.hero-logo, .version-logo, .loader-brand img').forEach(el => { el.src = logo; });
+  document.querySelectorAll('.hero-logo, .version-logo, .loader-brand img, .nav-logo img').forEach(el => { el.src = logo; });
 }
 
 function getSystemTheme() {
