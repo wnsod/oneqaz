@@ -200,13 +200,14 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 @media (max-width:720px){.live-strip{gap:12px 18px}.live-strip-meta{text-align:left;flex-basis:100%}}
 
 /* Connect via MCP — config snippet */
-.connect-card{margin-top:16px;background:var(--panel-bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px;position:relative}
+.connect-card{margin-top:16px;background:var(--panel-bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px}
 .connect-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
 .connect-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:600}
 .connect-meta{font-size:10px;letter-spacing:1.5px;color:var(--text-muted)}
-.connect-snippet{margin:0;padding:12px 14px;background:rgba(0,0,0,0.18);border:1px solid var(--border);border-radius:6px;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace;font-size:11.5px;line-height:1.55;color:var(--text);white-space:pre;overflow-x:auto;max-width:100%}
+.connect-snippet-wrap{position:relative}
+.connect-snippet{margin:0;padding:12px 14px;padding-right:96px;background:rgba(0,0,0,0.18);border:1px solid var(--border);border-radius:6px;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace;font-size:11.5px;line-height:1.55;color:var(--text);white-space:pre;overflow-x:auto;max-width:100%}
 [data-theme="light"] .connect-snippet{background:rgba(0,0,0,0.04)}
-.connect-copy{position:absolute;top:14px;right:18px;background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:5px 10px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;border-radius:4px;cursor:pointer;font-family:var(--font);font-weight:500;transition:all .2s}
+.connect-copy{position:absolute;top:8px;right:8px;background:var(--panel-bg);border:1px solid var(--border);color:var(--text-muted);padding:5px 10px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;border-radius:4px;cursor:pointer;font-family:var(--font);font-weight:500;transition:all .2s;z-index:1}
 .connect-copy:hover{color:var(--amber);border-color:var(--amber)}
 .connect-copy.copied{color:var(--green);border-color:rgba(92,184,92,0.4)}
 
@@ -373,7 +374,8 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
         <span class="connect-label" data-i18n="connect_label">Connect via MCP</span>
         <span class="connect-meta" data-i18n="connect_meta">Claude · Cursor · VSCode · ChatGPT</span>
       </div>
-      <pre class="connect-snippet" id="connectSnippet">{
+      <div class="connect-snippet-wrap">
+        <pre class="connect-snippet" id="connectSnippet">{
   "mcpServers": {
     "oneqaz": {
       "command": "npx",
@@ -381,8 +383,9 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
     }
   }
 }</pre>
-      <button class="connect-copy" id="connectCopy" type="button"
-              data-i18n="connect_copy">Copy config</button>
+        <button class="connect-copy" id="connectCopy" type="button"
+                data-i18n="connect_copy">Copy config</button>
+      </div>
     </div>
   </div>
 </section>
