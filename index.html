@@ -181,6 +181,35 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 }
 .arch-output-item:hover{color:var(--amber);border-color:rgba(212,168,83,0.4)}
 
+/* Live Status strip — public health endpoint mirror */
+.live-strip{margin-top:32px;padding:18px 22px;background:var(--panel-bg);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;gap:18px 28px;align-items:center}
+.live-strip-pill{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:600}
+.live-strip-pill .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite}
+.live-strip-pill.degraded{color:var(--amber)}
+.live-strip-pill.degraded .dot{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.live-strip-pill.error{color:var(--red)}
+.live-strip-pill.error .dot{background:var(--red);box-shadow:0 0 8px var(--red);animation:none}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+.live-strip-cell{display:flex;flex-direction:column;gap:2px;min-width:88px}
+.live-strip-label{font-size:9px;letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;font-weight:500}
+.live-strip-value{font-size:14px;color:var(--text);font-weight:600;font-variant-numeric:tabular-nums}
+.live-strip-value.amber{color:var(--amber)}
+.live-strip-meta{flex:1;text-align:right;font-size:10px;color:var(--text-muted);letter-spacing:1px;min-width:160px}
+[data-theme="light"] .live-strip-pill .dot{box-shadow:0 0 4px var(--green)}
+[data-theme="light"] .live-strip-pill.degraded .dot{box-shadow:0 0 4px var(--amber)}
+@media (max-width:720px){.live-strip{gap:12px 18px}.live-strip-meta{text-align:left;flex-basis:100%}}
+
+/* Connect via MCP — config snippet */
+.connect-card{margin-top:16px;background:var(--panel-bg);border:1px solid var(--border);border-radius:10px;padding:14px 18px;position:relative}
+.connect-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.connect-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:600}
+.connect-meta{font-size:10px;letter-spacing:1.5px;color:var(--text-muted)}
+.connect-snippet{margin:0;padding:12px 14px;background:rgba(0,0,0,0.18);border:1px solid var(--border);border-radius:6px;font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace;font-size:11.5px;line-height:1.55;color:var(--text);white-space:pre;overflow-x:auto;max-width:100%}
+[data-theme="light"] .connect-snippet{background:rgba(0,0,0,0.04)}
+.connect-copy{position:absolute;top:14px;right:18px;background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:5px 10px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;border-radius:4px;cursor:pointer;font-family:var(--font);font-weight:500;transition:all .2s}
+.connect-copy:hover{color:var(--amber);border-color:var(--amber)}
+.connect-copy.copied{color:var(--green);border-color:rgba(92,184,92,0.4)}
+
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin-top:48px}
 .stat{text-align:center;padding:24px 16px;background:var(--panel-bg);border:1px solid var(--border);border-radius:10px}
@@ -311,6 +340,50 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
       <a href="https://www.youtube.com/@OneQAZ2026/live" target="_blank" class="btn">▶ Live<span class="btn-tag">YouTube 24/7</span></a>
       <a href="mailto:contact@oneqaz.com" class="btn btn-secondary" data-i18n="hero_cta2">Live API<span class="btn-tag">Coming Soon</span></a>
     </div>
+
+    <!-- Live status — fed by GET https://api.oneqaz.com/health every 60s -->
+    <div class="live-strip" id="liveStrip" aria-live="polite">
+      <div class="live-strip-pill" id="liveStripPill">
+        <span class="dot"></span><span id="liveStripPillText">LIVE</span>
+      </div>
+      <div class="live-strip-cell">
+        <span class="live-strip-label" data-i18n="live_regime">Regime</span>
+        <span class="live-strip-value amber" id="liveRegime">—</span>
+      </div>
+      <div class="live-strip-cell">
+        <span class="live-strip-label" data-i18n="live_signals">Signals 24h</span>
+        <span class="live-strip-value" id="liveSignals">—</span>
+      </div>
+      <div class="live-strip-cell">
+        <span class="live-strip-label" data-i18n="live_predictions">Active Predictions</span>
+        <span class="live-strip-value" id="livePredictions">—</span>
+      </div>
+      <div class="live-strip-cell">
+        <span class="live-strip-label" data-i18n="live_tools">MCP Tools</span>
+        <span class="live-strip-value" id="liveTools">—</span>
+      </div>
+      <div class="live-strip-meta" id="liveMeta">
+        <span data-i18n="live_meta_loading">connecting…</span>
+      </div>
+    </div>
+
+    <!-- Connect via MCP — copy-paste to Claude Desktop / Cursor / VSCode -->
+    <div class="connect-card">
+      <div class="connect-head">
+        <span class="connect-label" data-i18n="connect_label">Connect via MCP</span>
+        <span class="connect-meta" data-i18n="connect_meta">Claude · Cursor · VSCode · ChatGPT</span>
+      </div>
+      <pre class="connect-snippet" id="connectSnippet">{
+  "mcpServers": {
+    "oneqaz": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://api.oneqaz.com/mcp"]
+    }
+  }
+}</pre>
+      <button class="connect-copy" id="connectCopy" type="button"
+              data-i18n="connect_copy">Copy config</button>
+    </div>
   </div>
 </section>
 
@@ -326,7 +399,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
     </div>
     <div class="char-grid reveal" id="charGrid"></div>
     <div class="stats reveal">
-      <div class="stat"><div class="stat-value" data-target="500">0</div><div class="stat-label">Symbols</div></div>
+      <div class="stat"><div class="stat-value" data-target="2500">0</div><div class="stat-label">Symbols</div></div>
       <div class="stat"><div class="stat-value" data-target="8">0</div><div class="stat-label">Agents</div></div>
       <div class="stat"><div class="stat-value" data-target="6">0</div><div class="stat-label">Asset Classes</div></div>
       <div class="stat"><div class="stat-value" data-target="24">0</div><div class="stat-label">24/7</div></div>
@@ -447,6 +520,18 @@ const I18N = {
   agent_desc:   { en: 'They read the movements of different markets and connect them into a single flow of judgment.', ko: '서로 다른 시장의 움직임을 읽고, 하나의 판단 흐름으로 연결합니다.' },
   status_label: { en: 'Right Now', ko: '지금 이 순간' },
   status_title: { en: 'Everything is running', ko: '모든 것이 돌아가고 있습니다' },
+  // Live status strip (hero) — fed by /health every 60s
+  live_regime:        { en: 'Regime',             ko: '레짐' },
+  live_signals:       { en: 'Signals 24h',        ko: '24h 시그널' },
+  live_predictions:   { en: 'Active Predictions', ko: '활성 예측' },
+  live_tools:         { en: 'MCP Tools',          ko: 'MCP 툴' },
+  live_meta_loading:  { en: 'connecting…',        ko: '연결 중…' },
+  live_meta_offline:  { en: 'offline',            ko: '오프라인' },
+  live_meta_updated:  { en: 'updated',            ko: '업데이트' },
+  connect_label:      { en: 'Connect via MCP',    ko: 'MCP로 연결' },
+  connect_meta:       { en: 'Claude · Cursor · VSCode · ChatGPT', ko: 'Claude · Cursor · VSCode · ChatGPT' },
+  connect_copy:       { en: 'Copy config',        ko: '설정 복사' },
+  connect_copy_done:  { en: 'Copied ✓',           ko: '복사됨 ✓' },
   footer_quote: { en: '"While AI reads the markets, go experience the world."', ko: '"AI가 시장을 읽는 동안, 당신은 세상을 경험하러 떠나라."' },
 };
 
@@ -541,6 +626,130 @@ document.querySelectorAll('.stat-value').forEach(el=>cobs.observe(el));
 
 // ═══ Init lang ═══
 setLang(currentLang);
+
+// ═══ Live Status — polls /health every 60s ═══
+(function(){
+  const HEALTH_URL = 'https://api.oneqaz.com/health';
+  const POLL_MS    = 60000;
+  const FAIL_GRACE_MS = 5 * POLL_MS; // 5분간 직전 값 유지
+
+  const el = id => document.getElementById(id);
+  const stripPill   = el('liveStripPill');
+  const stripText   = el('liveStripPillText');
+  const valRegime   = el('liveRegime');
+  const valSignals  = el('liveSignals');
+  const valPreds    = el('livePredictions');
+  const valTools    = el('liveTools');
+  const valMeta     = el('liveMeta');
+  if (!stripPill) return;
+
+  let lastGoodAt = 0;
+
+  function fmtRelative(iso){
+    if (!iso) return '—';
+    const t = Date.parse(iso);
+    if (isNaN(t)) return '—';
+    const diff = Math.max(0, Date.now() - t);
+    const s = Math.floor(diff / 1000);
+    if (s < 60)   return s + 's ago';
+    const m = Math.floor(s / 60);
+    if (m < 60)   return m + 'm ago';
+    const h = Math.floor(m / 60);
+    return h + 'h ago';
+  }
+
+  function setOffline(){
+    stripPill.classList.remove('degraded');
+    stripPill.classList.add('error');
+    stripText.textContent = 'OFFLINE';
+    const lang = (window.localStorage && localStorage.getItem('oqz-lang')) || 'en';
+    valMeta.innerHTML = '<span data-i18n="live_meta_offline">' +
+      (lang === 'ko' ? '오프라인' : 'offline') + '</span>';
+  }
+
+  function render(d){
+    if (!d || typeof d !== 'object') return;
+    lastGoodAt = Date.now();
+    // pill
+    if (d.degraded) {
+      stripPill.classList.remove('error');
+      stripPill.classList.add('degraded');
+      stripText.textContent = 'DEGRADED';
+    } else {
+      stripPill.classList.remove('degraded','error');
+      stripText.textContent = 'LIVE';
+    }
+    // values
+    const overall = (d.regime && d.regime.overall) || '—';
+    valRegime.textContent = overall.toUpperCase ? overall.toUpperCase() : String(overall);
+    const sig24 = (d.signals && d.signals.last_24h_count) || 0;
+    valSignals.textContent = sig24.toLocaleString();
+    const pa = (d.predictions && d.predictions.active_count) || 0;
+    valPreds.textContent = pa.toLocaleString();
+    valTools.textContent = String(d.tools_count || '—');
+    const lastSig = d.signals && d.signals.last_signal_at;
+    const lang = (window.localStorage && localStorage.getItem('oqz-lang')) || 'en';
+    const updatedLabel = lang === 'ko' ? '시그널' : 'last signal';
+    valMeta.textContent = lastSig
+      ? updatedLabel + ' ' + fmtRelative(lastSig)
+      : (lang === 'ko' ? '데이터 대기' : 'awaiting data');
+  }
+
+  async function tick(){
+    try {
+      const ctrl = new AbortController();
+      const to = setTimeout(()=>ctrl.abort(), 8000);
+      const res = await fetch(HEALTH_URL, {signal: ctrl.signal, cache: 'no-store'});
+      clearTimeout(to);
+      if (!res.ok) throw new Error('http ' + res.status);
+      const j = await res.json();
+      render(j);
+    } catch(e) {
+      // 일정 시간 안에 실패하면 직전 값 유지, 그 이후엔 OFFLINE
+      if (Date.now() - lastGoodAt > FAIL_GRACE_MS) setOffline();
+    }
+  }
+
+  tick();
+  setInterval(tick, POLL_MS);
+})();
+
+// ═══ Connect via MCP — copy button ═══
+(function(){
+  const btn = document.getElementById('connectCopy');
+  const pre = document.getElementById('connectSnippet');
+  if (!btn || !pre) return;
+  btn.addEventListener('click', async () => {
+    const text = pre.textContent || '';
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      const lang = (window.localStorage && localStorage.getItem('oqz-lang')) || 'en';
+      const original = btn.textContent;
+      btn.textContent = lang === 'ko' ? '복사됨 ✓' : 'Copied ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch(e) {
+      btn.textContent = 'Failed';
+      setTimeout(() => {
+        btn.textContent = (localStorage.getItem('oqz-lang') === 'ko') ? '설정 복사' : 'Copy config';
+      }, 2000);
+    }
+  });
+})();
 </script>
 
 <!-- Module: Pretext + Chat -->
