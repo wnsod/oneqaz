@@ -1,0 +1,354 @@
+/* ============================================================
+   OneQAZ Design System — Core Tokens
+   Colors · Type · Spacing · Motion · Signature Motifs
+   ============================================================
+   Mood: retro terminal × 1980s financial broadcast.
+   CRT scanlines, typewriter cursor, and typing animations are
+   load-bearing parts of the brand identity — not decoration.
+
+   Palette is dark-first (charcoal + amber + gold). A light
+   "sepia / parchment" theme swaps in for daytime reading but
+   never goes to pure white.
+
+   Reference: Bloomberg Terminal · classic film end-credits ·
+   gold-stamped typewritten authority.
+   ============================================================ */
+
+/* ---- Fonts ----
+   Outfit = primary geometric sans (weights 300–700 in play; the
+   300 ↔ 700 contrast between light body and heavy title IS the
+   signature). Noto Sans KR carries Korean glyphs.
+*/
+@import url('https://fonts.bunny.net/css?family=outfit:300,400,500,600,700|noto-sans-kr:300,400,500,700');
+
+:root, [data-theme="dark"] {
+  /* ── Surfaces ───────────────────────────────── */
+  --bg:          #1c1c24;   /* page — warm charcoal, faint blue undertone */
+  --panel-bg:    #252530;   /* elevated panels, chat pane, status list */
+  --card-bg:     #2a2a36;   /* highest elevation — cards, modals */
+  --hover:       rgba(255,255,255,0.02);
+  --border:      #3a3a4a;
+  --nav-bg:      rgba(28,28,36,0.9);
+
+  /* ── Foreground ─────────────────────────────── */
+  --text:        #e8e4df;   /* primary copy — warm off-white (never pure #fff) */
+  --text-muted:  #8a8680;   /* captions, meta, section labels */
+
+  /* ── Brand + Semantic ───────────────────────── */
+  --amber:       #d4a853;   /* primary brand — signals, CTAs, hero highlight */
+  --gold:        #c49b6f;   /* secondary warm — italic quotes, credit-roll glow */
+  --green:       #5cb85c;   /* bullish / active / buy */
+  --red:         #d9534f;   /* bearish / alert / sell */
+  --blue:        #6b9fc9;   /* info / beta / neutral state */
+
+  /* ── Per-agent accents (chat avatars, agent cards) ── */
+  --agent-orchestrator: #ef4444;
+  --agent-crypto:       #F59E0B;
+  --agent-kr-stock:     #FB923C;
+  --agent-us-stock:     #3B82F6;
+  --agent-commodity:    #10B981;
+  --agent-forex:        #06B6D4;
+  --agent-bond:         #64748B;
+  --agent-news:         #8B5CF6;
+
+  --scrollbar-thumb: rgba(255,255,255,0.1);
+
+  /* ── Type family ────────────────────────────── */
+  --font-sans: 'Outfit', 'Noto Sans KR', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ── Spacing scale (4px base) ───────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ── Radii (kept SMALL — never over-rounded) ── */
+  --radius-sm: 4px;   /* badges, pills */
+  --radius-md: 6px;   /* buttons, message bubbles */
+  --radius-lg: 8px;   /* inputs, secondary buttons */
+  --radius-xl: 10px;  /* cards, panels */
+  --radius-2xl: 12px; /* architecture nodes (exception — never larger) */
+  --radius-pill: 999px;
+
+  /* ── Elevation / Shadows ────────────────────── */
+  /* The brand uses GLOWS, not drop shadows, in dark mode.
+     Soft amber glow on hover signals "active / alive". */
+  --shadow-glow-amber:        0 0 12px rgba(212,168,83,0.20);
+  --shadow-glow-amber-strong: 0 0 20px rgba(212,168,83,0.35);
+  --shadow-glow-gold:         0 0 12px rgba(196,155,111,0.20);
+  --shadow-glow-green:        0 0 12px rgba(92,184,92,0.25);
+  --shadow-glow-blue:         0 0 12px rgba(107,159,201,0.20);
+  --shadow-glow-red:          0 0 12px rgba(217,83,79,0.20);
+  --shadow-glow-image:        0 4px 16px rgba(0,0,0,0.5);
+
+  /* Text glow — applied to amber headings, hero figures, CTAs */
+  --text-glow-amber: 0 0 12px rgba(212,168,83,0.20);
+  --text-glow-gold:  0 0 12px rgba(196,155,111,0.20);
+
+  /* ── Motion ─────────────────────────────────── */
+  --ease-out: cubic-bezier(.22,1,.36,1);     /* primary easing */
+  --duration-fast: .2s;                       /* hover / click */
+  --duration-med:  .3s;                       /* card lifts */
+  --duration-slow: .5s;                       /* theme swap, accordions */
+  --duration-xlong: .7s;                      /* reveal on scroll */
+
+  /* ── Letter-spacing (brand uses wide tracking) ── */
+  --track-wide:     1.5px;  /* nav, caption */
+  --track-xwide:    3px;    /* section labels, eyebrows */
+  --track-brand:    4px;    /* "ONE QUORUM ALPHA ZERO" */
+}
+
+/* ============================================================
+   Light "Sepia" theme — warm parchment, for daytime
+   Never uses pure white. Amber/gold darken for AA contrast.
+   ============================================================ */
+[data-theme="light"] {
+  --bg:         #e8e4de;
+  --panel-bg:   #f2efe9;
+  --card-bg:    #ece9e3;
+  --text:       #3a3632;
+  --text-muted: #7a756e;
+  --amber:      #9e7520;   /* darkened for contrast on sepia */
+  --gold:       #8c6a38;
+  --green:      #2d7a3a;
+  --red:        #b03225;
+  --blue:       #4272a0;
+  --border:     #cdc7bc;
+  --hover:      rgba(0,0,0,0.03);
+  --nav-bg:     rgba(242,239,233,0.9);
+  --scrollbar-thumb: rgba(0,0,0,0.15);
+
+  /* Glows soften on paper — they're already working against a warm bg */
+  --shadow-glow-amber:        0 0 10px rgba(158,117,32,0.15);
+  --shadow-glow-amber-strong: 0 0 16px rgba(158,117,32,0.25);
+  --text-glow-amber:          none;   /* paper doesn't glow */
+  --text-glow-gold:           none;
+}
+
+/* ============================================================
+   Semantic type classes — drop in directly
+   Hierarchy is SIZE × WEIGHT. The 300↔700 weight jump between
+   body and title is the signature — don't flatten it.
+   ============================================================ */
+.oqz-display {                /* hero title — 28–48px */
+  font-family: var(--font-sans);
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-transform: uppercase;
+}
+.oqz-h1 {                     /* section title — 24–38px */
+  font-family: var(--font-sans);
+  font-size: clamp(24px, 3.2vw, 38px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.oqz-h2 {                     /* sub-section — 20–26px */
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.oqz-body {                   /* default body copy */
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+.oqz-body-strong {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.6;
+}
+.oqz-quote {                  /* italic gold pull-quote / credit roll */
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1.8;
+  text-shadow: var(--text-glow-gold);
+}
+.oqz-label {                  /* section eyebrow — 10–11px uppercase */
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: var(--track-xwide);
+  text-transform: uppercase;
+}
+.oqz-brand {                  /* "ONE QUORUM ALPHA ZERO" lockup subtitle */
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: var(--track-brand);
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(212,168,83,0.3);
+}
+.oqz-caption {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: var(--track-wide);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.oqz-stat {                   /* big numeric display — hero figures */
+  font-family: var(--font-sans);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--amber);
+  text-shadow: var(--text-glow-amber);
+  font-variant-numeric: tabular-nums;
+}
+.oqz-mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+}
+
+/* ============================================================
+   Signature motifs — load-bearing brand elements
+   Use these instead of hand-rolling per screen.
+   ============================================================ */
+
+/* Typewriter cursor — block caret that blinks. Append to any
+   inline element that should look "live-typed". */
+.oqz-caret::after {
+  content: '';
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--amber);
+  vertical-align: text-bottom;
+  animation: oqz-caret-blink 1s steps(1) infinite;
+  box-shadow: var(--shadow-glow-amber);
+}
+@keyframes oqz-caret-blink {
+  0%, 50%   { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* CRT scanlines — horizontal 1px lines over a surface. Apply
+   to a container with position: relative. Subtle by design:
+   readability first, texture second. */
+.oqz-scanlines {
+  position: relative;
+  isolation: isolate;
+}
+.oqz-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0)      0,
+    rgba(0,0,0,0)      2px,
+    rgba(0,0,0,0.12)   3px,
+    rgba(0,0,0,0)      4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Outline button — 1px amber border, transparent bg, amber text.
+   Hover lifts a glow ring. Primary CTA style across the brand. */
+.oqz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 20px;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--amber);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--track-xwide);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: box-shadow var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+.oqz-btn:hover {
+  background: rgba(212,168,83,0.08);
+  box-shadow: var(--shadow-glow-amber-strong);
+}
+.oqz-btn--solid {
+  background: var(--amber);
+  color: var(--bg);
+}
+.oqz-btn--solid:hover {
+  background: var(--amber);
+  box-shadow: var(--shadow-glow-amber-strong);
+}
+.oqz-btn--ghost {
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+.oqz-btn--ghost:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+  box-shadow: none;
+}
+
+/* Divider with center dot — classic film-title separator.
+   <div class="oqz-divider">· · ·</div> */
+.oqz-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  color: var(--amber);
+  letter-spacing: var(--track-brand);
+  font-size: 11px;
+  opacity: 0.6;
+  margin: var(--space-8) 0;
+}
+.oqz-divider::before,
+.oqz-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Typing-in animation — apply to a block to have it reveal
+   character-by-character. Pair with JS that sets --len to the
+   character count, or use the default 40ch width. */
+@keyframes oqz-type-in {
+  from { width: 0; }
+  to   { width: var(--oqz-type-len, 40ch); }
+}
+.oqz-typing {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: oqz-type-in 2.4s steps(40, end) forwards;
+}
+

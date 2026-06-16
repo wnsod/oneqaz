@@ -51,6 +51,9 @@ body::before{
 nav{position:fixed;top:0;right:0;z-index:100;padding:16px 24px;display:flex;gap:20px;align-items:center;font-size:12px}
 nav a{color:var(--text-muted);text-decoration:none;letter-spacing:1.5px;transition:color .2s;text-transform:uppercase;font-weight:500}
 nav a:hover{color:var(--amber)}
+/* nav CTA → blog (the content we want AI + people to find) */
+nav a.nav-cta{border:1px solid var(--amber);color:var(--amber);padding:5px 12px;border-radius:6px;font-weight:600;transition:background .2s,box-shadow .2s,color .2s}
+nav a.nav-cta:hover{background:rgba(212,168,83,0.1);box-shadow:0 0 12px rgba(212,168,83,0.15);color:var(--amber)}
 .lang-toggle{
   display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-left:4px;
 }
@@ -234,6 +237,19 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 .status-badge.soon{color:var(--amber);border-color:rgba(212,168,83,0.4)}
 .status-badge.planned{color:var(--text-muted);border-color:var(--border)}
 
+/* Content link cards — gateway to blog.oneqaz.com (Mac mini publishes) */
+.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:28px}
+.content-card{display:flex;flex-direction:column;gap:8px;padding:22px 22px 20px;background:var(--panel-bg);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:transform .25s,box-shadow .3s,border-color .3s;position:relative}
+.content-card:hover{transform:translateY(-3px);border-color:rgba(212,168,83,0.4);box-shadow:0 0 20px rgba(212,168,83,0.12)}
+.content-card .cc-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.content-card .cc-name{font-size:15px;font-weight:600;letter-spacing:.5px;color:var(--text)}
+.content-card .cc-arrow{font-size:14px;color:var(--text-muted);transition:color .25s,transform .25s}
+.content-card:hover .cc-arrow{color:var(--amber);transform:translateX(3px)}
+.content-card .cc-desc{font-size:12px;color:var(--text-muted);line-height:1.7;font-weight:300}
+.content-card .cc-tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);font-weight:600;opacity:.8}
+@media(max-width:768px){.content-grid{grid-template-columns:repeat(2,1fr);gap:10px}.content-card{padding:16px 14px}}
+@media(max-width:480px){.content-grid{grid-template-columns:1fr}}
+
 footer{padding:60px 0 40px;border-top:1px solid var(--border);text-align:center}
 .footer-links{display:flex;justify-content:center;gap:28px;margin-bottom:24px;flex-wrap:wrap}
 .footer-links a{color:var(--text-muted);text-decoration:none;font-size:12px;letter-spacing:1px;transition:color .2s;font-weight:500}
@@ -320,6 +336,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
   <a href="#chat" data-i18n="nav_chat">Chat</a>
   <a href="#flow" data-i18n="nav_flow">Flow</a>
   <a href="#status" data-i18n="nav_status">Status</a>
+  <a href="https://blog.oneqaz.com" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav_blog">Daily Reads ↗</a>
   <div class="lang-toggle">
     <button id="langEn" class="active" onclick="setLang('en')">EN</button>
     <button id="langKo" onclick="setLang('ko')">KO</button>
@@ -487,6 +504,41 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
   </div>
 </div>
 
+<div class="divider">─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
+
+<!-- Content — link cards out to blog.oneqaz.com (published by Mac mini) -->
+<div class="chat-section" id="content">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" data-i18n="content_label">Content</div>
+      <div class="section-title" data-i18n="content_title">Daily, in the open</div>
+      <div class="section-desc" data-i18n="content_desc">Trading journals and market analysis, auto-published every day — readable, citable, and built for AI to learn from.</div>
+    </div>
+    <div class="content-grid reveal">
+      <a class="content-card" href="https://blog.oneqaz.com/track-record" target="_blank" rel="noopener">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_track">Track Record</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="content_track_desc">Verified prediction accuracy — the evidence behind every call.</span>
+        <span class="cc-tag" data-i18n="content_track_tag">Verified</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/market" target="_blank" rel="noopener">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_market">Market</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="content_market_desc">Daily regime reads across macro, equities, and crypto.</span>
+        <span class="cc-tag" data-i18n="content_market_tag">Market Wire</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/journal" target="_blank" rel="noopener">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_journal">Journal</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="content_journal_desc">Every trade, every day — what the system did and why.</span>
+        <span class="cc-tag" data-i18n="content_journal_tag">Trading Log</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/about" target="_blank" rel="noopener">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_about">About</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="content_about_desc">What OneQAZ is and how the system works.</span>
+        <span class="cc-tag" data-i18n="content_about_tag">Overview</span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="container">
     <div class="footer-links">
@@ -507,6 +559,7 @@ const I18N = {
   nav_chat:     { en: 'Chat', ko: 'Chat' },
   nav_flow:     { en: 'Flow', ko: 'Flow' },
   nav_status:   { en: 'Status', ko: 'Status' },
+  nav_blog:     { en: 'Daily Reads ↗', ko: '데일리 리포트 ↗' },
   hero_desc: {
     en: 'The whole lives in the part,\nand the part embraces the whole.\nMacro currents flow into small details,\nand small details reflect the greater tide.\n— In a single glance, see it all.',
     ko: '전체는 부분에 깃들고,\n부분은 다시 전체를 품는다.\n큰 흐름은 작은 결로 스며들고,\n작은 결은 다시 큰 흐름을 비춘다.\n— 한 번의 시선으로, 전체를 본다.'
@@ -523,6 +576,22 @@ const I18N = {
   agent_desc:   { en: 'They read the movements of different markets and connect them into a single flow of judgment.', ko: '서로 다른 시장의 움직임을 읽고, 하나의 판단 흐름으로 연결합니다.' },
   status_label: { en: 'Right Now', ko: '지금 이 순간' },
   status_title: { en: 'Everything is running', ko: '모든 것이 돌아가고 있습니다' },
+  // Content link cards → blog.oneqaz.com
+  content_label:        { en: 'Content', ko: '콘텐츠' },
+  content_title:        { en: 'Daily, in the open', ko: '매일, 공개적으로' },
+  content_desc:         { en: 'Trading journals and market analysis, auto-published every day — readable, citable, and built for AI to learn from.', ko: '일일 매매일지와 시황 분석을 매일 자동 발행합니다. 읽고, 인용하고, AI가 학습하도록 만들어졌습니다.' },
+  content_track:        { en: 'Track Record', ko: '트랙 레코드' },
+  content_track_desc:   { en: 'Verified prediction accuracy — the evidence behind every call.', ko: '검증된 예측 적중률 — 모든 판단의 근거.' },
+  content_track_tag:    { en: 'Verified', ko: '검증됨' },
+  content_market:       { en: 'Market', ko: '시황' },
+  content_market_desc:  { en: 'Daily regime reads across macro, equities, and crypto.', ko: '거시·주식·코인을 아우르는 매일의 레짐 분석.' },
+  content_market_tag:   { en: 'Market Wire', ko: '마켓 와이어' },
+  content_journal:      { en: 'Journal', ko: '매매일지' },
+  content_journal_desc: { en: 'Every trade, every day — what the system did and why.', ko: '매일의 모든 거래 — 시스템이 무엇을, 왜 했는지.' },
+  content_journal_tag:  { en: 'Trading Log', ko: '매매 기록' },
+  content_about:        { en: 'About', ko: '소개' },
+  content_about_desc:   { en: 'What OneQAZ is and how the system works.', ko: 'OneQAZ가 무엇이고 시스템이 어떻게 작동하는지.' },
+  content_about_tag:    { en: 'Overview', ko: '개요' },
   // Live status strip (hero) — fed by /health every 60s
   live_regime:        { en: 'Regime',             ko: '레짐' },
   live_signals:       { en: 'Signals 24h',        ko: '24h 시그널' },
