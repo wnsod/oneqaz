@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — OneQAZ Trading Intelligence</title>
+<meta name="description" content="OneQAZ MCP / API privacy policy — what we collect, how we use it, retention, and contact.">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="images/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=outfit:300,400,500,600,700|noto-sans-kr:300,400,500,700" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1c1c24;--panel-bg:#252530;--card-bg:#2a2a36;
+  --text:#e8e4df;--text-muted:#8a8680;
+  --amber:#d4a853;--green:#5cb85c;--red:#d9534f;--blue:#6b9fc9;--gold:#c49b6f;
+  --border:#3a3a4a;--font:'Outfit','Noto Sans KR',sans-serif;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;overflow-x:hidden}
+.wrap{max-width:820px;margin:0 auto;padding:4rem 1.5rem 6rem}
+a{color:var(--amber);text-decoration:none}
+a:hover{text-decoration:underline}
+.back{display:inline-block;margin-bottom:2.5rem;color:var(--text-muted);font-size:.9rem}
+h1{font-weight:700;font-size:2rem;letter-spacing:-.01em;margin-bottom:.4rem}
+.sub{color:var(--text-muted);font-size:.95rem;margin-bottom:.3rem}
+.meta{color:var(--gold);font-size:.85rem;margin-bottom:2.5rem;font-weight:500}
+h2{font-weight:600;font-size:1.2rem;color:var(--amber);margin:2.5rem 0 .8rem;border-bottom:1px solid var(--border);padding-bottom:.4rem}
+p{margin-bottom:1rem;color:var(--text)}
+ul{margin:0 0 1rem 1.3rem}
+li{margin-bottom:.5rem}
+.ko{color:var(--text-muted);font-size:.92rem}
+code{background:var(--card-bg);border:1px solid var(--border);border-radius:4px;padding:.1rem .4rem;font-size:.85em;color:var(--gold)}
+.note{background:var(--panel-bg);border-left:3px solid var(--amber);padding:1rem 1.2rem;border-radius:4px;margin:1.2rem 0;font-size:.95rem}
+hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← OneQAZ</a>
+
+  <h1>Privacy Policy</h1>
+  <div class="sub">OneQAZ Trading Intelligence — MCP Server &amp; API</div>
+  <div class="ko">OneQAZ 트레이딩 인텔리전스 — MCP 서버 &amp; API</div>
+  <div class="meta">Last updated: 2026-06-29 · Effective: 2026-06-29</div>
+
+  <p>OneQAZ provides a research-information service that exposes live market intelligence
+  (crypto, Korean stocks, US stocks) to AI clients over the Model Context Protocol (MCP)
+  and an HTTP API. This policy explains what data we process when you (or an AI client
+  acting on your behalf) connect to <code>api.oneqaz.com</code>.</p>
+  <p class="ko">OneQAZ는 MCP와 HTTP API를 통해 AI 클라이언트에게 라이브 시장 정보(암호화폐·국내주식·미국주식)를
+  제공하는 <strong>정보 제공 서비스</strong>입니다. 본 정책은 <code>api.oneqaz.com</code> 연결 시 처리되는
+  데이터를 설명합니다.</p>
+
+  <div class="note">
+    <strong>Not investment advice.</strong> OneQAZ outputs are paper-trading research signals,
+    not recommendations to buy or sell. We do <strong>not</strong> execute trades, hold funds,
+    or accept financial transactions.<br>
+    <span class="ko">OneQAZ 결과물은 페이퍼 트레이딩 리서치 신호이며 투자 권유가 아닙니다.
+    실제 매매 실행·자금 보관·금융 거래를 수행하지 않습니다.</span>
+  </div>
+
+  <h2>1. What we collect / 수집하는 정보</h2>
+  <p>We do <strong>not</strong> require user accounts, and we do not collect names, emails,
+  payment details, or message content beyond the API request itself. For each request we log:</p>
+  <ul>
+    <li><strong>IP address</strong> — for rate limiting, abuse prevention, and regional routing.</li>
+    <li><strong>User-agent string</strong> — to identify the client type (e.g. Claude, ChatGPT, Gemini).</li>
+    <li><strong>Requested tool / resource name</strong> and request type (e.g. <code>get_daily_brief</code>).</li>
+    <li><strong>Outcome metadata</strong> — success/failure, response latency (ms), and error codes.</li>
+    <li><strong>Derived session key</strong> — a hash of IP + user-agent + a 30-minute time bucket,
+        used to count distinct sessions without storing a persistent identifier.</li>
+    <li><strong>API key (if provided)</strong> — used only to determine your rate-limit tier and access level.</li>
+  </ul>
+  <p class="ko">계정·이름·이메일·결제정보는 수집하지 않습니다. 요청마다 IP, user-agent, 호출한 tool/resource 이름,
+  성공여부·응답시간·에러코드, 세션키(IP+UA+30분 버킷 해시), 그리고 제공된 경우 API 키(요금제 등급 판정용)만 기록합니다.</p>
+
+  <h2>2. How we use it / 이용 목적</h2>
+  <ul>
+    <li>Operate and secure the service (rate limiting, abuse prevention, debugging).</li>
+    <li>Measure aggregate usage (which tools are called, by which client type) to improve the product.</li>
+    <li>Enforce access tiers for API-key holders.</li>
+  </ul>
+  <p>We do <strong>not</strong> sell your data, and we do not use it to build advertising profiles.</p>
+  <p class="ko">서비스 운영·보안, 집계 사용량 측정, API 키 등급 적용 목적으로만 사용합니다.
+  데이터를 판매하거나 광고 프로파일링에 사용하지 않습니다.</p>
+
+  <h2>3. Storage &amp; retention / 저장 및 보관</h2>
+  <p>Request logs are stored on infrastructure operated by OneQAZ. Operational logs are retained
+  only as long as needed for security and analytics, then aggregated or deleted. We do not retain
+  request payloads beyond what is described above.</p>
+  <p class="ko">요청 로그는 OneQAZ가 운영하는 인프라에 저장되며, 보안·분석에 필요한 기간 동안만 보관 후
+  집계 처리하거나 삭제합니다.</p>
+
+  <h2>4. Third-party sharing / 제3자 공유</h2>
+  <p>We do not share request data with third parties for their own purposes. Network traffic is
+  routed through Cloudflare (CDN / DDoS protection) as a data processor. The market data we return
+  is derived from public market sources and our own analysis.</p>
+  <p class="ko">제3자에게 그들의 목적으로 요청 데이터를 공유하지 않습니다. 네트워크 트래픽은
+  Cloudflare(CDN/DDoS 방어)를 데이터 처리자로 경유합니다.</p>
+
+  <h2>5. AI client disclosure / AI 클라이언트 고지</h2>
+  <p>When an AI client (such as Claude, ChatGPT, or Gemini) calls OneQAZ on your behalf, your
+  request reaches OneQAZ through that client's platform. Every OneQAZ response carries
+  <code>disclaimer</code>, <code>is_investment_advice=false</code>, and
+  <code>data_classification=research_information_only</code>. AI clients are instructed to surface
+  this disclaimer to end users.</p>
+  <p class="ko">AI 클라이언트(Claude·ChatGPT·Gemini 등)가 사용자를 대신해 OneQAZ를 호출하면,
+  요청은 해당 플랫폼을 거쳐 OneQAZ에 도달합니다. 모든 응답에는 disclaimer와
+  연구정보 분류 표시가 포함됩니다.</p>
+
+  <h2>6. Your choices / 사용자 권리</h2>
+  <p>Because we do not maintain user accounts, the simplest way to stop data processing is to stop
+  calling the service. For questions about data associated with your IP or API key, contact us below.</p>
+  <p class="ko">계정을 운영하지 않으므로 서비스 호출 중단이 가장 간단한 처리 중지 방법입니다.
+  본인 IP·API 키 관련 문의는 아래 연락처로 주십시오.</p>
+
+  <h2>7. Changes / 정책 변경</h2>
+  <p>We may update this policy. Material changes will be reflected by the "Last updated" date above.</p>
+  <p class="ko">본 정책은 변경될 수 있으며, 중요한 변경은 상단 "Last updated" 날짜로 반영됩니다.</p>
+
+  <h2>8. Contact / 연락처</h2>
+  <p>Questions about this policy or your data:
+  <a href="mailto:contact@oneqaz.com">contact@oneqaz.com</a></p>
+
+  <hr>
+  <p class="ko" style="font-size:.85rem">© 2026 OneQAZ · <a href="/">oneqaz.com</a> · <a href="https://api.oneqaz.com/health">service status</a></p>
+</div>
+</body>
+</html>
