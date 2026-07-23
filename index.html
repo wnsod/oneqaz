@@ -336,7 +336,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
   <a href="#chat" data-i18n="nav_chat">Chat</a>
   <a href="#flow" data-i18n="nav_flow">Flow</a>
   <a href="#status" data-i18n="nav_status">Status</a>
-  <a href="https://blog.oneqaz.com" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav_blog">Daily Reads ↗</a>
+  <a href="https://blog.oneqaz.com/" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav_blog" data-blog-path="">Daily Reads ↗</a>
   <div class="lang-toggle">
     <button id="langEn" class="active" onclick="setLang('en')">EN</button>
     <button id="langKo" onclick="setLang('ko')">KO</button>
@@ -515,22 +515,27 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
       <div class="section-desc" data-i18n="content_desc">Trading journals and market analysis, auto-published every day — readable, citable, and built for AI to learn from.</div>
     </div>
     <div class="content-grid reveal">
-      <a class="content-card" href="https://blog.oneqaz.com/track-record" target="_blank" rel="noopener">
+      <a class="content-card" href="https://blog.oneqaz.com/track-record/" target="_blank" rel="noopener" data-blog-path="track-record/">
         <div class="cc-head"><span class="cc-name" data-i18n="content_track">Track Record</span><span class="cc-arrow">↗</span></div>
         <span class="cc-desc" data-i18n="content_track_desc">Verified prediction accuracy — the evidence behind every call.</span>
         <span class="cc-tag" data-i18n="content_track_tag">Verified</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/market" target="_blank" rel="noopener">
+      <a class="content-card" href="https://blog.oneqaz.com/market/" target="_blank" rel="noopener" data-blog-path="market/">
         <div class="cc-head"><span class="cc-name" data-i18n="content_market">Market</span><span class="cc-arrow">↗</span></div>
         <span class="cc-desc" data-i18n="content_market_desc">Daily regime reads across macro, equities, and crypto.</span>
         <span class="cc-tag" data-i18n="content_market_tag">Market Wire</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/journal" target="_blank" rel="noopener">
+      <a class="content-card" href="https://blog.oneqaz.com/journal/" target="_blank" rel="noopener" data-blog-path="journal/">
         <div class="cc-head"><span class="cc-name" data-i18n="content_journal">Journal</span><span class="cc-arrow">↗</span></div>
         <span class="cc-desc" data-i18n="content_journal_desc">Every trade, every day — what the system did and why.</span>
         <span class="cc-tag" data-i18n="content_journal_tag">Trading Log</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/about" target="_blank" rel="noopener">
+      <a class="content-card" href="https://blog.oneqaz.com/spotlight/" target="_blank" rel="noopener" data-blog-path="spotlight/">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_spotlight">Spotlight</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="content_spotlight_desc">Weekly volume-surge screen — names drawing unusual attention.</span>
+        <span class="cc-tag" data-i18n="content_spotlight_tag">Volume Surge</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/about" target="_blank" rel="noopener" data-blog-path="about" data-blog-single>
         <div class="cc-head"><span class="cc-name" data-i18n="content_about">About</span><span class="cc-arrow">↗</span></div>
         <span class="cc-desc" data-i18n="content_about_desc">What OneQAZ is and how the system works.</span>
         <span class="cc-tag" data-i18n="content_about_tag">Overview</span>
@@ -544,6 +549,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
     <div class="footer-links">
       <a href="https://github.com/wnsod/oneqaz-trading-mcp" target="_blank">GitHub</a>
       <a href="https://pypi.org/project/oneqaz-trading-mcp/" target="_blank">PyPI</a>
+      <a href="https://blog.oneqaz.com/rss.xml" target="_blank" rel="noopener" data-blog-path="rss.xml">RSS</a>
       <a href="/privacy">Privacy</a>
       <a href="mailto:contact@oneqaz.com">Contact</a>
     </div>
@@ -590,6 +596,9 @@ const I18N = {
   content_journal:      { en: 'Journal', ko: '매매일지' },
   content_journal_desc: { en: 'Every trade, every day — what the system did and why.', ko: '매일의 모든 거래 — 시스템이 무엇을, 왜 했는지.' },
   content_journal_tag:  { en: 'Trading Log', ko: '매매 기록' },
+  content_spotlight:      { en: 'Spotlight', ko: '스포트라이트' },
+  content_spotlight_desc: { en: 'Weekly volume-surge screen — names drawing unusual attention.', ko: '주간 거래량 급증 스크린 — 시장의 시선이 쏠린 종목들.' },
+  content_spotlight_tag:  { en: 'Volume Surge', ko: '거래량 급증' },
   content_about:        { en: 'About', ko: '소개' },
   content_about_desc:   { en: 'What OneQAZ is and how the system works.', ko: 'OneQAZ가 무엇이고 시스템이 어떻게 작동하는지.' },
   content_about_tag:    { en: 'Overview', ko: '개요' },
@@ -629,6 +638,17 @@ window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e 
 
 let currentLang = localStorage.getItem('oqz-lang') || 'en';
 
+// ═══ Blog links — blog.oneqaz.com has a full /en/ mirror (home, categories, rss).
+//     data-blog-path='' → home, 'journal/' → category, 'rss.xml' → feed.
+//     data-blog-single = page without an /en/ twin (e.g. /about) — same URL in both languages.
+const BLOG_BASE = 'https://blog.oneqaz.com/';
+function updateBlogLinks(lang) {
+  document.querySelectorAll('a[data-blog-path]').forEach(a => {
+    const prefix = (lang === 'en' && !a.hasAttribute('data-blog-single')) ? 'en/' : '';
+    a.href = BLOG_BASE + prefix + a.dataset.blogPath;
+  });
+}
+
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('oqz-lang', lang);
@@ -643,6 +663,9 @@ function setLang(lang) {
       el.innerHTML = I18N[key][lang].replace(/\n/g, '<br>');
     }
   });
+
+  // Blog links follow the site language (EN → blog /en/ mirror)
+  updateBlogLinks(lang);
 
   // Re-run hero typing
   const heroEl = document.getElementById('heroTyping');
