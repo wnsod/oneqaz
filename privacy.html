@@ -43,7 +43,8 @@ hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
   <h1>Privacy Policy</h1>
   <div class="sub">OneQAZ Trading Intelligence — MCP Server &amp; API</div>
   <div class="ko">OneQAZ 트레이딩 인텔리전스 — MCP 서버 &amp; API</div>
-  <div class="meta">Last updated: 2026-06-29 · Effective: 2026-06-29</div>
+  <div class="meta">Last updated: 2026-10-07 · Effective: 2026-10-07 ·
+    mirrors <a href="https://api.oneqaz.com/privacy">api.oneqaz.com/privacy</a> (authoritative)</div>
 
   <p>OneQAZ provides a research-information service that exposes live market intelligence
   (crypto, Korean stocks, US stocks) to AI clients over the Model Context Protocol (MCP)
@@ -62,36 +63,76 @@ hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
   </div>
 
   <h2>1. What we collect / 수집하는 정보</h2>
-  <p>We do <strong>not</strong> require user accounts, and we do not collect names, emails,
-  payment details, or message content beyond the API request itself. For each request we log:</p>
+  <p>We do <strong>not</strong> require user accounts, and we do not collect names, emails, or
+  payment details from callers. For each request we log:</p>
   <ul>
-    <li><strong>IP address</strong> — for rate limiting, abuse prevention, and regional routing.</li>
+    <li><strong>IP address</strong> — for rate limiting, abuse prevention, and regional routing. For
+        requests routed through Cloudflare this is the client address Cloudflare reports.</li>
     <li><strong>User-agent string</strong> — to identify the client type (e.g. Claude, ChatGPT, Gemini).</li>
     <li><strong>Requested tool / resource name</strong> and request type (e.g. <code>get_daily_brief</code>).</li>
-    <li><strong>Outcome metadata</strong> — success/failure, response latency (ms), and error codes.</li>
-    <li><strong>Derived session key</strong> — a hash of IP + user-agent + a 30-minute time bucket,
-        used to count distinct sessions without storing a persistent identifier.</li>
-    <li><strong>API key (if provided)</strong> — used only to determine your rate-limit tier and access level.</li>
+    <li><strong>Outcome metadata</strong> — success/failure, HTTP status, JSON-RPC error code, a short
+        error description (at most 200 characters; input values echoed back by validation errors are
+        redacted), latency (ms), and the shape of the result (rows returned, total available, whether
+        it was truncated or empty).</li>
+    <li><strong>Derived session key</strong> — a hash of IP + user-agent + a 30-minute time bucket.
+        No cookie or other persistent identifier is set on your client.</li>
+    <li><strong>API key (if provided)</strong> — used to determine your rate-limit tier and access level.
+        With each request we record the resolved tier and a one-way fingerprint of the key (the first
+        16 hex characters of its SHA-256 hash) so usage can be attributed per key. The key itself is
+        never written to request logs.</li>
+    <li><strong>Whitelisted request parameters</strong> — a limited summary of tool arguments (e.g.
+        <code>symbol</code>, <code>market</code>, <code>interval</code>, <code>category</code>, date
+        ranges, result limits, identifiers) and, for the <code>search</code> tool, the search keyword
+        truncated to 60 characters. Calls made without arguments are recorded as such. Argument content
+        outside this whitelist is <strong>not</strong> stored.</li>
+    <li><strong>MCP client &amp; protocol metadata</strong> — the client name/version sent at
+        <code>initialize</code>, the MCP protocol version, the <code>Accept</code> header (first 200
+        characters), the protocol session id header if your client sends one, the call order within a
+        session, and request/response payload sizes.</li>
+    <li><strong>Traffic classification</strong> — a derived label (crawler / operator-self-test /
+        external) used to keep aggregate usage statistics honest.</li>
   </ul>
-  <p class="ko">계정·이름·이메일·결제정보는 수집하지 않습니다. 요청마다 IP, user-agent, 호출한 tool/resource 이름,
-  성공여부·응답시간·에러코드, 세션키(IP+UA+30분 버킷 해시), 그리고 제공된 경우 API 키(요금제 등급 판정용)만 기록합니다.</p>
+  <p>We do not store the contents of responses we send you.</p>
+  <p class="ko">계정·이름·이메일·결제정보는 수집하지 않습니다. 요청마다 다음을 기록합니다:
+  IP 주소(Cloudflare 경유 시 Cloudflare 가 전달한 클라이언트 주소), user-agent, 호출한 tool/resource 이름,
+  결과 메타데이터(성공여부·HTTP 상태·JSON-RPC 오류 코드·200자 이내 오류 설명(입력값 에코는 가림)·응답시간·
+  반환 행 수/전체 건수/잘림·빈 결과 여부), 세션키(IP+UA+30분 버킷 해시, 쿠키 등 영구 식별자 없음),
+  API 키 사용 시 등급과 키의 단방향 지문(SHA-256 앞 16자 — 키 자체는 기록하지 않음),
+  허용 목록 인자 요약(심볼·시장·인터벌·카테고리·기간·결과 개수·식별자, <code>search</code> 검색어는 최대 60자 —
+  목록 밖 인자는 저장하지 않음), MCP 클라이언트·프로토콜 메타데이터(클라이언트 이름·버전, 프로토콜 버전,
+  Accept 헤더 앞 200자, 세션 헤더, 세션 내 호출 순서, 요청·응답 크기), 트래픽 분류(크롤러/자체 점검/외부).
+  응답 본문은 저장하지 않습니다.</p>
 
   <h2>2. How we use it / 이용 목적</h2>
   <ul>
     <li>Operate and secure the service (rate limiting, abuse prevention, debugging).</li>
+    <li>Diagnose client and protocol compatibility problems.</li>
     <li>Measure aggregate usage (which tools are called, by which client type) to improve the product.</li>
-    <li>Enforce access tiers for API-key holders.</li>
+    <li>Enforce access tiers and attribute usage to API keys.</li>
   </ul>
   <p>We do <strong>not</strong> sell your data, and we do not use it to build advertising profiles.</p>
-  <p class="ko">서비스 운영·보안, 집계 사용량 측정, API 키 등급 적용 목적으로만 사용합니다.
-  데이터를 판매하거나 광고 프로파일링에 사용하지 않습니다.</p>
+  <p class="ko">서비스 운영·보안, 클라이언트·프로토콜 호환성 진단, 집계 사용량 측정, API 키 등급 적용 및
+  키별 사용량 집계 목적으로만 사용합니다. 데이터를 판매하거나 광고 프로파일링에 사용하지 않습니다.</p>
 
   <h2>3. Storage &amp; retention / 저장 및 보관</h2>
-  <p>Request logs are stored on infrastructure operated by OneQAZ. Operational logs are retained
-  only as long as needed for security and analytics, then aggregated or deleted. We do not retain
-  request payloads beyond what is described above.</p>
-  <p class="ko">요청 로그는 OneQAZ가 운영하는 인프라에 저장되며, 보안·분석에 필요한 기간 동안만 보관 후
-  집계 처리하거나 삭제합니다.</p>
+  <p>Request logs are stored on infrastructure operated by OneQAZ, including internal analytics copies.</p>
+  <ul>
+    <li><strong>IP addresses</strong>, and the session key derived from them, are kept for up to
+        <strong>12 months</strong>. After that they are irreversibly replaced using a one-way
+        transformation whose random key is discarded after each run, so the remaining records can no
+        longer be linked to an IP address.</li>
+    <li>The rest of each request record (tool name, whitelisted parameters, outcome, client and protocol
+        metadata) is kept as usage history. Once the IP-derived fields are replaced it no longer
+        identifies you, except that requests made with an API key remain attributable to that key.</li>
+    <li>If you were issued an API key, the contact email attached to it is kept while the key is issued
+        to you. You can ask us to delete it at any time.</li>
+  </ul>
+  <p class="ko">요청 로그는 OneQAZ가 운영하는 인프라(내부 분석용 사본 포함)에 저장됩니다.
+  <strong>IP 주소와 IP에서 파생된 세션키는 최대 12개월</strong> 보관하며, 이후에는 실행마다 폐기되는 임의 키를 쓴
+  단방향 변환으로 비가역 치환해 남은 기록을 IP와 연결할 수 없게 합니다. 나머지 기록(tool 이름·허용 인자·결과·
+  클라이언트/프로토콜 메타데이터)은 사용 이력으로 보관하며, IP 파생 항목이 치환된 뒤에는 개인을 식별하지 않습니다
+  (단, API 키로 호출한 기록은 해당 키에 귀속됩니다). API 키를 발급받은 경우 키에 연결된 연락 이메일은 키가 발급돼
+  있는 동안 보관하며, 언제든 삭제를 요청할 수 있습니다.</p>
 
   <h2>4. Third-party sharing / 제3자 공유</h2>
   <p>We do not share request data with third parties for their own purposes. Network traffic is
@@ -112,9 +153,10 @@ hr{border:none;border-top:1px solid var(--border);margin:2rem 0}
 
   <h2>6. Your choices / 사용자 권리</h2>
   <p>Because we do not maintain user accounts, the simplest way to stop data processing is to stop
-  calling the service. For questions about data associated with your IP or API key, contact us below.</p>
+  calling the service. For questions or requests (including deletion) about data associated with your
+  IP address or API key, contact us below.</p>
   <p class="ko">계정을 운영하지 않으므로 서비스 호출 중단이 가장 간단한 처리 중지 방법입니다.
-  본인 IP·API 키 관련 문의는 아래 연락처로 주십시오.</p>
+  본인 IP·API 키 관련 문의나 요청(삭제 포함)은 아래 연락처로 주십시오.</p>
 
   <h2>7. Changes / 정책 변경</h2>
   <p>We may update this policy. Material changes will be reflected by the "Last updated" date above.</p>
