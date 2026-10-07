@@ -49,25 +49,10 @@ body::before{
 [data-theme="light"] body::before{opacity:0.08}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:2px}
 
-/* Language: both languages ship in the HTML (crawlable); the toggle hides one. */
-[data-lang="en"] [data-l="ko"],[data-lang="ko"] [data-l="en"]{display:none !important}
 
-.version-tag{position:fixed;top:12px;left:16px;z-index:100;display:block}
-.version-logo{width:28px;height:28px;filter:drop-shadow(0 0 6px rgba(212,168,83,0.3));opacity:.8;transition:opacity .2s}
-.version-logo:hover{opacity:1}
 .progress-bar{position:fixed;top:0;left:0;width:100%;height:2px;z-index:1000;background:var(--panel-bg)}
 .progress-bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--gold));transition:width .3s}
 
-nav{position:fixed;top:0;right:0;z-index:100;padding:16px 24px;display:flex;gap:20px;align-items:center;font-size:12px;transition:background-color .3s}
-/* Document page: once scrolled, give the nav the same frosted bar the home page uses on mobile so body text never runs under it. */
-nav.scrolled{left:0;justify-content:flex-end;background:var(--nav-bg);backdrop-filter:blur(8px)}
-nav a{color:var(--text-muted);text-decoration:none;letter-spacing:1.5px;transition:color .2s;text-transform:uppercase;font-weight:500}
-nav a:hover{color:var(--amber)}
-nav a.nav-cta{border:1px solid var(--amber);color:var(--amber);padding:5px 12px;border-radius:6px;font-weight:600;transition:background .2s,box-shadow .2s,color .2s}
-nav a.nav-cta:hover{background:rgba(212,168,83,0.1);box-shadow:0 0 12px rgba(212,168,83,0.15);color:var(--amber)}
-.lang-toggle{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-left:4px}
-.lang-toggle button{background:transparent;border:none;color:var(--text-muted);padding:4px 10px;font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;font-family:var(--font);transition:all .2s}
-.lang-toggle button.active{background:var(--amber);color:var(--bg)}
 
 .container{max-width:1080px;width:100%;margin:0 auto;padding:0 40px}
 .doc{max-width:820px;padding:128px 0 72px}
@@ -101,29 +86,70 @@ nav a.nav-cta:hover{background:rgba(212,168,83,0.1);box-shadow:0 0 12px rgba(212
 code{background:var(--card-bg);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-size:.85em;color:var(--gold);word-break:break-word}
 .doc-foot{font-size:12px;color:var(--text-muted);line-height:1.8;border-top:1px solid var(--border);padding-top:20px;margin-top:8px}
 
-footer{padding:60px 0 40px;border-top:1px solid var(--border);text-align:center}
-.footer-links{display:flex;justify-content:center;gap:28px;margin-bottom:24px;flex-wrap:wrap}
-.footer-links a{color:var(--text-muted);text-decoration:none;font-size:12px;letter-spacing:1px;transition:color .2s;font-weight:500}
-.footer-links a:hover,.footer-links a.current{color:var(--amber)}
-.footer-copy{font-size:11px;color:#4a4a5a;margin-bottom:16px}
 
-[data-theme="light"] .version-logo{filter:brightness(0.3) drop-shadow(0 0 4px rgba(158,117,32,0.2))}
 [data-theme="light"] .fields,[data-theme="light"] .note{box-shadow:0 1px 4px rgba(0,0,0,0.05)}
-body,nav,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
+body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
 @media(max-width:768px){
-  nav{padding:8px 10px;gap:8px;justify-content:flex-end;background:var(--nav-bg);backdrop-filter:blur(8px);width:100%;left:0;right:0}
-  nav a{font-size:9px;letter-spacing:.5px}
-  nav a.nav-cta{padding:4px 8px}
-  .version-tag{top:10px;left:10px}
-  .version-logo{width:22px;height:22px}
-  .lang-toggle button{padding:3px 8px;font-size:10px}
   .container{padding:0 16px}
   .doc{padding:88px 0 48px}
   .field{grid-template-columns:1fr;gap:4px;padding:12px 14px}
   .policy p,.policy ul li{font-size:14px}
-  .footer-links{gap:16px}
 }
+/* oqz:chrome-css v1 — shared header + footer for every oneqaz.com / api.oneqaz.com page.
+   Keep this block byte-identical in every page (tests/validation/test_site_chrome_sync.py).
+   No backslashes, no triple quotes: the api.oneqaz.com copies live inside Python strings. */
+[data-lang="en"] [data-l="ko"],[data-lang="ko"] [data-l="en"]{display:none !important}
+[id]{scroll-margin-top:72px}
+.oqz-header{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:6px 24px;transition:background-color .3s,box-shadow .3s}
+.oqz-header.scrolled,.oqz-header.open{background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--border)}
+.oqz-brand{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding-right:8px;color:var(--amber);text-decoration:none;font-family:var(--font);font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase}
+.oqz-brand img{width:26px;height:28px;filter:drop-shadow(0 0 6px rgba(212,168,83,0.3))}
+[data-theme="light"] .oqz-brand img{filter:brightness(0.3)}
+.oqz-menu{display:flex;align-items:center;gap:4px}
+.oqz-menu a{display:inline-flex;align-items:center;min-height:40px;padding:0 10px;border-radius:6px;color:var(--text-muted);text-decoration:none;font-family:var(--font);font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s,background-color .2s}
+.oqz-menu a:hover{color:var(--amber);background:var(--hover)}
+.oqz-menu a[aria-current]{color:var(--amber)}
+.oqz-menu a.oqz-cta{margin-left:8px;border:1px solid var(--amber);color:var(--amber);font-weight:600}
+.oqz-menu a.oqz-cta:hover{background:rgba(212,168,83,0.12)}
+.oqz-lang{display:flex;margin-left:8px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.oqz-lang button{min-width:40px;min-height:34px;border:0;background:transparent;color:var(--text-muted);font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:background-color .2s,color .2s}
+.oqz-lang button.active{background:var(--amber);color:var(--bg)}
+.oqz-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.oqz-menu-btn{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);cursor:pointer}
+.oqz-menu-icon,.oqz-menu-icon::before,.oqz-menu-icon::after{display:block;width:18px;height:2px;border-radius:1px;background:currentColor;transition:transform .2s,opacity .2s}
+.oqz-menu-icon{position:relative}
+.oqz-menu-icon::before,.oqz-menu-icon::after{content:'';position:absolute;left:0}
+.oqz-menu-icon::before{top:-6px}
+.oqz-menu-icon::after{top:6px}
+.oqz-header.open .oqz-menu-icon{background:transparent}
+.oqz-header.open .oqz-menu-icon::before{transform:translateY(6px) rotate(45deg)}
+.oqz-header.open .oqz-menu-icon::after{transform:translateY(-6px) rotate(-45deg)}
+.oqz-header a:focus-visible,.oqz-header button:focus-visible,.oqz-footer a:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+@media (max-width:860px){
+  .oqz-header{padding:6px 12px;background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--border)}
+  .oqz-menu-btn{display:inline-flex}
+  .oqz-menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100vh - 56px);overflow-y:auto;padding:4px 16px 20px;background:var(--bg);border-bottom:1px solid var(--border);box-shadow:0 12px 24px rgba(0,0,0,0.25)}
+  .oqz-header.open .oqz-menu{display:flex}
+  .oqz-menu a{min-height:52px;padding:0 4px;border-radius:0;border-bottom:1px solid var(--border);font-size:14px;letter-spacing:1px}
+  .oqz-menu a.oqz-cta{justify-content:center;margin:16px 0 0;border-radius:8px}
+  .oqz-lang{align-self:center;margin:16px 0 0}
+  .oqz-lang button{min-width:72px;min-height:44px;font-size:13px}
+}
+.oqz-footer{margin-top:40px;padding:56px 24px 40px;border-top:1px solid var(--border);font-family:var(--font)}
+.oqz-footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1000px;margin:0 auto 32px}
+.oqz-footer-h{margin-bottom:8px;color:var(--amber);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+.oqz-footer ul{list-style:none;margin:0;padding:0}
+.oqz-footer li a{display:inline-flex;align-items:center;min-height:34px;color:var(--text-muted);text-decoration:none;font-size:13px;transition:color .2s}
+.oqz-footer li a:hover,.oqz-footer li a[aria-current]{color:var(--amber)}
+.oqz-footer-disc{max-width:720px;margin:0 auto 10px;color:var(--text-muted);font-size:11px;line-height:1.8;text-align:center}
+.oqz-footer-copy{color:var(--text-muted);font-size:11px;text-align:center;opacity:.7}
+@media (max-width:860px){
+  .oqz-footer{padding:40px 16px 32px}
+  .oqz-footer-grid{grid-template-columns:repeat(2,1fr);gap:20px 16px}
+  .oqz-footer li a{min-height:44px}
+}
+/* /oqz:chrome-css */
 </style>
 <script>
 (function () {
@@ -143,16 +169,21 @@ body,nav,.fields,.note{transition:background-color .4s,color .4s,border-color .4
 <body>
 
 <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
-<a class="version-tag" href="https://oneqaz.com/" aria-label="OneQAZ home"><img src="https://oneqaz.com/images/logo.png" alt="OneQAZ" class="version-logo"></a>
-
-<nav>
-  <a href="https://oneqaz.com/">OneQAZ</a>
-  <a href="https://blog.oneqaz.com/en/" target="_blank" rel="noopener" class="nav-cta" data-blog-path=""><span data-l="en">Daily Reads ↗</span><span data-l="ko">데일리 리포트 ↗</span></a>
-  <div class="lang-toggle">
-    <button id="langEn" type="button" onclick="setLang('en')">EN</button>
-    <button id="langKo" type="button" onclick="setLang('ko')">KO</button>
-  </div>
-</nav>
+<!-- oqz:chrome-header v1 — identical on every oneqaz.com / api.oneqaz.com page -->
+<header class="oqz-header" id="oqzHeader">
+  <a class="oqz-brand" href="https://oneqaz.com/" data-anchor="hero" data-xlang><img src="https://oneqaz.com/images/opt/logo-128.webp" alt="" width="26" height="28"><span>OneQAZ</span></a>
+  <button class="oqz-menu-btn" type="button" aria-expanded="false" aria-controls="oqzMenu"><span class="oqz-menu-icon" aria-hidden="true"></span><span data-l="en" class="oqz-sr">Menu</span><span data-l="ko" class="oqz-sr">메뉴</span></button>
+  <nav class="oqz-menu" id="oqzMenu" aria-label="OneQAZ">
+    <a href="https://oneqaz.com/#team" data-anchor="team" data-xlang><span data-l="en">Agents</span><span data-l="ko">에이전트</span></a>
+    <a href="https://oneqaz.com/#flow" data-anchor="flow" data-xlang><span data-l="en">How it works</span><span data-l="ko">작동 방식</span></a>
+    <a href="https://oneqaz.com/#verify" data-anchor="verify" data-xlang><span data-l="en">Verify</span><span data-l="ko">검증</span></a>
+    <a href="https://oneqaz.com/#connect" data-anchor="connect" data-xlang><span data-l="en">Connect</span><span data-l="ko">연결</span></a>
+    <a href="https://oneqaz.com/#status" data-anchor="status" data-xlang><span data-l="en">Status</span><span data-l="ko">상태</span></a>
+    <a class="oqz-cta" href="https://blog.oneqaz.com/en/" data-blog-path=""><span data-l="en">Daily Reads</span><span data-l="ko">데일리 리포트</span></a>
+    <div class="oqz-lang" role="group" aria-label="Language"><button id="langEn" type="button" onclick="setLang('en')">EN</button><button id="langKo" type="button" onclick="setLang('ko')">KO</button></div>
+  </nav>
+</header>
+<!-- /oqz:chrome-header -->
 
 <!-- Cloudflare Email Address Obfuscation would turn the legally required contact addresses into
      "[email protected]" for readers without JavaScript (crawlers, AI readers). email_off keeps them
@@ -588,20 +619,152 @@ body,nav,.fields,.note{transition:background-color .4s,color .4s,border-color .4
 </div>
 </main>
 
-<footer>
-  <div class="container">
-    <div class="footer-links">
-      <a href="https://github.com/wnsod/oneqaz-trading-mcp" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://pypi.org/project/oneqaz-trading-mcp/" target="_blank" rel="noopener">PyPI</a>
-      <a href="https://blog.oneqaz.com/en/rss.xml" target="_blank" rel="noopener" data-blog-path="rss.xml">RSS</a>
-      <a href="https://oneqaz.com/privacy" class="current">Privacy</a>
-      <a href="https://oneqaz.com/terms">Terms</a>
-      <a href="mailto:contact@oneqaz.com">Contact</a>
+<!-- oqz:chrome-footer v1 — identical on every oneqaz.com / api.oneqaz.com page -->
+<footer class="oqz-footer">
+  <div class="oqz-footer-grid">
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Product</span><span data-l="ko">제품</span></p>
+      <ul>
+        <li><a href="https://oneqaz.com/#connect" data-anchor="connect" data-xlang><span data-l="en">Connect via MCP</span><span data-l="ko">MCP로 연결</span></a></li>
+        <li><a href="https://api.oneqaz.com/pricing" data-xlang><span data-l="en">Pricing &amp; limits</span><span data-l="ko">요금·호출 한도</span></a></li>
+        <li><a href="https://api.oneqaz.com/keys" data-xlang><span data-l="en">API keys</span><span data-l="ko">API 키</span></a></li>
+        <li><a href="https://oneqaz.com/#status" data-anchor="status" data-xlang><span data-l="en">System status</span><span data-l="ko">시스템 상태</span></a></li>
+      </ul>
     </div>
-    <div class="footer-copy">&copy; 2026 OneQAZ. All rights reserved.</div>
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Evidence</span><span data-l="ko">근거</span></p>
+      <ul>
+        <li><a href="https://blog.oneqaz.com/en/track-record/all-time/" data-blog-path="track-record/all-time/"><span data-l="en">All-time record</span><span data-l="ko">전체 기간 성적</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/methodology/" data-blog-path="methodology/"><span data-l="en">Methodology</span><span data-l="ko">방법론</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/corrections/" data-blog-path="corrections/"><span data-l="en">Corrections</span><span data-l="ko">정정 기록</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/anchors/" data-blog-path="anchors/"><span data-l="en">Ledger anchors</span><span data-l="ko">원장 앵커</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Read &amp; watch</span><span data-l="ko">읽기·보기</span></p>
+      <ul>
+        <li><a href="https://blog.oneqaz.com/en/" data-blog-path=""><span data-l="en">Daily Reads</span><span data-l="ko">데일리 리포트</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/rss.xml" data-blog-path="rss.xml">RSS</a></li>
+        <li><a href="https://www.youtube.com/@OneQAZ2026/live" target="_blank" rel="noopener"><span data-l="en">YouTube live ↗</span><span data-l="ko">유튜브 라이브 ↗</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Developers &amp; legal</span><span data-l="ko">개발자·약관</span></p>
+      <ul>
+        <li><a href="https://github.com/oneqaz-trading/oneqaz-trading-mcp" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://pypi.org/project/oneqaz-trading-mcp/" target="_blank" rel="noopener">PyPI ↗</a></li>
+        <li><a href="https://oneqaz.com/privacy" data-xlang><span data-l="en">Privacy</span><span data-l="ko">개인정보처리방침</span></a></li>
+        <li><a href="https://oneqaz.com/terms" data-xlang><span data-l="en">Terms</span><span data-l="ko">이용약관</span></a></li>
+        <li><a href="mailto:contact@oneqaz.com"><span data-l="en">Contact</span><span data-l="ko">문의</span></a></li>
+      </ul>
+    </div>
   </div>
+  <p class="oqz-footer-disc"><span data-l="en">Research information only — not investment advice. OneQAZ outputs are paper-trading research signals (simulated fills, no fees or taxes); past simulated performance does not predict future real-money returns.</span><span data-l="ko">연구용 정보이며 투자 자문이 아닙니다. OneQAZ의 산출물은 가상매매 기반 연구 시그널(시뮬레이션 체결, 수수료·세금 미반영)이며, 과거 시뮬레이션 성과는 미래의 실계좌 수익을 보장하지 않습니다.</span></p>
+  <p class="oqz-footer-copy">&copy; 2026 OneQAZ. All rights reserved.</p>
 </footer>
+<!-- /oqz:chrome-footer -->
 <!--/email_off-->
+
+<script>
+/* oqz:chrome-js v1 — shared header/footer behaviour, identical on every page. No backslashes. */
+(function () {
+  var doc = document, root = doc.documentElement;
+  var header = doc.getElementById('oqzHeader');
+  if (!header) return;
+  var btn = header.querySelector('.oqz-menu-btn');
+  var BLOG = 'https://blog.oneqaz.com/';
+  var onHome = !!doc.getElementById('hero');
+
+  function setOpen(open) {
+    header.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!header.classList.contains('open')); });
+  doc.addEventListener('click', function (e) { if (!header.contains(e.target)) setOpen(false); });
+  doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 860) setOpen(false); });
+  header.querySelector('.oqz-menu').addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('a')) setOpen(false);
+  });
+
+  function lang() { return root.getAttribute('data-lang') === 'ko' ? 'ko' : 'en'; }
+
+  // Links to other OneQAZ pages carry the language (?lang=); blog links follow its /en/ mirror.
+  function syncLinks() {
+    var l = lang(), i, a, base, cut, path, hash;
+    var xs = doc.querySelectorAll('a[data-xlang]');
+    for (i = 0; i < xs.length; i++) {
+      a = xs[i];
+      if (!a.getAttribute('data-href')) a.setAttribute('data-href', a.getAttribute('href'));
+      base = a.getAttribute('data-href');
+      cut = base.indexOf('#');
+      path = cut < 0 ? base : base.slice(0, cut);
+      hash = cut < 0 ? '' : base.slice(cut);
+      a.setAttribute('href', path + (path.indexOf('?') < 0 ? '?' : '&') + 'lang=' + l + hash);
+    }
+    var bs = doc.querySelectorAll('a[data-blog-path]');
+    for (i = 0; i < bs.length; i++) {
+      a = bs[i];
+      a.setAttribute('href', BLOG + (l === 'en' && !a.hasAttribute('data-blog-single') ? 'en/' : '') + a.getAttribute('data-blog-path'));
+    }
+    var en = doc.getElementById('langEn'), ko = doc.getElementById('langKo');
+    if (en) { en.classList.toggle('active', l === 'en'); en.setAttribute('aria-pressed', l === 'en' ? 'true' : 'false'); }
+    if (ko) { ko.classList.toggle('active', l === 'ko'); ko.setAttribute('aria-pressed', l === 'ko' ? 'true' : 'false'); }
+  }
+  syncLinks();
+  if (window.MutationObserver) new MutationObserver(syncLinks).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+
+  // Home page: section links scroll in place (no reload, no new tab).
+  var anchors = doc.querySelectorAll('a[data-anchor]');
+  for (var k = 0; k < anchors.length; k++) {
+    anchors[k].addEventListener('click', function (e) {
+      if (!onHome) return;
+      var id = this.getAttribute('data-anchor'), el = doc.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      setOpen(false);
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (id === 'hero') window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      try { history.replaceState(null, '', id === 'hero' ? location.pathname + location.search : '#' + id); } catch (err) {}
+    });
+  }
+
+  // Current page / current section.
+  function norm(p) { return (p || '/').replace(/[.]html$/, '').replace(/[/]+$/, '') || '/'; }
+  var here = norm(location.pathname);
+  var all = doc.querySelectorAll('.oqz-header a, .oqz-footer a');
+  for (var m = 0; m < all.length; m++) {
+    var link = all[m];
+    if (link.hasAttribute('data-anchor') || link.target === '_blank') continue;
+    try {
+      var u = new URL(link.getAttribute('data-href') || link.href, location.href);
+      var sameSite = /(^|[.])oneqaz[.]com$/.test(u.hostname) || u.hostname === location.hostname;
+      if (sameSite && u.hostname.indexOf('blog.') !== 0 && norm(u.pathname) === here && here !== '/') link.setAttribute('aria-current', 'page');
+    } catch (err) {}
+  }
+  if (onHome && 'IntersectionObserver' in window) {
+    var navLinks = header.querySelectorAll('.oqz-menu a[data-anchor]');
+    var mark = function (id) {
+      for (var n = 0; n < navLinks.length; n++) {
+        if (navLinks[n].getAttribute('data-anchor') === id) navLinks[n].setAttribute('aria-current', 'location');
+        else navLinks[n].removeAttribute('aria-current');
+      }
+    };
+    var spy = new IntersectionObserver(function (entries) {
+      for (var q = 0; q < entries.length; q++) if (entries[q].isIntersecting) mark(entries[q].target.id);
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['hero', 'team', 'chat', 'flow', 'verify', 'connect', 'status', 'content'].forEach(function (id) {
+      var el = doc.getElementById(id);
+      if (el) spy.observe(el);
+    });
+  }
+
+  function onScroll() { header.classList.toggle('scrolled', (window.pageYOffset || root.scrollTop) > 12); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 
 <script>
 var BLOG_BASE = 'https://blog.oneqaz.com/';
@@ -629,12 +792,10 @@ try {
   });
 } catch (e) {}
 
-var NAV = document.querySelector('nav');
 function onScroll() {
   var h = document.documentElement;
   var max = h.scrollHeight - h.clientHeight;
   document.getElementById('progressFill').style.width = (max > 0 ? h.scrollTop / max * 100 : 0) + '%';
-  NAV.classList.toggle('scrolled', h.scrollTop > 24);
 }
 window.addEventListener('scroll', onScroll);
 onScroll();

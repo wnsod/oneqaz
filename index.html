@@ -97,30 +97,9 @@ body::before{
 [data-theme="light"] body::before{opacity:0.08}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:2px}
 
-.version-tag{position:fixed;top:12px;left:16px;z-index:101}
-.version-logo{width:28px;height:28px;filter:drop-shadow(0 0 6px rgba(212,168,83,0.3));opacity:.8;transition:opacity .2s}
-.version-logo:hover{opacity:1}
 .progress-bar{position:fixed;top:0;left:0;width:100%;height:2px;z-index:1000;background:var(--panel-bg)}
 .progress-bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--gold));transition:width .3s}
 
-/* Nav + lang toggle */
-nav{position:fixed;top:0;right:0;z-index:100;padding:16px 24px;display:flex;gap:20px;align-items:center;font-size:12px}
-nav{transition:background .3s}
-nav.scrolled{background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);left:0;justify-content:flex-end}
-nav a{color:var(--text-muted);text-decoration:none;letter-spacing:1.5px;transition:color .2s;text-transform:uppercase;font-weight:500}
-nav a:hover{color:var(--amber)}
-/* nav CTA → blog (the content we want AI + people to find) */
-nav a.nav-cta{border:1px solid var(--amber);color:var(--amber);padding:5px 12px;border-radius:6px;font-weight:600;transition:background .2s,box-shadow .2s,color .2s}
-nav a.nav-cta:hover{background:rgba(212,168,83,0.1);box-shadow:0 0 12px rgba(212,168,83,0.15);color:var(--amber)}
-.lang-toggle{
-  display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-left:4px;
-}
-.lang-toggle button{
-  background:transparent;border:none;color:var(--text-muted);padding:4px 10px;
-  font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;
-  font-family:var(--font);transition:all .2s;
-}
-.lang-toggle button.active{background:var(--amber);color:var(--bg)}
 
 .container{max-width:1080px;width:100%;margin:0 auto;padding:0 40px}
 section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0;position:relative}
@@ -134,8 +113,9 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 .hero-brand-text{font-size:18px;color:var(--amber);font-weight:600;letter-spacing:4px;text-transform:uppercase;text-shadow:0 0 8px rgba(212,168,83,0.3)}
 .hero-quote{font-size:15px;color:var(--gold);font-style:italic;margin-bottom:32px;line-height:1.8;text-shadow:0 0 12px rgba(196,155,111,0.15);opacity:.85}
 .hero-prompt{font-size:13px;color:var(--text-muted);margin-bottom:12px;opacity:.6;letter-spacing:1px}
-.hero-title{font-size:clamp(28px,4.5vw,48px);font-weight:700;color:var(--text);line-height:1.25;margin-bottom:12px;min-height:2.5em}
-.hero-title .cursor{display:inline-block;width:3px;height:.85em;background:var(--amber);margin-left:4px;animation:blink 1s step-end infinite;vertical-align:text-bottom}
+.hero-tagline{font-size:clamp(15px,1.9vw,19px);color:var(--gold);line-height:1.6;margin-bottom:18px;min-height:3.2em;font-weight:500;text-shadow:0 0 12px rgba(196,155,111,0.15)}
+.hero-title{font-size:clamp(30px,5vw,54px);font-weight:700;color:var(--text);line-height:1.15;margin-bottom:20px;letter-spacing:-.5px}
+.hero-tagline .cursor{display:inline-block;width:3px;height:.85em;background:var(--amber);margin-left:4px;animation:blink 1s step-end infinite;vertical-align:text-bottom}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .hero-subtitle{font-size:clamp(15px,2vw,20px);color:var(--amber);margin-bottom:28px;font-weight:500;text-shadow:0 0 16px rgba(212,168,83,0.2)}
 .hero-desc{font-size:15px;color:var(--text-muted);max-width:560px;margin-bottom:44px;line-height:1.9;font-weight:300}
@@ -143,6 +123,9 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;font-size:13px;font-weight:500;letter-spacing:1px;text-decoration:none;border:1px solid var(--amber);color:var(--amber);background:transparent;cursor:pointer;border-radius:8px;transition:all .25s;font-family:var(--font)}
 .btn:hover{background:rgba(212,168,83,0.1);box-shadow:0 0 12px rgba(212,168,83,0.15);transform:translateY(-1px)}
 .btn-tag{display:block;font-size:9px;letter-spacing:1px;opacity:.5;margin-top:2px;font-style:normal;font-weight:400}
+.btn-primary{background:var(--amber);color:var(--bg);font-weight:600}
+.btn-primary .btn-tag{opacity:.75}
+.btn-primary:hover{background:var(--gold);color:var(--bg)}
 .btn-secondary{border-color:var(--border);color:var(--text-muted)}
 .btn-secondary:hover{border-color:var(--text-muted);color:var(--text);background:rgba(255,255,255,0.03)}
 
@@ -308,15 +291,9 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 @media(max-width:768px){.content-grid{grid-template-columns:repeat(2,1fr);gap:10px}.content-card{padding:16px 14px}}
 @media(max-width:480px){.content-grid{grid-template-columns:1fr}}
 
-footer{padding:60px 0 40px;border-top:1px solid var(--border);text-align:center}
-.footer-links{display:flex;justify-content:center;gap:28px;margin-bottom:24px;flex-wrap:wrap}
-.footer-links a{color:var(--text-muted);text-decoration:none;font-size:12px;letter-spacing:1px;transition:color .2s;font-weight:500}
-.footer-links a:hover{color:var(--amber)}
-.footer-copy{font-size:11px;color:#4a4a5a;margin-bottom:16px}
-.footer-quote{font-size:14px;color:var(--gold);font-style:italic;max-width:480px;margin:0 auto;line-height:1.8;text-shadow:0 0 8px rgba(196,155,111,0.15)}
 
 /* Hero lead — plain-language "what is this" under the poem */
-.hero-lead{font-size:15px;color:var(--text);max-width:640px;margin:-24px 0 36px;line-height:1.8;font-weight:400;opacity:.9}
+.hero-lead{font-size:16px;color:var(--text-muted);max-width:660px;margin:0 0 36px;line-height:1.8;font-weight:400}
 .hero-note{margin-top:14px;font-size:11px;color:var(--text-muted);letter-spacing:.3px;line-height:1.7}
 .hero-note a{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
 .hero-note a:hover{color:var(--amber)}
@@ -350,8 +327,6 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);text-align:center}
 .status-foot a{color:var(--text-muted)}
 @media(max-width:560px){.status-detail{display:none}}
 
-/* Footer disclaimer */
-.footer-disclaimer{font-size:11px;color:var(--text-muted);max-width:640px;margin:0 auto 14px;line-height:1.8;opacity:.85}
 
 /* Reduced motion — no float/idle/typing/scanline flicker */
 @media (prefers-reduced-motion: reduce){
@@ -364,20 +339,18 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);text-align:center}
 [data-theme="light"] .hero-brand-text{text-shadow:none}
 [data-theme="light"] .hero-logo{filter:brightness(0.3) drop-shadow(0 0 8px rgba(158,117,32,0.2))}
 [data-theme="light"] .hero-quote{text-shadow:none}
-[data-theme="light"] .version-logo{filter:brightness(0.3) drop-shadow(0 0 4px rgba(158,117,32,0.2))}
 [data-theme="light"] .stat-value{text-shadow:none}
 [data-theme="light"] .status-dot.active{box-shadow:0 0 4px var(--green)}
 [data-theme="light"] .status-dot.beta{box-shadow:0 0 4px var(--blue)}
 [data-theme="light"] .status-dot.soon{box-shadow:0 0 4px var(--amber)}
 [data-theme="light"] .arch-node:hover{transform:translateY(-2px)}
-[data-theme="light"] .footer-quote{text-shadow:none}
 [data-theme="light"] .loader-brand span{text-shadow:none}
 [data-theme="light"] .chat-panel{box-shadow:0 1px 4px rgba(0,0,0,0.06)}
 [data-theme="light"] .stat{box-shadow:0 1px 3px rgba(0,0,0,0.05)}
 [data-theme="light"] .msg-bubble.expanding{text-shadow:none}
 
 /* Smooth theme transition */
-body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loader{
+body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loader{
   transition:background-color .4s,color .4s,border-color .4s;
 }
 
@@ -395,10 +368,6 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 
 @media(max-width:768px){
   .hero{padding-top:100px}.hero-logo{width:44px;height:44px}
-  nav{padding:8px 10px;gap:6px;justify-content:flex-end;background:var(--nav-bg);backdrop-filter:blur(8px);width:100%;left:0;right:0}
-  nav a{font-size:9px;letter-spacing:.5px}
-  .version-tag{top:10px;left:10px}
-  .version-logo{width:22px;height:22px}
   .container{padding:0 16px}
   section,.chat-section{padding:40px 0;min-height:auto}
   .char-grid{grid-template-columns:repeat(2,1fr);gap:8px}
@@ -415,12 +384,82 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
   .stat-value{font-size:26px}.stat{padding:16px 10px}
   .msg-avatar{width:28px;height:28px}
   .chat-panel-body{height:480px}
-  .lang-toggle button{padding:3px 8px;font-size:10px}
 }
 @media(max-width:480px){
   .hero-actions{flex-direction:column}.btn{width:100%;justify-content:center}
   .char-grid{grid-template-columns:repeat(2,1fr)}
 }
+/* Flow — the whole/part poem now introduces the architecture */
+.arch-poem{font-size:14px;color:var(--gold);font-style:italic;line-height:1.9;margin:-12px 0 8px;opacity:.85}
+[data-theme="light"] .arch-poem{opacity:1}
+
+/* Connect — for AI agents */
+.ask-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:8px}
+.ask-card{display:flex;flex-direction:column;gap:8px;padding:18px 20px;background:var(--panel-bg);border:1px solid var(--border);border-radius:12px}
+.ask-q{font-size:15px;font-weight:600;color:var(--text)}
+.ask-what{font-size:12.5px;color:var(--text-muted);line-height:1.7;flex:1}
+.ask-tools{display:flex;flex-wrap:wrap;gap:6px}
+.ask-tools code{font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace;font-size:11px;color:var(--amber);background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.25);border-radius:4px;padding:2px 7px}
+#connect .connect-card{margin-top:22px}
+.connect-links{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:16px}
+.connect-links a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--border);border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:12.5px;transition:color .2s,border-color .2s}
+.connect-links a:hover{color:var(--amber);border-color:var(--amber)}
+#content{min-height:auto;padding-bottom:40px}
+
+/* oqz:chrome-css v1 — shared header + footer for every oneqaz.com / api.oneqaz.com page.
+   Keep this block byte-identical in every page (tests/validation/test_site_chrome_sync.py).
+   No backslashes, no triple quotes: the api.oneqaz.com copies live inside Python strings. */
+[data-lang="en"] [data-l="ko"],[data-lang="ko"] [data-l="en"]{display:none !important}
+[id]{scroll-margin-top:72px}
+.oqz-header{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:6px 24px;transition:background-color .3s,box-shadow .3s}
+.oqz-header.scrolled,.oqz-header.open{background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--border)}
+.oqz-brand{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding-right:8px;color:var(--amber);text-decoration:none;font-family:var(--font);font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase}
+.oqz-brand img{width:26px;height:28px;filter:drop-shadow(0 0 6px rgba(212,168,83,0.3))}
+[data-theme="light"] .oqz-brand img{filter:brightness(0.3)}
+.oqz-menu{display:flex;align-items:center;gap:4px}
+.oqz-menu a{display:inline-flex;align-items:center;min-height:40px;padding:0 10px;border-radius:6px;color:var(--text-muted);text-decoration:none;font-family:var(--font);font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;transition:color .2s,background-color .2s}
+.oqz-menu a:hover{color:var(--amber);background:var(--hover)}
+.oqz-menu a[aria-current]{color:var(--amber)}
+.oqz-menu a.oqz-cta{margin-left:8px;border:1px solid var(--amber);color:var(--amber);font-weight:600}
+.oqz-menu a.oqz-cta:hover{background:rgba(212,168,83,0.12)}
+.oqz-lang{display:flex;margin-left:8px;border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.oqz-lang button{min-width:40px;min-height:34px;border:0;background:transparent;color:var(--text-muted);font-family:var(--font);font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:background-color .2s,color .2s}
+.oqz-lang button.active{background:var(--amber);color:var(--bg)}
+.oqz-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.oqz-menu-btn{display:none;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);cursor:pointer}
+.oqz-menu-icon,.oqz-menu-icon::before,.oqz-menu-icon::after{display:block;width:18px;height:2px;border-radius:1px;background:currentColor;transition:transform .2s,opacity .2s}
+.oqz-menu-icon{position:relative}
+.oqz-menu-icon::before,.oqz-menu-icon::after{content:'';position:absolute;left:0}
+.oqz-menu-icon::before{top:-6px}
+.oqz-menu-icon::after{top:6px}
+.oqz-header.open .oqz-menu-icon{background:transparent}
+.oqz-header.open .oqz-menu-icon::before{transform:translateY(6px) rotate(45deg)}
+.oqz-header.open .oqz-menu-icon::after{transform:translateY(-6px) rotate(-45deg)}
+.oqz-header a:focus-visible,.oqz-header button:focus-visible,.oqz-footer a:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+@media (max-width:860px){
+  .oqz-header{padding:6px 12px;background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--border)}
+  .oqz-menu-btn{display:inline-flex}
+  .oqz-menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100vh - 56px);overflow-y:auto;padding:4px 16px 20px;background:var(--bg);border-bottom:1px solid var(--border);box-shadow:0 12px 24px rgba(0,0,0,0.25)}
+  .oqz-header.open .oqz-menu{display:flex}
+  .oqz-menu a{min-height:52px;padding:0 4px;border-radius:0;border-bottom:1px solid var(--border);font-size:14px;letter-spacing:1px}
+  .oqz-menu a.oqz-cta{justify-content:center;margin:16px 0 0;border-radius:8px}
+  .oqz-lang{align-self:center;margin:16px 0 0}
+  .oqz-lang button{min-width:72px;min-height:44px;font-size:13px}
+}
+.oqz-footer{margin-top:40px;padding:56px 24px 40px;border-top:1px solid var(--border);font-family:var(--font)}
+.oqz-footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1000px;margin:0 auto 32px}
+.oqz-footer-h{margin-bottom:8px;color:var(--amber);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+.oqz-footer ul{list-style:none;margin:0;padding:0}
+.oqz-footer li a{display:inline-flex;align-items:center;min-height:34px;color:var(--text-muted);text-decoration:none;font-size:13px;transition:color .2s}
+.oqz-footer li a:hover,.oqz-footer li a[aria-current]{color:var(--amber)}
+.oqz-footer-disc{max-width:720px;margin:0 auto 10px;color:var(--text-muted);font-size:11px;line-height:1.8;text-align:center}
+.oqz-footer-copy{color:var(--text-muted);font-size:11px;text-align:center;opacity:.7}
+@media (max-width:860px){
+  .oqz-footer{padding:40px 16px 32px}
+  .oqz-footer-grid{grid-template-columns:repeat(2,1fr);gap:20px 16px}
+  .oqz-footer li a{min-height:44px}
+}
+/* /oqz:chrome-css */
 </style>
 </head>
 <body>
@@ -432,36 +471,37 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 </div>
 
 <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
-<div class="version-tag"><img src="images/opt/logo-128.webp" alt="OneQAZ" class="version-logo"></div>
-
-<nav>
-  <a href="#hero" data-i18n="nav_hero">OneQAZ</a>
-  <a href="#team" data-i18n="nav_team">Team</a>
-  <a href="#flow" data-i18n="nav_flow">Flow</a>
-  <a href="#verify" data-i18n="nav_verify">Verify</a>
-  <a href="#status" data-i18n="nav_status">Status</a>
-  <a href="https://blog.oneqaz.com/" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav_blog" data-blog-path="">Daily Reads ↗</a>
-  <div class="lang-toggle">
-    <button id="langEn" class="active" onclick="setLang('en')">EN</button>
-    <button id="langKo" onclick="setLang('ko')">KO</button>
-  </div>
-</nav>
+<!-- oqz:chrome-header v1 — identical on every oneqaz.com / api.oneqaz.com page -->
+<header class="oqz-header" id="oqzHeader">
+  <a class="oqz-brand" href="https://oneqaz.com/" data-anchor="hero" data-xlang><img src="https://oneqaz.com/images/opt/logo-128.webp" alt="" width="26" height="28"><span>OneQAZ</span></a>
+  <button class="oqz-menu-btn" type="button" aria-expanded="false" aria-controls="oqzMenu"><span class="oqz-menu-icon" aria-hidden="true"></span><span data-l="en" class="oqz-sr">Menu</span><span data-l="ko" class="oqz-sr">메뉴</span></button>
+  <nav class="oqz-menu" id="oqzMenu" aria-label="OneQAZ">
+    <a href="https://oneqaz.com/#team" data-anchor="team" data-xlang><span data-l="en">Agents</span><span data-l="ko">에이전트</span></a>
+    <a href="https://oneqaz.com/#flow" data-anchor="flow" data-xlang><span data-l="en">How it works</span><span data-l="ko">작동 방식</span></a>
+    <a href="https://oneqaz.com/#verify" data-anchor="verify" data-xlang><span data-l="en">Verify</span><span data-l="ko">검증</span></a>
+    <a href="https://oneqaz.com/#connect" data-anchor="connect" data-xlang><span data-l="en">Connect</span><span data-l="ko">연결</span></a>
+    <a href="https://oneqaz.com/#status" data-anchor="status" data-xlang><span data-l="en">Status</span><span data-l="ko">상태</span></a>
+    <a class="oqz-cta" href="https://blog.oneqaz.com/en/" data-blog-path=""><span data-l="en">Daily Reads</span><span data-l="ko">데일리 리포트</span></a>
+    <div class="oqz-lang" role="group" aria-label="Language"><button id="langEn" type="button" onclick="setLang('en')">EN</button><button id="langKo" type="button" onclick="setLang('ko')">KO</button></div>
+  </nav>
+</header>
+<!-- /oqz:chrome-header -->
 
 <!-- Hero -->
 <section class="hero" id="hero">
   <div class="container">
     <div class="hero-brand">
-      <img src="images/opt/logo-128.webp" alt="OneQAZ" class="hero-logo">
+      <img src="images/opt/logo-128.webp" alt="" class="hero-logo">
       <div class="hero-brand-text">One Quorum Alpha Zero</div>
     </div>
-    <h1 class="hero-title"><span id="heroTyping">While AI reads the markets,<br>go experience the world.</span><span class="cursor"></span></h1>
-    <p class="hero-desc" data-i18n="hero_desc">The whole lives in the part,<br>and the part embraces the whole.<br>Macro currents flow into small details,<br>and small details reflect the greater tide.<br>— In a single glance, see it all.</p>
+    <p class="hero-tagline"><span id="heroTyping">While AI reads the markets,<br>go experience the world.</span><span class="cursor"></span></p>
+    <h1 class="hero-title" data-i18n="hero_title">Verifiable market intelligence<br>for AI agents</h1>
     <p class="hero-lead" data-i18n="hero_lead">OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols around the clock — and records its predictions with timestamps before the outcome is known, sealing each day into a SHA-256 hash chain, so people and AI agents can check the record for themselves.</p>
     <div class="hero-actions">
-      <a href="https://github.com/oneqaz-trading/oneqaz-trading-mcp" target="_blank" rel="noopener" class="btn">GitHub<span class="btn-tag" data-i18n="cta_github_tag">Source Code</span></a>
-      <a href="https://github.com/oneqaz-trading/oneqaz-trading-mcp#quick-start" target="_blank" rel="noopener" class="btn"><span data-i18n="cta_start">Get Started</span><span class="btn-tag" data-i18n="cta_start_tag">Quick start</span></a>
-      <a href="https://www.youtube.com/@OneQAZ2026/live" target="_blank" rel="noopener" class="btn">▶ Live<span class="btn-tag">YouTube 24/7</span></a>
-      <a href="https://api.oneqaz.com/pricing" target="_blank" rel="noopener" class="btn btn-secondary"><span data-i18n="cta_pricing">API &amp; Pricing</span><span class="btn-tag" data-i18n="cta_pricing_tag">Free tier live</span></a>
+      <a href="#connect" data-anchor="connect" class="btn btn-primary"><span data-i18n="cta_connect">Connect via MCP</span><span class="btn-tag" data-i18n="cta_connect_tag">No API key</span></a>
+      <a href="#verify" data-anchor="verify" class="btn"><span data-i18n="cta_verify">Check the record</span><span class="btn-tag" data-i18n="cta_verify_tag">Ledger · track record</span></a>
+      <a href="https://www.youtube.com/@OneQAZ2026/live" target="_blank" rel="noopener" class="btn btn-secondary">▶ Live<span class="btn-tag">YouTube ↗</span></a>
+      <a href="https://github.com/oneqaz-trading/oneqaz-trading-mcp" target="_blank" rel="noopener" class="btn btn-secondary">GitHub<span class="btn-tag">↗</span></a>
     </div>
 
     <!-- Live status — fed by GET https://api.oneqaz.com/health every 60s -->
@@ -490,31 +530,6 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
       </div>
     </div>
 
-    <!-- Connect via MCP — copy-paste to Claude Desktop / Cursor / VSCode -->
-    <div class="connect-card">
-      <div class="connect-head">
-        <span class="connect-label" data-i18n="connect_label">Connect via MCP</span>
-        <span class="connect-meta" data-i18n="connect_meta">Claude Desktop config · no API key · free 1,500 calls/day</span>
-      </div>
-      <div class="connect-snippet-wrap">
-        <pre class="connect-snippet" id="connectSnippet">{
-  "mcpServers": {
-    "oneqaz": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://api.oneqaz.com/mcp"]
-    }
-  }
-}</pre>
-        <button class="connect-copy" type="button" data-copy-target="connectSnippet"
-                data-i18n="connect_copy">Copy config</button>
-      </div>
-      <div class="connect-url">
-        <span data-i18n="connect_url_label">Remote URL — Claude.ai / ChatGPT connectors, Cursor, VS Code:</span>
-        <code id="connectUrl">https://api.oneqaz.com/mcp</code>
-        <button class="connect-copy" type="button" data-copy-target="connectUrl"
-                data-i18n="connect_copy_url">Copy URL</button>
-      </div>
-    </div>
     <p class="hero-note" data-i18n="hero_note">Research information only — not investment advice. All performance figures come from paper trading. <a href="https://blog.oneqaz.com/en/methodology/">How the numbers are produced →</a></p>
   </div>
 </section>
@@ -568,6 +583,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
       <div class="section-label" data-i18n="arch_label">OneQAZ's Perspective</div>
       <h2 class="section-title" data-i18n="arch_title">From the big picture to a single stock</h2>
       <div class="section-desc" data-i18n="arch_desc">The global macro regime and market structure are read by two independent loops running in parallel. They meet each symbol's own signal only at decision time — and every prediction is written down before the outcome is known.</div>
+      <p class="arch-poem" data-i18n="hero_desc">The whole lives in the part,<br>and the part embraces the whole.<br>Macro currents flow into small details,<br>and small details reflect the greater tide.<br>— In a single glance, see it all.</p>
     </div>
     <div class="arch-visual reveal">
       <!-- Inputs -->
@@ -614,28 +630,28 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
       <div class="section-desc" data-i18n="verify_desc">OneQAZ doesn't sell buy/sell calls. It publishes timestamped judgments and calibrated probabilities — hits and misses alike — in a record that can't be quietly rewritten afterwards.</div>
     </div>
     <div class="content-grid reveal">
-      <a class="content-card" href="https://api.oneqaz.com/ledger" target="_blank" rel="noopener">
-        <div class="cc-head"><span class="cc-name" data-i18n="verify_ledger">Prediction Ledger</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://api.oneqaz.com/ledger">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_ledger">Prediction Ledger</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="verify_ledger_desc">A daily SHA-256 hash chain over every created and resolved prediction, with the recipe published so anyone can recompute it.</span>
         <span class="cc-tag" data-i18n="verify_ledger_tag">Hash Chain</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/en/anchors/" target="_blank" rel="noopener" data-blog-path="anchors/">
-        <div class="cc-head"><span class="cc-name" data-i18n="verify_anchors">Ledger Anchors</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/en/anchors/" data-blog-path="anchors/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_anchors">Ledger Anchors</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="verify_anchors_desc">Public anchors of the hash chain, timestamped to the Bitcoin blockchain with OpenTimestamps.</span>
         <span class="cc-tag" data-i18n="verify_anchors_tag">OpenTimestamps</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/en/track-record/all-time/" target="_blank" rel="noopener" data-blog-path="track-record/all-time/">
-        <div class="cc-head"><span class="cc-name" data-i18n="verify_alltime">All-time Record</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/en/track-record/all-time/" data-blog-path="track-record/all-time/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_alltime">All-time Record</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="verify_alltime_desc">Every closed paper trade since public attestation began — win rate, win/loss ratio and profit factor, losing stretches included.</span>
         <span class="cc-tag" data-i18n="verify_alltime_tag">Paper Trading</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/en/methodology/" target="_blank" rel="noopener" data-blog-path="methodology/">
-        <div class="cc-head"><span class="cc-name" data-i18n="verify_method">Methodology</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/en/methodology/" data-blog-path="methodology/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_method">Methodology</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="verify_method_desc">How fills, fees and reporting windows are modeled — including the assumptions that flatter the numbers.</span>
         <span class="cc-tag" data-i18n="verify_method_tag">Assumptions</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/en/corrections/" target="_blank" rel="noopener" data-blog-path="corrections/">
-        <div class="cc-head"><span class="cc-name" data-i18n="verify_corr">Corrections</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/en/corrections/" data-blog-path="corrections/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_corr">Corrections</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="verify_corr_desc">Defects we found in our own record, and how they were fixed — disclosed in public.</span>
         <span class="cc-tag" data-i18n="verify_corr_tag">Disclosure</span>
       </a>
@@ -643,6 +659,56 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
     <div class="verify-tools reveal">
       <span data-i18n="verify_tools">AI agents can run the same checks over MCP:</span>
       <code>get_ledger_integrity</code> <code>get_resolved_predictions</code> <code>get_prediction_accuracy</code>
+    </div>
+  </div>
+</div>
+
+<div class="divider">─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
+
+<!-- Connect — for AI agents: what you can ask (mapped to real tools) + how to connect -->
+<div class="chat-section" id="connect">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" data-i18n="connect_section_label">For AI agents</div>
+      <h2 class="section-title" data-i18n="connect_title">Connect once, then just ask</h2>
+      <div class="section-desc" data-i18n="connect_desc">OneQAZ is a remote MCP server. Add it once to Claude, ChatGPT, Cursor or VS Code — no API key on the free tier (1,500 calls/day) — and ask in plain language. Every answer carries a research-only disclaimer.</div>
+    </div>
+    <div class="ask-grid reveal">
+      <div class="ask-card"><span class="ask-q" data-i18n="ask1_q">“How’s the market today?”</span><span class="ask-what" data-i18n="ask1_a">Regime, the strongest signals and yesterday’s paper-trading outcomes in one call.</span><span class="ask-tools"><code>get_daily_brief</code></span></div>
+      <div class="ask-card"><span class="ask-q" data-i18n="ask2_q">“What does OneQAZ make of BTC?”</span><span class="ask-what" data-i18n="ask2_a">The research signal and score for a symbol, and why the system decided what it did.</span><span class="ask-tools"><code>get_signals</code> <code>explain_decision</code></span></div>
+      <div class="ask-card"><span class="ask-q" data-i18n="ask3_q">“Is the macro backdrop risk-on or risk-off?”</span><span class="ask-what" data-i18n="ask3_a">Eight macro categories and the macro → market hypotheses, with their lags.</span><span class="ask-tools"><code>market://global/summary</code> <code>get_macro_influence_map</code></span></div>
+      <div class="ask-card"><span class="ask-q" data-i18n="ask4_q">“What are you holding, and how did it go?”</span><span class="ask-what" data-i18n="ask4_a">Open paper positions, closed trades, drawdown and Sharpe — losses included, before fees.</span><span class="ask-tools"><code>get_positions</code> <code>get_trade_history</code> <code>get_performance_metrics</code></span></div>
+      <div class="ask-card"><span class="ask-q" data-i18n="ask5_q">“How accurate are your predictions?”</span><span class="ask-what" data-i18n="ask5_a">Hit rates against persistence and majority-class baselines, and whether stated confidence matches reality.</span><span class="ask-tools"><code>get_prediction_accuracy</code> <code>get_signal_calibration</code></span></div>
+      <div class="ask-card"><span class="ask-q" data-i18n="ask6_q">“How do I know it wasn’t edited later?”</span><span class="ask-what" data-i18n="ask6_a">A daily SHA-256 chain over the prediction ledger, plus the raw rows to recompute it yourself.</span><span class="ask-tools"><code>get_ledger_integrity</code> <code>get_resolved_predictions</code></span></div>
+    </div>
+    <div class="connect-card reveal">
+      <div class="connect-head">
+        <span class="connect-label" data-i18n="connect_label">Connect via MCP</span>
+        <span class="connect-meta" data-i18n="connect_meta">Claude Desktop config · no API key · free 1,500 calls/day</span>
+      </div>
+      <div class="connect-snippet-wrap">
+        <pre class="connect-snippet" id="connectSnippet">{
+  "mcpServers": {
+    "oneqaz": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://api.oneqaz.com/mcp"]
+    }
+  }
+}</pre>
+        <button class="connect-copy" type="button" data-copy-target="connectSnippet"
+                data-i18n="connect_copy">Copy config</button>
+      </div>
+      <div class="connect-url">
+        <span data-i18n="connect_url_label">Remote URL — Claude.ai / ChatGPT connectors, Cursor, VS Code:</span>
+        <code id="connectUrl">https://api.oneqaz.com/mcp</code>
+        <button class="connect-copy" type="button" data-copy-target="connectUrl"
+                data-i18n="connect_copy_url">Copy URL</button>
+      </div>
+    </div>
+    <div class="connect-links reveal">
+      <a href="https://api.oneqaz.com/pricing" data-xlang data-i18n="connect_link_pricing">Pricing &amp; limits →</a>
+      <a href="https://api.oneqaz.com/keys" data-xlang data-i18n="connect_link_keys">API keys (Pro) →</a>
+      <a href="https://github.com/oneqaz-trading/oneqaz-trading-mcp#quick-start" target="_blank" rel="noopener" data-i18n="connect_link_selfhost">Self-host with pip ↗</a>
     </div>
   </div>
 </div>
@@ -666,7 +732,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
       <div class="status-item"><div class="status-dot active"></div><div class="status-name" data-i18n="st_blog">Daily Blog & YouTube 24/7 Stream</div><div class="status-badge active">ACTIVE</div></div>
       <div class="status-item"><div class="status-dot planned"></div><div class="status-name" data-i18n="st_real">Real-money trading</div><div class="status-badge planned">OFF</div></div>
     </div>
-    <div class="status-foot reveal" data-i18n="status_foot">Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health" target="_blank" rel="noopener">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.</div>
+    <div class="status-foot reveal" data-i18n="status_foot">Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.</div>
   </div>
 </div>
 
@@ -681,28 +747,28 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
       <div class="section-desc" data-i18n="content_desc">Trading journals and market analysis, auto-published every day — readable, citable, and built for AI to learn from.</div>
     </div>
     <div class="content-grid reveal">
-      <a class="content-card" href="https://blog.oneqaz.com/track-record/" target="_blank" rel="noopener" data-blog-path="track-record/">
-        <div class="cc-head"><span class="cc-name" data-i18n="content_track">Track Record</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/track-record/" data-blog-path="track-record/">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_track">Track Record</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="content_track_desc">Verified prediction accuracy — the evidence behind every call.</span>
         <span class="cc-tag" data-i18n="content_track_tag">Verified</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/market/" target="_blank" rel="noopener" data-blog-path="market/">
-        <div class="cc-head"><span class="cc-name" data-i18n="content_market">Market</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/market/" data-blog-path="market/">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_market">Market</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="content_market_desc">Daily regime reads across macro, equities, and crypto.</span>
         <span class="cc-tag" data-i18n="content_market_tag">Market Wire</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/journal/" target="_blank" rel="noopener" data-blog-path="journal/">
-        <div class="cc-head"><span class="cc-name" data-i18n="content_journal">Journal</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/journal/" data-blog-path="journal/">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_journal">Journal</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="content_journal_desc">Every trade, every day — what the system did and why.</span>
         <span class="cc-tag" data-i18n="content_journal_tag">Trading Log</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/spotlight/" target="_blank" rel="noopener" data-blog-path="spotlight/">
-        <div class="cc-head"><span class="cc-name" data-i18n="content_spotlight">Spotlight</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/spotlight/" data-blog-path="spotlight/">
+        <div class="cc-head"><span class="cc-name" data-i18n="content_spotlight">Spotlight</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="content_spotlight_desc">Weekly volume-surge screen — names drawing unusual attention.</span>
         <span class="cc-tag" data-i18n="content_spotlight_tag">Volume Surge</span>
       </a>
-      <a class="content-card" href="https://blog.oneqaz.com/about" target="_blank" rel="noopener" data-blog-path="about" data-blog-single>
-        <div class="cc-head"><span class="cc-name" data-i18n="content_about">About</span><span class="cc-arrow">↗</span></div>
+      <a class="content-card" href="https://blog.oneqaz.com/about" data-blog-path="about" data-blog-single>
+        <div class="cc-head"><span class="cc-name" data-i18n="content_about">About</span><span class="cc-arrow">→</span></div>
         <span class="cc-desc" data-i18n="content_about_desc">What OneQAZ is and how the system works.</span>
         <span class="cc-tag" data-i18n="content_about_tag">Overview</span>
       </a>
@@ -710,33 +776,155 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
   </div>
 </div>
 
-<footer>
-  <div class="container">
-    <div class="footer-links">
-      <a href="https://github.com/oneqaz-trading/oneqaz-trading-mcp" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://pypi.org/project/oneqaz-trading-mcp/" target="_blank" rel="noopener">PyPI</a>
-      <a href="https://api.oneqaz.com/pricing" target="_blank" rel="noopener" data-i18n="footer_pricing">Pricing</a>
-      <a href="https://blog.oneqaz.com/en/methodology/" target="_blank" rel="noopener" data-blog-path="methodology/" data-i18n="footer_method">Methodology</a>
-      <a href="https://blog.oneqaz.com/en/rss.xml" target="_blank" rel="noopener" data-blog-path="rss.xml">RSS</a>
-      <a href="/privacy" data-i18n="footer_privacy">Privacy</a>
-      <a href="/terms" data-i18n="footer_terms">Terms</a>
-      <a href="mailto:contact@oneqaz.com" data-i18n="footer_contact">Contact</a>
+<!-- oqz:chrome-footer v1 — identical on every oneqaz.com / api.oneqaz.com page -->
+<footer class="oqz-footer">
+  <div class="oqz-footer-grid">
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Product</span><span data-l="ko">제품</span></p>
+      <ul>
+        <li><a href="https://oneqaz.com/#connect" data-anchor="connect" data-xlang><span data-l="en">Connect via MCP</span><span data-l="ko">MCP로 연결</span></a></li>
+        <li><a href="https://api.oneqaz.com/pricing" data-xlang><span data-l="en">Pricing &amp; limits</span><span data-l="ko">요금·호출 한도</span></a></li>
+        <li><a href="https://api.oneqaz.com/keys" data-xlang><span data-l="en">API keys</span><span data-l="ko">API 키</span></a></li>
+        <li><a href="https://oneqaz.com/#status" data-anchor="status" data-xlang><span data-l="en">System status</span><span data-l="ko">시스템 상태</span></a></li>
+      </ul>
     </div>
-    <p class="footer-disclaimer" data-i18n="footer_disclaimer">Research information only — not investment advice. OneQAZ outputs are paper-trading research signals (simulated fills, no fees or taxes); past simulated performance does not predict future real-money returns.</p>
-    <div class="footer-copy">&copy; 2026 OneQAZ. All rights reserved.</div>
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Evidence</span><span data-l="ko">근거</span></p>
+      <ul>
+        <li><a href="https://blog.oneqaz.com/en/track-record/all-time/" data-blog-path="track-record/all-time/"><span data-l="en">All-time record</span><span data-l="ko">전체 기간 성적</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/methodology/" data-blog-path="methodology/"><span data-l="en">Methodology</span><span data-l="ko">방법론</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/corrections/" data-blog-path="corrections/"><span data-l="en">Corrections</span><span data-l="ko">정정 기록</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/anchors/" data-blog-path="anchors/"><span data-l="en">Ledger anchors</span><span data-l="ko">원장 앵커</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Read &amp; watch</span><span data-l="ko">읽기·보기</span></p>
+      <ul>
+        <li><a href="https://blog.oneqaz.com/en/" data-blog-path=""><span data-l="en">Daily Reads</span><span data-l="ko">데일리 리포트</span></a></li>
+        <li><a href="https://blog.oneqaz.com/en/rss.xml" data-blog-path="rss.xml">RSS</a></li>
+        <li><a href="https://www.youtube.com/@OneQAZ2026/live" target="_blank" rel="noopener"><span data-l="en">YouTube live ↗</span><span data-l="ko">유튜브 라이브 ↗</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="oqz-footer-h"><span data-l="en">Developers &amp; legal</span><span data-l="ko">개발자·약관</span></p>
+      <ul>
+        <li><a href="https://github.com/oneqaz-trading/oneqaz-trading-mcp" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://pypi.org/project/oneqaz-trading-mcp/" target="_blank" rel="noopener">PyPI ↗</a></li>
+        <li><a href="https://oneqaz.com/privacy" data-xlang><span data-l="en">Privacy</span><span data-l="ko">개인정보처리방침</span></a></li>
+        <li><a href="https://oneqaz.com/terms" data-xlang><span data-l="en">Terms</span><span data-l="ko">이용약관</span></a></li>
+        <li><a href="mailto:contact@oneqaz.com"><span data-l="en">Contact</span><span data-l="ko">문의</span></a></li>
+      </ul>
+    </div>
   </div>
+  <p class="oqz-footer-disc"><span data-l="en">Research information only — not investment advice. OneQAZ outputs are paper-trading research signals (simulated fills, no fees or taxes); past simulated performance does not predict future real-money returns.</span><span data-l="ko">연구용 정보이며 투자 자문이 아닙니다. OneQAZ의 산출물은 가상매매 기반 연구 시그널(시뮬레이션 체결, 수수료·세금 미반영)이며, 과거 시뮬레이션 성과는 미래의 실계좌 수익을 보장하지 않습니다.</span></p>
+  <p class="oqz-footer-copy">&copy; 2026 OneQAZ. All rights reserved.</p>
 </footer>
+<!-- /oqz:chrome-footer -->
+<script>
+/* oqz:chrome-js v1 — shared header/footer behaviour, identical on every page. No backslashes. */
+(function () {
+  var doc = document, root = doc.documentElement;
+  var header = doc.getElementById('oqzHeader');
+  if (!header) return;
+  var btn = header.querySelector('.oqz-menu-btn');
+  var BLOG = 'https://blog.oneqaz.com/';
+  var onHome = !!doc.getElementById('hero');
+
+  function setOpen(open) {
+    header.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!header.classList.contains('open')); });
+  doc.addEventListener('click', function (e) { if (!header.contains(e.target)) setOpen(false); });
+  doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 860) setOpen(false); });
+  header.querySelector('.oqz-menu').addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('a')) setOpen(false);
+  });
+
+  function lang() { return root.getAttribute('data-lang') === 'ko' ? 'ko' : 'en'; }
+
+  // Links to other OneQAZ pages carry the language (?lang=); blog links follow its /en/ mirror.
+  function syncLinks() {
+    var l = lang(), i, a, base, cut, path, hash;
+    var xs = doc.querySelectorAll('a[data-xlang]');
+    for (i = 0; i < xs.length; i++) {
+      a = xs[i];
+      if (!a.getAttribute('data-href')) a.setAttribute('data-href', a.getAttribute('href'));
+      base = a.getAttribute('data-href');
+      cut = base.indexOf('#');
+      path = cut < 0 ? base : base.slice(0, cut);
+      hash = cut < 0 ? '' : base.slice(cut);
+      a.setAttribute('href', path + (path.indexOf('?') < 0 ? '?' : '&') + 'lang=' + l + hash);
+    }
+    var bs = doc.querySelectorAll('a[data-blog-path]');
+    for (i = 0; i < bs.length; i++) {
+      a = bs[i];
+      a.setAttribute('href', BLOG + (l === 'en' && !a.hasAttribute('data-blog-single') ? 'en/' : '') + a.getAttribute('data-blog-path'));
+    }
+    var en = doc.getElementById('langEn'), ko = doc.getElementById('langKo');
+    if (en) { en.classList.toggle('active', l === 'en'); en.setAttribute('aria-pressed', l === 'en' ? 'true' : 'false'); }
+    if (ko) { ko.classList.toggle('active', l === 'ko'); ko.setAttribute('aria-pressed', l === 'ko' ? 'true' : 'false'); }
+  }
+  syncLinks();
+  if (window.MutationObserver) new MutationObserver(syncLinks).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+
+  // Home page: section links scroll in place (no reload, no new tab).
+  var anchors = doc.querySelectorAll('a[data-anchor]');
+  for (var k = 0; k < anchors.length; k++) {
+    anchors[k].addEventListener('click', function (e) {
+      if (!onHome) return;
+      var id = this.getAttribute('data-anchor'), el = doc.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      setOpen(false);
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (id === 'hero') window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      try { history.replaceState(null, '', id === 'hero' ? location.pathname + location.search : '#' + id); } catch (err) {}
+    });
+  }
+
+  // Current page / current section.
+  function norm(p) { return (p || '/').replace(/[.]html$/, '').replace(/[/]+$/, '') || '/'; }
+  var here = norm(location.pathname);
+  var all = doc.querySelectorAll('.oqz-header a, .oqz-footer a');
+  for (var m = 0; m < all.length; m++) {
+    var link = all[m];
+    if (link.hasAttribute('data-anchor') || link.target === '_blank') continue;
+    try {
+      var u = new URL(link.getAttribute('data-href') || link.href, location.href);
+      var sameSite = /(^|[.])oneqaz[.]com$/.test(u.hostname) || u.hostname === location.hostname;
+      if (sameSite && u.hostname.indexOf('blog.') !== 0 && norm(u.pathname) === here && here !== '/') link.setAttribute('aria-current', 'page');
+    } catch (err) {}
+  }
+  if (onHome && 'IntersectionObserver' in window) {
+    var navLinks = header.querySelectorAll('.oqz-menu a[data-anchor]');
+    var mark = function (id) {
+      for (var n = 0; n < navLinks.length; n++) {
+        if (navLinks[n].getAttribute('data-anchor') === id) navLinks[n].setAttribute('aria-current', 'location');
+        else navLinks[n].removeAttribute('aria-current');
+      }
+    };
+    var spy = new IntersectionObserver(function (entries) {
+      for (var q = 0; q < entries.length; q++) if (entries[q].isIntersecting) mark(entries[q].target.id);
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['hero', 'team', 'chat', 'flow', 'verify', 'connect', 'status', 'content'].forEach(function (id) {
+      var el = doc.getElementById(id);
+      if (el) spy.observe(el);
+    });
+  }
+
+  function onScroll() { header.classList.toggle('scrolled', (window.pageYOffset || root.scrollTop) > 12); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 
 <!-- Non-module: loading, typing, scroll, reveal, counters -->
 <script>
 // ═══ i18n ═══
 const I18N = {
-  nav_hero:     { en: 'OneQAZ', ko: 'OneQAZ' },
-  nav_team:     { en: 'Team', ko: '팀' },
-  nav_flow:     { en: 'Flow', ko: '구조' },
-  nav_verify:   { en: 'Verify', ko: '검증' },
-  nav_status:   { en: 'Status', ko: '상태' },
-  nav_blog:     { en: 'Daily Reads ↗', ko: '데일리 리포트 ↗' },
   hero_desc: {
     en: 'The whole lives in the part,\nand the part embraces the whole.\nMacro currents flow into small details,\nand small details reflect the greater tide.\n— In a single glance, see it all.',
     ko: '전체는 부분에 깃들고,\n부분은 다시 전체를 품는다.\n큰 흐름은 작은 결로 스며들고,\n작은 결은 다시 큰 흐름을 비춘다.\n— 한 번의 시선으로, 전체를 본다.'
@@ -746,14 +934,36 @@ const I18N = {
     ko: 'OneQAZ는 거시 레짐과 시장 구조, 그리고 코인·국내·미국 1,300여 종목을 24시간 읽습니다. 예측은 결과가 나오기 전에 타임스탬프와 함께 기록되고 하루 단위로 SHA-256 해시체인에 봉인되어, 사람도 AI 에이전트도 그 기록을 직접 검증할 수 있습니다.'
   },
   hero_note: {
-    en: 'Research information only — not investment advice. All performance figures come from paper trading. <a href="https://blog.oneqaz.com/en/methodology/" target="_blank" rel="noopener">How the numbers are produced →</a>',
-    ko: '연구용 정보이며 투자 자문이 아닙니다. 모든 성과 수치는 가상매매 기준입니다. <a href="https://blog.oneqaz.com/methodology/" target="_blank" rel="noopener">수치 산출 방식 →</a>'
+    en: 'Research information only — not investment advice. All performance figures come from paper trading. <a href="https://blog.oneqaz.com/en/methodology/">How the numbers are produced →</a>',
+    ko: '연구용 정보이며 투자 자문이 아닙니다. 모든 성과 수치는 가상매매 기준입니다. <a href="https://blog.oneqaz.com/methodology/">수치 산출 방식 →</a>'
   },
-  cta_github_tag:  { en: 'Source Code', ko: '소스 코드' },
-  cta_start:       { en: 'Get Started', ko: '시작하기' },
-  cta_start_tag:   { en: 'Quick start', ko: '빠른 시작' },
-  cta_pricing:     { en: 'API &amp; Pricing', ko: 'API · 요금' },
-  cta_pricing_tag: { en: 'Free tier live', ko: '무료 티어 운영 중' },
+  hero_title:      { en: 'Verifiable market intelligence\nfor AI agents', ko: 'AI 에이전트를 위한\n검증 가능한 시장 인텔리전스' },
+  cta_connect:     { en: 'Connect via MCP', ko: 'MCP로 연결' },
+  cta_connect_tag: { en: 'No API key', ko: 'API 키 불필요' },
+  cta_verify:      { en: 'Check the record', ko: '기록 확인하기' },
+  cta_verify_tag:  { en: 'Ledger · track record', ko: '원장 · 트랙 레코드' },
+  // Connect — for AI agents
+  connect_section_label: { en: 'For AI agents', ko: 'AI 에이전트용' },
+  connect_title:   { en: 'Connect once, then just ask', ko: '한 번 연결하고, 그냥 물어보세요' },
+  connect_desc: {
+    en: 'OneQAZ is a remote MCP server. Add it once to Claude, ChatGPT, Cursor or VS Code — no API key on the free tier (1,500 calls/day) — and ask in plain language. Every answer carries a research-only disclaimer.',
+    ko: 'OneQAZ는 원격 MCP 서버입니다. Claude·ChatGPT·Cursor·VS Code에 한 번 추가하면(무료 티어는 API 키 없이 하루 1,500회) 평소 말투로 물어보면 됩니다. 모든 답변에는 연구용 정보라는 면책 문구가 붙습니다.'
+  },
+  ask1_q: { en: '“How’s the market today?”', ko: '“오늘 장 어때?”' },
+  ask1_a: { en: 'Regime, the strongest signals and yesterday’s paper-trading outcomes in one call.', ko: '레짐, 가장 강한 시그널, 어제 가상매매 결과를 한 번에.' },
+  ask2_q: { en: '“What does OneQAZ make of BTC?”', ko: '“BTC는 어떻게 보고 있어?”' },
+  ask2_a: { en: 'The research signal and score for a symbol, and why the system decided what it did.', ko: '종목별 연구 시그널과 점수, 그리고 시스템이 그렇게 판단한 이유.' },
+  ask3_q: { en: '“Is the macro backdrop risk-on or risk-off?”', ko: '“지금 거시 환경은 리스크온이야, 리스크오프야?”' },
+  ask3_a: { en: 'Eight macro categories and the macro → market hypotheses, with their lags.', ko: '8개 거시 카테고리와 거시 → 시장 가설, 그리고 그 시차.' },
+  ask4_q: { en: '“What are you holding, and how did it go?”', ko: '“지금 뭘 들고 있고, 성과는 어땠어?”' },
+  ask4_a: { en: 'Open paper positions, closed trades, drawdown and Sharpe — losses included, before fees.', ko: '가상 포지션, 청산 내역, 낙폭과 샤프 — 손실 포함, 수수료 반영 전.' },
+  ask5_q: { en: '“How accurate are your predictions?”', ko: '“예측 얼마나 잘 맞아?”' },
+  ask5_a: { en: 'Hit rates against persistence and majority-class baselines, and whether stated confidence matches reality.', ko: 'persistence·다수결 기준선 대비 적중률과, 제시한 신뢰도가 실제와 맞는지.' },
+  ask6_q: { en: '“How do I know it wasn’t edited later?”', ko: '“나중에 고친 게 아니라는 걸 어떻게 알아?”' },
+  ask6_a: { en: 'A daily SHA-256 chain over the prediction ledger, plus the raw rows to recompute it yourself.', ko: '예측 원장에 대한 일별 SHA-256 체인과, 직접 재계산할 수 있는 원본 행.' },
+  connect_link_pricing:  { en: 'Pricing &amp; limits →', ko: '요금·호출 한도 →' },
+  connect_link_keys:     { en: 'API keys (Pro) →', ko: 'API 키(Pro) →' },
+  connect_link_selfhost: { en: 'Self-host with pip ↗', ko: 'pip로 직접 설치 ↗' },
   chat_label:   { en: 'Meet the Team', ko: '팀을 소개합니다' },
   chat_title:   { en: 'They never stop talking about markets', ko: '이 친구들, 시장 얘기를 멈출 줄 몰라요' },
   chat_online:  { en: '— 8 agents online', ko: '— 에이전트 8명 접속 중' },
@@ -819,8 +1029,8 @@ const I18N = {
   st_blog:      { en: 'Daily Blog &amp; YouTube 24/7 Stream', ko: '데일리 블로그 · 유튜브 24시간 방송' },
   st_real:      { en: 'Real-money trading', ko: '실계좌 매매' },
   status_foot: {
-    en: 'Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health" target="_blank" rel="noopener">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.',
-    ko: '● live 표시 항목은 60초마다 <a href="https://api.oneqaz.com/health" target="_blank" rel="noopener">api.oneqaz.com/health</a>로 다시 확인합니다. OneQAZ가 공개하는 모든 수치는 가상매매 기준입니다.'
+    en: 'Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.',
+    ko: '● live 표시 항목은 60초마다 <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a>로 다시 확인합니다. OneQAZ가 공개하는 모든 수치는 가상매매 기준입니다.'
   },
   // Content link cards → blog.oneqaz.com
   content_label:        { en: 'Content', ko: '콘텐츠' },
@@ -855,16 +1065,6 @@ const I18N = {
   connect_copy_url:   { en: 'Copy URL',           ko: 'URL 복사' },
   connect_copy_done:  { en: 'Copied ✓',           ko: '복사됨 ✓' },
   connect_copy_fail:  { en: 'Failed',             ko: '실패' },
-  // Footer
-  footer_pricing:     { en: 'Pricing',            ko: '요금' },
-  footer_method:      { en: 'Methodology',        ko: '방법론' },
-  footer_privacy:     { en: 'Privacy',            ko: '개인정보처리방침' },
-  footer_terms:       { en: 'Terms',              ko: '이용약관' },
-  footer_contact:     { en: 'Contact',            ko: '문의' },
-  footer_disclaimer: {
-    en: 'Research information only — not investment advice. OneQAZ outputs are paper-trading research signals (simulated fills, no fees or taxes); past simulated performance does not predict future real-money returns.',
-    ko: '연구용 정보이며 투자 자문이 아닙니다. OneQAZ의 산출물은 가상매매 기반 연구 시그널(시뮬레이션 체결, 수수료·세금 미반영)이며, 과거 시뮬레이션 성과는 미래의 실계좌 수익을 보장하지 않습니다.'
-  },
 };
 
 const HERO_TEXT = {
@@ -892,7 +1092,7 @@ function lsSet(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function t(key){ const e = I18N[key]; return e ? (e[currentLang] || e.en) : key; }
 
-let currentLang = lsGet('oqz-lang') || ((navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en');
+let currentLang = ((location.search.match(/[?&]lang=(en|ko)/) || [])[1]) || lsGet('oqz-lang') || ((navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en');
 
 // ═══ Blog links — blog.oneqaz.com has a full /en/ mirror (home, categories, rss).
 //     data-blog-path='' → home, 'journal/' → category, 'rss.xml' → feed.
@@ -972,8 +1172,7 @@ function runHeroTyping(){
 setTimeout(runHeroTyping, 1000);
 
 // ═══ Scroll progress ═══
-const navEl=document.querySelector('nav');
-window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressFill').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';navEl.classList.toggle('scrolled',h.scrollTop>40)},{passive:true});
+window.addEventListener('scroll',()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;document.getElementById('progressFill').style.width=(max>0?h.scrollTop/max*100:0)+'%'},{passive:true});
 
 // ═══ Reveal ═══
 const revealObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target)}})},{threshold:.12});
@@ -989,7 +1188,7 @@ if (!REDUCED_MOTION) document.querySelectorAll('.stat-value[data-target]').forEa
 const CHARS = {
   orchestrator: { nick:{en:'!QAZ',ko:'!QAZ'},        color:'#ef4444', role:{en:'Orchestrator',ko:'오케스트레이터'},        img:'images/opt/orchestrator.webp' },
   crypto:       { nick:{en:'Bengal',ko:'벵갈'},      color:'#F59E0B', role:{en:'Crypto',ko:'코인'},                       img:'images/opt/crypto.webp' },
-  kr_stock:     { nick:{en:'Koshort',ko:'코숏'},     color:'#FB923C', role:{en:'KR Stocks',ko:'국내 주식'},               img:'images/opt/kr_stock.webp' },
+  kr_stock:     { nick:{en:'Kosho',ko:'코숏'},     color:'#FB923C', role:{en:'KR Stocks',ko:'국내 주식'},               img:'images/opt/kr_stock.webp' },
   us_stock:     { nick:{en:'Maine',ko:'멘쿤'},       color:'#3B82F6', role:{en:'US Stocks',ko:'미국 주식'},               img:'images/opt/us_stock.webp' },
   commodity:    { nick:{en:'Noel',ko:'노웰'},        color:'#10B981', role:{en:'Commodity / Inflation',ko:'원자재/인플레'}, img:'images/opt/commodity.webp' },
   forex:        { nick:{en:'Siam',ko:'샤암'},        color:'#06B6D4', role:{en:'Forex / Liquidity',ko:'외환/유동성'},     img:'images/opt/forex.webp' },
@@ -1242,7 +1441,7 @@ const POOL = {
   ],
   // --- Cross-talk: agents responding to each other ---
   cross_talk: [
-    { who:'bond', en:'When credit spreads widen, I flag it to Maine and Koshort right away. <span class="hl" style="color:#6b9fc9">Macro sets the backdrop</span> — it doesn\'t overrule their own reads.', ko:'신용 스프레드가 벌어지면 멘쿤이랑 코숏한테 바로 알려. <span class="hl" style="color:#6b9fc9">매크로는 배경을 깔아줄 뿐</span>, 각자의 판단을 덮어쓰진 않아.' },
+    { who:'bond', en:'When credit spreads widen, I flag it to Maine and Kosho right away. <span class="hl" style="color:#6b9fc9">Macro sets the backdrop</span> — it doesn\'t overrule their own reads.', ko:'신용 스프레드가 벌어지면 멘쿤이랑 코숏한테 바로 알려. <span class="hl" style="color:#6b9fc9">매크로는 배경을 깔아줄 뿐</span>, 각자의 판단을 덮어쓰진 않아.' },
     { who:'us_stock', en:'And when Brit flags a risk-off shift, I weigh it in at decision time. That\'s why <span class="hl" style="color:#3B82F6">we work as a team</span>, not in silos.', ko:'브숏이 risk-off 전환을 알리면 판단할 때 그걸 반영해. 그래서 <span class="hl" style="color:#3B82F6">우리는 팀으로 일해</span>. 따로따로가 아니라.' },
     { who:'forex', en:'Same here. When I spot dollar strength, it ripples through everything — stocks, commodities, crypto. <span class="hl" style="color:#5cb85c">Everything is connected</span>.', ko:'나도 마찬가지야. 달러 강세가 보이면 주식, 원자재, 코인 전부에 파급돼. <span class="hl" style="color:#5cb85c">모든 건 연결돼 있어</span>.' },
     { who:'commodity', en:'Exactly. When oil spikes, I tell everyone — because it changes the <span class="hl" style="color:#10B981">inflation outlook</span> for every market we cover.', ko:'맞아. 원유가 급등하면 모두에게 알려. 왜냐면 우리가 커버하는 모든 시장의 <span class="hl" style="color:#10B981">인플레이션 전망</span>이 바뀌거든.' },
