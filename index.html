@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-lang="en">
+<html lang="en" data-lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,8 @@
 <meta name="description" content="OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols 24/7, and records its predictions in a timestamped, hash-chained ledger that AI agents can verify over MCP. Research information only — not investment advice.">
 <link rel="canonical" href="https://oneqaz.com/">
 <meta name="theme-color" content="#1c1c24">
-<link rel="icon" href="images/opt/favicon-64.png" type="image/png">
-<link rel="apple-touch-icon" href="images/opt/apple-touch-icon.png">
+<link rel="icon" href="https://oneqaz.com/images/opt/favicon-64.png" type="image/png">
+<link rel="apple-touch-icon" href="https://oneqaz.com/images/opt/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OneQAZ">
 <meta property="og:url" content="https://oneqaz.com/">
@@ -65,6 +65,8 @@
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=outfit:300,400,500,600,700|noto-sans-kr:300,400,500,700" rel="stylesheet">
 <style>
+/* oqz:tokens v1 — reset, color tokens (dark default + light), base, overlays. Identical on every page
+   (tests/validation/test_site_chrome_sync.py). Theme is chosen by the oqz:boot script. */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root,[data-theme="dark"]{
   --bg:#1c1c24;--panel-bg:#252530;--card-bg:#2a2a36;
@@ -96,6 +98,7 @@ body::before{
 }
 [data-theme="light"] body::before{opacity:0.08}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:2px}
+/* /oqz:tokens */
 
 .progress-bar{position:fixed;top:0;left:0;width:100%;height:2px;z-index:1000;background:var(--panel-bg)}
 .progress-bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--gold));transition:width .3s}
@@ -461,6 +464,27 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
 }
 /* /oqz:chrome-css */
 </style>
+<script>
+/* oqz:boot v1 — theme + language before first paint. Identical on every page. No backslashes.
+   Theme: follows the device (light/dark), live. Language: ?lang= link > saved choice > browser language > en. */
+(function () {
+  var root = document.documentElement, mq = null;
+  try { mq = window.matchMedia('(prefers-color-scheme: light)'); } catch (e) {}
+  function applyTheme() { root.setAttribute('data-theme', mq && mq.matches ? 'light' : 'dark'); }
+  applyTheme();
+  if (mq) {
+    try { mq.addEventListener('change', applyTheme); }
+    catch (e) { try { mq.addListener(applyTheme); } catch (e2) {} }
+  }
+  var m = location.search.match(/[?&]lang=(en|ko)/), saved = null;
+  try { saved = localStorage.getItem('oqz-lang'); } catch (e) {}
+  var browser = (navigator.language || '').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en';
+  var lang = (m && m[1]) || (saved === 'ko' || saved === 'en' ? saved : browser);
+  if (m) { try { localStorage.setItem('oqz-lang', lang); } catch (e) {} }
+  root.setAttribute('data-lang', lang);
+  root.lang = lang;
+})();
+</script>
 </head>
 <body>
 
@@ -1072,27 +1096,13 @@ const HERO_TEXT = {
   ko: 'AI가 시장을 읽는 동안,\n당신은 세상을 경험하러 떠나라.'
 };
 
-// ═══ Theme (follows device prefers-color-scheme) ═══
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-}
-
-function getSystemTheme() {
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-}
-
-applyTheme(getSystemTheme());
-window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
-  applyTheme(e.matches ? 'light' : 'dark');
-});
-
 // localStorage can throw (blocked site data / private mode) — never let that kill the page.
 function lsGet(k){ try { return window.localStorage.getItem(k); } catch(e){ return null; } }
 function lsSet(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function t(key){ const e = I18N[key]; return e ? (e[currentLang] || e.en) : key; }
 
-let currentLang = ((location.search.match(/[?&]lang=(en|ko)/) || [])[1]) || lsGet('oqz-lang') || ((navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en');
+let currentLang = document.documentElement.getAttribute('data-lang') === 'ko' ? 'ko' : 'en';  // chosen by oqz:boot
 
 // ═══ Blog links — blog.oneqaz.com has a full /en/ mirror (home, categories, rss).
 //     data-blog-path='' → home, 'journal/' → category, 'rss.xml' → feed.
