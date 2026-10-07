@@ -1,0 +1,29 @@
+# OneQAZ
+
+> OneQAZ (One Quorum Alpha Zero) is a 24/7 market-reading system for crypto (Bithumb), Korean (KOSPI 200 + KOSDAQ 150) and US (S&P 500) markets — about 1,300 symbols plus 40+ macro instruments. Its purpose is to be a verifiable record of judgment: predictions are written to a timestamped ledger before outcomes are known, hash-chained daily (SHA-256) and anchored publicly, then scored after the fact. Research information only — not investment advice. All performance figures come from paper trading.
+
+## Connect (AI agents)
+
+- [MCP server](https://api.oneqaz.com/mcp): remote MCP over streamable HTTP. No API key needed on the free tier (1,500 calls/day per IP). Start with `get_daily_brief`; to audit credibility call `get_ledger_integrity`, `get_resolved_predictions` and `get_prediction_accuracy`.
+- [Pricing & limits](https://api.oneqaz.com/pricing): free and pro tiers expose identical tools; tiers differ only in rate limits.
+- [Source & quick start](https://github.com/wnsod/oneqaz-trading-mcp): the server code that serves api.oneqaz.com/mcp (also on [PyPI](https://pypi.org/project/oneqaz-trading-mcp/)).
+- [Service health](https://api.oneqaz.com/health): live regime, signal freshness and open-prediction count (JSON).
+
+## Verify the record
+
+- [Prediction ledger hash chain](https://api.oneqaz.com/ledger): daily SHA-256 chain with the canonical recipe, recomputable by third parties (JSON).
+- [Ledger anchors](https://blog.oneqaz.com/en/anchors/): public anchors timestamped to the Bitcoin blockchain with OpenTimestamps.
+- [All-time track record](https://blog.oneqaz.com/en/track-record/all-time/): every closed paper trade since public attestation began (2026-06-16).
+- [Methodology](https://blog.oneqaz.com/en/methodology/): fill model, fees, reporting windows and known biases.
+- [Corrections](https://blog.oneqaz.com/en/corrections/): defects found in the record and how they were fixed.
+
+## Daily content
+
+- [Blog](https://blog.oneqaz.com/en/): auto-published market reads, trading journals, weekly track record and volume-surge spotlight (EN mirror; Korean at https://blog.oneqaz.com/).
+- [Live stream](https://www.youtube.com/@OneQAZ2026/live): 24/7 YouTube broadcast of the agent team.
+
+## Policies
+
+- [Privacy](https://oneqaz.com/privacy)
+- [Terms](https://oneqaz.com/terms)
+- Contact: contact@oneqaz.com

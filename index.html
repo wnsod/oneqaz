@@ -3,9 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OneQAZ — AI-Powered Market Intelligence</title>
-<meta name="description" content="From macro to individual stocks, AI infrastructure that reads market regimes">
-<link rel="icon" href="images/logo.png" type="image/png">
+<title>OneQAZ — Verifiable Market Intelligence for AI Agents</title>
+<meta name="description" content="OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols 24/7, and records its predictions in a timestamped, hash-chained ledger that AI agents can verify over MCP. Research information only — not investment advice.">
+<link rel="canonical" href="https://oneqaz.com/">
+<meta name="theme-color" content="#1c1c24">
+<link rel="icon" href="images/opt/favicon-64.png" type="image/png">
+<link rel="apple-touch-icon" href="images/opt/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OneQAZ">
+<meta property="og:url" content="https://oneqaz.com/">
+<meta property="og:title" content="OneQAZ — Verifiable Market Intelligence for AI Agents">
+<meta property="og:description" content="24/7 market reads across crypto, Korean and US stocks — every prediction timestamped and hash-chained, served to AI agents over MCP. Research information only.">
+<meta property="og:image" content="https://oneqaz.com/images/opt/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OneQAZ — Verifiable Market Intelligence for AI Agents">
+<meta name="twitter:description" content="24/7 market reads across crypto, Korean and US stocks — every prediction timestamped and hash-chained, served to AI agents over MCP.">
+<meta name="twitter:image" content="https://oneqaz.com/images/opt/og-image.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://oneqaz.com/#org",
+      "name": "OneQAZ",
+      "alternateName": "One Quorum Alpha Zero",
+      "url": "https://oneqaz.com/",
+      "logo": "https://oneqaz.com/images/opt/logo-128.png",
+      "email": "contact@oneqaz.com",
+      "sameAs": [
+        "https://github.com/wnsod/oneqaz-trading-mcp",
+        "https://pypi.org/project/oneqaz-trading-mcp/",
+        "https://blog.oneqaz.com/",
+        "https://www.youtube.com/@OneQAZ2026"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://oneqaz.com/#website",
+      "url": "https://oneqaz.com/",
+      "name": "OneQAZ",
+      "inLanguage": ["en", "ko"],
+      "publisher": { "@id": "https://oneqaz.com/#org" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "OneQAZ Trading Intelligence MCP Server",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any (remote MCP over HTTPS)",
+      "url": "https://api.oneqaz.com/mcp",
+      "downloadUrl": "https://pypi.org/project/oneqaz-trading-mcp/",
+      "description": "Remote MCP server exposing paper-trading research signals, market regimes and a hash-chained prediction ledger for crypto, Korean and US markets. Research information only — not investment advice.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://api.oneqaz.com/pricing" },
+      "publisher": { "@id": "https://oneqaz.com/#org" }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=outfit:300,400,500,600,700|noto-sans-kr:300,400,500,700" rel="stylesheet">
 <style>
@@ -41,7 +97,7 @@ body::before{
 [data-theme="light"] body::before{opacity:0.08}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:2px}
 
-.version-tag{position:fixed;top:12px;left:16px;z-index:100}
+.version-tag{position:fixed;top:12px;left:16px;z-index:101}
 .version-logo{width:28px;height:28px;filter:drop-shadow(0 0 6px rgba(212,168,83,0.3));opacity:.8;transition:opacity .2s}
 .version-logo:hover{opacity:1}
 .progress-bar{position:fixed;top:0;left:0;width:100%;height:2px;z-index:1000;background:var(--panel-bg)}
@@ -49,6 +105,8 @@ body::before{
 
 /* Nav + lang toggle */
 nav{position:fixed;top:0;right:0;z-index:100;padding:16px 24px;display:flex;gap:20px;align-items:center;font-size:12px}
+nav{transition:background .3s}
+nav.scrolled{background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);left:0;justify-content:flex-end}
 nav a{color:var(--text-muted);text-decoration:none;letter-spacing:1.5px;transition:color .2s;text-transform:uppercase;font-weight:500}
 nav a:hover{color:var(--amber)}
 /* nav CTA → blog (the content we want AI + people to find) */
@@ -238,7 +296,7 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 .status-badge.planned{color:var(--text-muted);border-color:var(--border)}
 
 /* Content link cards — gateway to blog.oneqaz.com (Mac mini publishes) */
-.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:28px}
+.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:16px;margin-top:28px}
 .content-card{display:flex;flex-direction:column;gap:8px;padding:22px 22px 20px;background:var(--panel-bg);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:transform .25s,box-shadow .3s,border-color .3s;position:relative}
 .content-card:hover{transform:translateY(-3px);border-color:rgba(212,168,83,0.4);box-shadow:0 0 20px rgba(212,168,83,0.12)}
 .content-card .cc-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -256,6 +314,51 @@ footer{padding:60px 0 40px;border-top:1px solid var(--border);text-align:center}
 .footer-links a:hover{color:var(--amber)}
 .footer-copy{font-size:11px;color:#4a4a5a;margin-bottom:16px}
 .footer-quote{font-size:14px;color:var(--gold);font-style:italic;max-width:480px;margin:0 auto;line-height:1.8;text-shadow:0 0 8px rgba(196,155,111,0.15)}
+
+/* Hero lead — plain-language "what is this" under the poem */
+.hero-lead{font-size:15px;color:var(--text);max-width:640px;margin:-24px 0 36px;line-height:1.8;font-weight:400;opacity:.9}
+.hero-note{margin-top:14px;font-size:11px;color:var(--text-muted);letter-spacing:.3px;line-height:1.7}
+.hero-note a{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
+.hero-note a:hover{color:var(--amber)}
+
+/* Connect card — remote URL row */
+.connect-url{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--text-muted);letter-spacing:.3px}
+.connect-url code{font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace;font-size:12px;color:var(--text);background:rgba(0,0,0,0.18);border:1px solid var(--border);border-radius:5px;padding:4px 8px}
+[data-theme="light"] .connect-url code{background:rgba(0,0,0,0.04)}
+.connect-url .connect-copy{position:static}
+
+/* Architecture — parallel overlays */
+.arch-node .sub{line-height:1.5}
+.arch-lane-note{font-size:11px;color:var(--text-muted);text-align:center;letter-spacing:.5px;margin:2px 0 0;opacity:.8}
+.arch-node.dashed{border-style:dashed;background:transparent;padding:12px 24px}
+.arch-node.dashed .label{font-size:13px;color:var(--text-muted)}
+.arch-arrows{margin:0}
+.arch-arrows .arch-arrow{height:30px}
+
+/* Verify — trust anchor section */
+.verify-tools{margin-top:22px;font-size:12px;color:var(--text-muted);line-height:2}
+.verify-tools code{font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace;font-size:11.5px;color:var(--text);background:var(--panel-bg);border:1px solid var(--border);border-radius:4px;padding:2px 7px;margin-right:4px;white-space:nowrap}
+
+/* Status — live-checked rows */
+.status-live{font-size:9px;letter-spacing:1px;color:var(--green);margin-left:8px;opacity:.8;text-transform:uppercase;font-weight:600}
+.status-detail{font-size:11px;color:var(--text-muted);margin-right:12px;font-variant-numeric:tabular-nums;text-align:right}
+.status-badge.delayed{color:var(--amber);border-color:rgba(212,168,83,0.4)}
+.status-badge.offline{color:var(--red);border-color:rgba(217,83,79,0.4)}
+.status-dot.delayed{background:var(--amber)}
+.status-dot.offline{background:var(--red)}
+.status-foot{margin-top:12px;font-size:11px;color:var(--text-muted);letter-spacing:.3px}
+.status-foot a{color:var(--text-muted)}
+@media(max-width:560px){.status-detail{display:none}}
+
+/* Footer disclaimer */
+.footer-disclaimer{font-size:11px;color:var(--text-muted);max-width:640px;margin:0 auto 14px;line-height:1.8;opacity:.85}
+
+/* Reduced motion — no float/idle/typing/scanline flicker */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .reveal{opacity:1;transform:none}
+}
 
 /* Light theme overrides */
 [data-theme="light"] .hero-brand-text{text-shadow:none}
@@ -306,7 +409,8 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
   .arch-node .label{font-size:11px;letter-spacing:.5px}
   .arch-node.wide{padding:16px 12px}
   .arch-output{grid-template-columns:repeat(2,1fr);gap:8px}
-  .arch-flow{padding:16px;font-size:11px}
+  .arch-node .sub{font-size:10px}
+  .arch-node.dashed{padding:10px 12px}
   .stats{grid-template-columns:repeat(2,1fr);gap:10px}
   .stat-value{font-size:26px}.stat{padding:16px 10px}
   .msg-avatar{width:28px;height:28px}
@@ -322,19 +426,19 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 <body>
 
 <div class="loader" id="loader">
-  <div class="loader-brand"><img src="images/logo.png" alt=""><span>OneQAZ</span></div>
+  <div class="loader-brand"><img src="images/opt/logo-128.webp" alt=""><span>OneQAZ</span></div>
   <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
   <div class="loader-pct" id="loaderPct">connecting...</div>
 </div>
 
 <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
-<div class="version-tag"><img src="images/logo.png" alt="OneQAZ" class="version-logo"></div>
+<div class="version-tag"><img src="images/opt/logo-128.webp" alt="OneQAZ" class="version-logo"></div>
 
 <nav>
   <a href="#hero" data-i18n="nav_hero">OneQAZ</a>
   <a href="#team" data-i18n="nav_team">Team</a>
-  <a href="#chat" data-i18n="nav_chat">Chat</a>
   <a href="#flow" data-i18n="nav_flow">Flow</a>
+  <a href="#verify" data-i18n="nav_verify">Verify</a>
   <a href="#status" data-i18n="nav_status">Status</a>
   <a href="https://blog.oneqaz.com/" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav_blog" data-blog-path="">Daily Reads ↗</a>
   <div class="lang-toggle">
@@ -347,16 +451,17 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 <section class="hero" id="hero">
   <div class="container">
     <div class="hero-brand">
-      <img src="images/logo.png" alt="OneQAZ" class="hero-logo">
+      <img src="images/opt/logo-128.webp" alt="OneQAZ" class="hero-logo">
       <div class="hero-brand-text">One Quorum Alpha Zero</div>
     </div>
-    <h1 class="hero-title"><span id="heroTyping"></span><span class="cursor"></span></h1>
-    <p class="hero-desc" data-i18n="hero_desc">The whole dwells in the part,<br>and the part embraces the whole.<br>Great currents seep into small textures,<br>and small textures mirror the greater flow.<br>— In a single glance, we see it all.</p>
+    <h1 class="hero-title"><span id="heroTyping">While AI reads the markets,<br>go experience the world.</span><span class="cursor"></span></h1>
+    <p class="hero-desc" data-i18n="hero_desc">The whole lives in the part,<br>and the part embraces the whole.<br>Macro currents flow into small details,<br>and small details reflect the greater tide.<br>— In a single glance, see it all.</p>
+    <p class="hero-lead" data-i18n="hero_lead">OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols around the clock — and writes its predictions into a timestamped, hash-chained ledger before the outcome is known, so people and AI agents can check the record for themselves.</p>
     <div class="hero-actions">
-      <a href="https://github.com/wnsod/oneqaz-trading-mcp" target="_blank" class="btn">GitHub<span class="btn-tag">Source Code</span></a>
-      <a href="https://github.com/wnsod/oneqaz-trading-mcp#quick-start" target="_blank" class="btn">Get Started<span class="btn-tag">pip install</span></a>
-      <a href="https://www.youtube.com/@OneQAZ2026/live" target="_blank" class="btn">▶ Live<span class="btn-tag">YouTube 24/7</span></a>
-      <a href="mailto:contact@oneqaz.com" class="btn btn-secondary" data-i18n="hero_cta2">Live API<span class="btn-tag">Coming Soon</span></a>
+      <a href="https://github.com/wnsod/oneqaz-trading-mcp" target="_blank" rel="noopener" class="btn">GitHub<span class="btn-tag" data-i18n="cta_github_tag">Source Code</span></a>
+      <a href="https://github.com/wnsod/oneqaz-trading-mcp#quick-start" target="_blank" rel="noopener" class="btn"><span data-i18n="cta_start">Get Started</span><span class="btn-tag" data-i18n="cta_start_tag">Quick start</span></a>
+      <a href="https://www.youtube.com/@OneQAZ2026/live" target="_blank" rel="noopener" class="btn">▶ Live<span class="btn-tag">YouTube 24/7</span></a>
+      <a href="https://api.oneqaz.com/pricing" target="_blank" rel="noopener" class="btn btn-secondary"><span data-i18n="cta_pricing">API &amp; Pricing</span><span class="btn-tag" data-i18n="cta_pricing_tag">Free tier live</span></a>
     </div>
 
     <!-- Live status — fed by GET https://api.oneqaz.com/health every 60s -->
@@ -369,11 +474,11 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
         <span class="live-strip-value amber" id="liveRegime">—</span>
       </div>
       <div class="live-strip-cell">
-        <span class="live-strip-label" data-i18n="live_signals">Signals 24h</span>
+        <span class="live-strip-label" data-i18n="live_signals">Signal updates 24h</span>
         <span class="live-strip-value" id="liveSignals">—</span>
       </div>
       <div class="live-strip-cell">
-        <span class="live-strip-label" data-i18n="live_predictions">Active Predictions</span>
+        <span class="live-strip-label" data-i18n="live_predictions">Open Predictions</span>
         <span class="live-strip-value" id="livePredictions">—</span>
       </div>
       <div class="live-strip-cell">
@@ -389,7 +494,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
     <div class="connect-card">
       <div class="connect-head">
         <span class="connect-label" data-i18n="connect_label">Connect via MCP</span>
-        <span class="connect-meta" data-i18n="connect_meta">Claude · Cursor · VSCode · ChatGPT</span>
+        <span class="connect-meta" data-i18n="connect_meta">Claude Desktop config · no API key · free 1,500 calls/day</span>
       </div>
       <div class="connect-snippet-wrap">
         <pre class="connect-snippet" id="connectSnippet">{
@@ -400,10 +505,17 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
     }
   }
 }</pre>
-        <button class="connect-copy" id="connectCopy" type="button"
+        <button class="connect-copy" type="button" data-copy-target="connectSnippet"
                 data-i18n="connect_copy">Copy config</button>
       </div>
+      <div class="connect-url">
+        <span data-i18n="connect_url_label">Remote URL — Claude.ai / ChatGPT connectors, Cursor, VS Code:</span>
+        <code id="connectUrl">https://api.oneqaz.com/mcp</code>
+        <button class="connect-copy" type="button" data-copy-target="connectUrl"
+                data-i18n="connect_copy_url">Copy URL</button>
+      </div>
     </div>
+    <p class="hero-note" data-i18n="hero_note">Research information only — not investment advice. All performance figures come from paper trading. <a href="https://blog.oneqaz.com/en/methodology/">How the numbers are produced →</a></p>
   </div>
 </section>
 
@@ -413,16 +525,16 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 <div class="chat-section" id="team">
   <div class="container">
     <div class="reveal">
-      <div class="section-label" data-i18n="agent_label">Agents</div>
-      <div class="section-title" data-i18n="agent_title">AI Agent Team</div>
-      <div class="section-desc" data-i18n="agent_desc">Dedicated character agents analyze each market 24/7.</div>
+      <div class="section-label" data-i18n="agent_label">OneQAZ Agents</div>
+      <h2 class="section-title" data-i18n="agent_title">AI agents for every market</h2>
+      <div class="section-desc" data-i18n="agent_desc">They read the movements of different markets and connect them into a single flow of judgment.</div>
     </div>
     <div class="char-grid reveal" id="charGrid"></div>
     <div class="stats reveal">
-      <div class="stat"><div class="stat-value" data-target="2500">0</div><div class="stat-label">Symbols</div></div>
-      <div class="stat"><div class="stat-value" data-target="8">0</div><div class="stat-label">Agents</div></div>
-      <div class="stat"><div class="stat-value" data-target="6">0</div><div class="stat-label">Asset Classes</div></div>
-      <div class="stat"><div class="stat-value" data-target="24">0</div><div class="stat-label">24/7</div></div>
+      <div class="stat"><div class="stat-value" data-target="1300" data-suffix="+">1,300+</div><div class="stat-label" data-i18n="stat_symbols">Symbols</div></div>
+      <div class="stat"><div class="stat-value" data-target="3">3</div><div class="stat-label" data-i18n="stat_markets">Markets</div></div>
+      <div class="stat"><div class="stat-value" data-target="40" data-suffix="+">40+</div><div class="stat-label" data-i18n="stat_macro">Macro Instruments</div></div>
+      <div class="stat"><div class="stat-value">24/7</div><div class="stat-label" data-i18n="stat_live">Live</div></div>
     </div>
   </div>
 </div>
@@ -433,14 +545,14 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 <div class="chat-section" id="chat">
   <div class="container">
     <div class="reveal">
-      <div class="section-label" data-i18n="chat_label">How It Works</div>
-      <div class="section-title" data-i18n="chat_title">Agents Explain the System</div>
-      <div class="section-desc" data-i18n="chat_desc">8 AI agents introduce the system through IRC chat.</div>
+      <div class="section-label" data-i18n="chat_label">Meet the Team</div>
+      <h2 class="section-title" data-i18n="chat_title">They never stop talking about markets</h2>
+      <div class="section-desc" data-i18n="chat_desc">8 AI agents. Each with their own personality, their own market, and a lot of opinions.</div>
     </div>
     <div class="chat-panel reveal" id="chatPanel">
       <div class="chat-panel-header">
         <span class="channel">#oneqaz</span>
-        <span>— 8 agents online</span>
+        <span data-i18n="chat_online">— 8 agents online</span>
       </div>
       <div class="chat-panel-body" id="chatBody"></div>
     </div>
@@ -453,30 +565,38 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 <div class="chat-section" id="flow">
   <div class="container">
     <div class="reveal">
-      <div class="section-label" data-i18n="arch_label">Architecture</div>
-      <div class="section-title" data-i18n="arch_title">Data Flow</div>
-      <div class="section-desc" data-i18n="arch_desc">From collection to decision, all data flows automatically through the pipeline.</div>
+      <div class="section-label" data-i18n="arch_label">OneQAZ's Perspective</div>
+      <h2 class="section-title" data-i18n="arch_title">From the big picture to a single stock</h2>
+      <div class="section-desc" data-i18n="arch_desc">The global macro regime and market structure are read by two independent loops running in parallel. They meet each symbol's own signal only at decision time — and every prediction is written down before the outcome is known.</div>
     </div>
     <div class="arch-visual reveal">
-      <!-- Input sources -->
+      <!-- Inputs -->
       <div class="arch-row">
-        <div class="arch-node amber"><div class="label">Macro Data</div></div>
-        <div class="arch-node blue"><div class="label">ETF / Index</div></div>
-        <div class="arch-node red"><div class="label">Individual</div></div>
+        <div class="arch-node amber"><div class="label">Macro</div><div class="sub" data-i18n="arch_in_macro">Bonds · FX · Commodities · VIX</div></div>
+        <div class="arch-node blue"><div class="label">ETF / Index</div><div class="sub" data-i18n="arch_in_etf">Sectors & market structure</div></div>
+        <div class="arch-node red"><div class="label">Individual</div><div class="sub" data-i18n="arch_in_ind">1,300+ symbols · 5m – 1d</div></div>
+      </div>
+      <div class="arch-row arch-arrows"><div class="arch-arrow">▼</div><div class="arch-arrow">▼</div><div class="arch-arrow">▼</div></div>
+      <!-- Parallel engines -->
+      <div class="arch-row">
+        <div class="arch-node amber"><div class="label">Global Regime</div><div class="sub" data-i18n="arch_eng_regime">Independent loop</div></div>
+        <div class="arch-node blue"><div class="label">Market Structure</div><div class="sub" data-i18n="arch_eng_struct">Independent loop</div></div>
+        <div class="arch-node red"><div class="label">Signal Engine</div><div class="sub" data-i18n="arch_eng_signal">Self-play strategies · Thompson sampling</div></div>
       </div>
       <div class="arch-merge"></div>
+      <p class="arch-lane-note" data-i18n="arch_merge_note">two overlays, in parallel — they meet only at the per-symbol decision</p>
       <div class="arch-arrow">▼</div>
-      <div class="arch-node amber wide"><div class="label">Regime Engine</div></div>
+      <div class="arch-node dashed wide"><div class="label" data-i18n="arch_llm">+ LLM agents — explain, debate, add context</div><div class="sub" data-i18n="arch_llm_sub">grounded in engine numbers; their influence on decisions is capped</div></div>
       <div class="arch-arrow">▼</div>
-      <div class="arch-node blue wide"><div class="label">Signal Calculator</div></div>
+      <div class="arch-node green wide"><div class="label" data-i18n="arch_decision">Decision · Paper Trading</div><div class="sub" data-i18n="arch_decision_sub">Crypto · Korea · US — wins and losses both recorded</div></div>
       <div class="arch-arrow">▼</div>
-      <div class="arch-node green wide"><div class="label">LLM Analysis</div></div>
+      <div class="arch-node amber wide"><div class="label" data-i18n="arch_ledger">Timestamped Ledger</div><div class="sub" data-i18n="arch_ledger_sub">predictions logged before outcomes · daily SHA-256 hash chain · scored after the fact</div></div>
       <div class="arch-arrow">▼</div>
-      <!-- Output -->
+      <!-- Outputs -->
       <div class="arch-output">
         <div class="arch-output-item">MCP</div>
         <div class="arch-output-item">API</div>
-        <div class="arch-output-item">Dashboard</div>
+        <div class="arch-output-item">Blog</div>
         <div class="arch-output-item">Stream</div>
       </div>
     </div>
@@ -485,22 +605,68 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 
 <div class="divider">─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
 
-<!-- Status -->
+<!-- Verify — the system's identity: a verifiable judgment record, not buy/sell calls -->
+<div class="chat-section" id="verify">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label" data-i18n="verify_label">Trust, verified</div>
+      <h2 class="section-title" data-i18n="verify_title">Don't take our word for it — check the record</h2>
+      <div class="section-desc" data-i18n="verify_desc">OneQAZ doesn't sell buy/sell calls. It publishes timestamped judgments and calibrated probabilities — hits and misses alike — in a record that can't be quietly rewritten afterwards.</div>
+    </div>
+    <div class="content-grid reveal">
+      <a class="content-card" href="https://api.oneqaz.com/ledger" target="_blank" rel="noopener">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_ledger">Prediction Ledger</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="verify_ledger_desc">A daily SHA-256 hash chain over every created and resolved prediction, with the recipe published so anyone can recompute it.</span>
+        <span class="cc-tag" data-i18n="verify_ledger_tag">Hash Chain</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/en/anchors/" target="_blank" rel="noopener" data-blog-path="anchors/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_anchors">Ledger Anchors</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="verify_anchors_desc">Public anchors of the hash chain, timestamped to the Bitcoin blockchain with OpenTimestamps.</span>
+        <span class="cc-tag" data-i18n="verify_anchors_tag">OpenTimestamps</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/en/track-record/all-time/" target="_blank" rel="noopener" data-blog-path="track-record/all-time/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_alltime">All-time Record</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="verify_alltime_desc">Every closed paper trade since public attestation began — win rate, win/loss ratio and profit factor, losing stretches included.</span>
+        <span class="cc-tag" data-i18n="verify_alltime_tag">Paper Trading</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/en/methodology/" target="_blank" rel="noopener" data-blog-path="methodology/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_method">Methodology</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="verify_method_desc">How fills, fees and reporting windows are modeled — including the assumptions that flatter the numbers.</span>
+        <span class="cc-tag" data-i18n="verify_method_tag">Assumptions</span>
+      </a>
+      <a class="content-card" href="https://blog.oneqaz.com/en/corrections/" target="_blank" rel="noopener" data-blog-path="corrections/">
+        <div class="cc-head"><span class="cc-name" data-i18n="verify_corr">Corrections</span><span class="cc-arrow">↗</span></div>
+        <span class="cc-desc" data-i18n="verify_corr_desc">Defects we found in our own record, and how they were fixed — disclosed in public.</span>
+        <span class="cc-tag" data-i18n="verify_corr_tag">Disclosure</span>
+      </a>
+    </div>
+    <div class="verify-tools reveal">
+      <span data-i18n="verify_tools">AI agents can run the same checks over MCP:</span>
+      <code>get_ledger_integrity</code> <code>get_resolved_predictions</code> <code>get_prediction_accuracy</code>
+    </div>
+  </div>
+</div>
+
+<div class="divider">─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
+
+<!-- Status — rows marked LIVE are re-checked against api.oneqaz.com/health every 60s -->
 <div class="chat-section" id="status">
   <div class="container">
     <div class="reveal">
-      <div class="section-label" data-i18n="status_label">Status</div>
-      <div class="section-title" data-i18n="status_title">System Status</div>
+      <div class="section-label" data-i18n="status_label">Right Now</div>
+      <h2 class="section-title" data-i18n="status_title">System status</h2>
     </div>
     <div class="status-list reveal">
-      <div class="status-item"><div class="status-dot active"></div><div class="status-name">Paper Trading</div><div class="status-badge active">ACTIVE</div></div>
-      <div class="status-item"><div class="status-dot active"></div><div class="status-name">Signal Engine</div><div class="status-badge active">ACTIVE</div></div>
-      <div class="status-item"><div class="status-dot active"></div><div class="status-name">LLM Analysis</div><div class="status-badge active">ACTIVE</div></div>
-      <div class="status-item"><div class="status-dot active"></div><div class="status-name">Claude MCP</div><div class="status-badge active">ACTIVE</div></div>
-      <div class="status-item"><div class="status-dot active"></div><div class="status-name">ChatGPT API</div><div class="status-badge active">ACTIVE</div></div>
-      <div class="status-item"><div class="status-dot active"></div><div class="status-name">Dashboard + YouTube Stream</div><div class="status-badge active">ACTIVE</div></div>
-      <div class="status-item"><div class="status-dot planned"></div><div class="status-name">Mobile App</div><div class="status-badge planned">PLANNED</div></div>
+      <div class="status-item" data-status="signals"><div class="status-dot active"></div><div class="status-name"><span data-i18n="st_signals">Signal Engine — Crypto · Korea · US</span><span class="status-live">● live</span></div><div class="status-detail"></div><div class="status-badge active">ACTIVE</div></div>
+      <div class="status-item" data-status="regime"><div class="status-dot active"></div><div class="status-name"><span data-i18n="st_regime">Global Regime Engine</span><span class="status-live">● live</span></div><div class="status-detail"></div><div class="status-badge active">ACTIVE</div></div>
+      <div class="status-item" data-status="ledger"><div class="status-dot active"></div><div class="status-name"><span data-i18n="st_ledger">Prediction Ledger</span><span class="status-live">● live</span></div><div class="status-detail"></div><div class="status-badge active">ACTIVE</div></div>
+      <div class="status-item" data-status="mcp"><div class="status-dot active"></div><div class="status-name"><span data-i18n="st_mcp">MCP Server — Claude · ChatGPT · Cursor</span><span class="status-live">● live</span></div><div class="status-detail"></div><div class="status-badge active">ACTIVE</div></div>
+      <div class="status-item"><div class="status-dot active"></div><div class="status-name" data-i18n="st_paper">Paper Trading — 3 markets</div><div class="status-badge active">ACTIVE</div></div>
+      <div class="status-item"><div class="status-dot active"></div><div class="status-name" data-i18n="st_llm">LLM Agents & Debate</div><div class="status-badge active">ACTIVE</div></div>
+      <div class="status-item"><div class="status-dot active"></div><div class="status-name" data-i18n="st_blog">Daily Blog & YouTube 24/7 Stream</div><div class="status-badge active">ACTIVE</div></div>
+      <div class="status-item"><div class="status-dot planned"></div><div class="status-name" data-i18n="st_real">Real-money trading</div><div class="status-badge planned">OFF</div></div>
     </div>
+    <div class="status-foot reveal" data-i18n="status_foot">Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health" target="_blank" rel="noopener">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.</div>
   </div>
 </div>
 
@@ -511,7 +677,7 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
   <div class="container">
     <div class="reveal">
       <div class="section-label" data-i18n="content_label">Content</div>
-      <div class="section-title" data-i18n="content_title">Daily, in the open</div>
+      <h2 class="section-title" data-i18n="content_title">Daily, in the open</h2>
       <div class="section-desc" data-i18n="content_desc">Trading journals and market analysis, auto-published every day — readable, citable, and built for AI to learn from.</div>
     </div>
     <div class="content-grid reveal">
@@ -547,13 +713,16 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 <footer>
   <div class="container">
     <div class="footer-links">
-      <a href="https://github.com/wnsod/oneqaz-trading-mcp" target="_blank">GitHub</a>
-      <a href="https://pypi.org/project/oneqaz-trading-mcp/" target="_blank">PyPI</a>
-      <a href="https://blog.oneqaz.com/rss.xml" target="_blank" rel="noopener" data-blog-path="rss.xml">RSS</a>
-      <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
-      <a href="mailto:contact@oneqaz.com">Contact</a>
+      <a href="https://github.com/wnsod/oneqaz-trading-mcp" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://pypi.org/project/oneqaz-trading-mcp/" target="_blank" rel="noopener">PyPI</a>
+      <a href="https://api.oneqaz.com/pricing" target="_blank" rel="noopener" data-i18n="footer_pricing">Pricing</a>
+      <a href="https://blog.oneqaz.com/en/methodology/" target="_blank" rel="noopener" data-blog-path="methodology/" data-i18n="footer_method">Methodology</a>
+      <a href="https://blog.oneqaz.com/en/rss.xml" target="_blank" rel="noopener" data-blog-path="rss.xml">RSS</a>
+      <a href="/privacy" data-i18n="footer_privacy">Privacy</a>
+      <a href="/terms" data-i18n="footer_terms">Terms</a>
+      <a href="mailto:contact@oneqaz.com" data-i18n="footer_contact">Contact</a>
     </div>
+    <p class="footer-disclaimer" data-i18n="footer_disclaimer">Research information only — not investment advice. OneQAZ outputs are paper-trading research signals (simulated fills, no fees or taxes); past simulated performance does not predict future real-money returns.</p>
     <div class="footer-copy">&copy; 2026 OneQAZ. All rights reserved.</div>
   </div>
 </footer>
@@ -563,34 +732,103 @@ body,nav,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,
 // ═══ i18n ═══
 const I18N = {
   nav_hero:     { en: 'OneQAZ', ko: 'OneQAZ' },
-  nav_team:     { en: 'Team', ko: 'Team' },
-  nav_chat:     { en: 'Chat', ko: 'Chat' },
-  nav_flow:     { en: 'Flow', ko: 'Flow' },
-  nav_status:   { en: 'Status', ko: 'Status' },
+  nav_team:     { en: 'Team', ko: '팀' },
+  nav_flow:     { en: 'Flow', ko: '구조' },
+  nav_verify:   { en: 'Verify', ko: '검증' },
+  nav_status:   { en: 'Status', ko: '상태' },
   nav_blog:     { en: 'Daily Reads ↗', ko: '데일리 리포트 ↗' },
   hero_desc: {
     en: 'The whole lives in the part,\nand the part embraces the whole.\nMacro currents flow into small details,\nand small details reflect the greater tide.\n— In a single glance, see it all.',
     ko: '전체는 부분에 깃들고,\n부분은 다시 전체를 품는다.\n큰 흐름은 작은 결로 스며들고,\n작은 결은 다시 큰 흐름을 비춘다.\n— 한 번의 시선으로, 전체를 본다.'
   },
-  hero_cta2:    { en: 'API Inquiry<span class="btn-tag">In Development</span>', ko: 'API 문의<span class="btn-tag">개발중</span>' },
+  hero_lead: {
+    en: 'OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols around the clock — and writes its predictions into a timestamped, hash-chained ledger before the outcome is known, so people and AI agents can check the record for themselves.',
+    ko: 'OneQAZ는 거시 레짐과 시장 구조, 그리고 코인·국내·미국 1,300여 종목을 24시간 읽습니다. 예측은 결과가 나오기 전에 타임스탬프가 찍힌 해시체인 원장에 기록되어, 사람도 AI 에이전트도 그 기록을 직접 검증할 수 있습니다.'
+  },
+  hero_note: {
+    en: 'Research information only — not investment advice. All performance figures come from paper trading. <a href="https://blog.oneqaz.com/en/methodology/" target="_blank" rel="noopener">How the numbers are produced →</a>',
+    ko: '연구용 정보이며 투자 자문이 아닙니다. 모든 성과 수치는 가상매매 기준입니다. <a href="https://blog.oneqaz.com/methodology/" target="_blank" rel="noopener">수치 산출 방식 →</a>'
+  },
+  cta_github_tag:  { en: 'Source Code', ko: '소스 코드' },
+  cta_start:       { en: 'Get Started', ko: '시작하기' },
+  cta_start_tag:   { en: 'Quick start', ko: '빠른 시작' },
+  cta_pricing:     { en: 'API &amp; Pricing', ko: 'API · 요금' },
+  cta_pricing_tag: { en: 'Free tier live', ko: '무료 티어 운영 중' },
   chat_label:   { en: 'Meet the Team', ko: '팀을 소개합니다' },
   chat_title:   { en: 'They never stop talking about markets', ko: '이 친구들, 시장 얘기를 멈출 줄 몰라요' },
+  chat_online:  { en: '— 8 agents online', ko: '— 에이전트 8명 접속 중' },
   chat_desc:    { en: '8 AI agents. Each with their own personality, their own market, and a lot of opinions.', ko: '8명의 AI 에이전트. 각자의 성격, 각자의 시장, 그리고 할 말이 많은 친구들.' },
   arch_label:   { en: 'OneQAZ\'s Perspective', ko: 'OneQAZ의 시선' },
   arch_title:   { en: 'From the big picture to a single stock', ko: '큰 흐름에서 하나의 종목까지' },
-  arch_desc:    { en: 'Reading macro flows, classifying market regimes, and connecting them to actionable signals.', ko: '거시 흐름을 읽고, 시장 국면을 나누고, 실행 가능한 시그널로 연결합니다.' },
+  arch_desc: {
+    en: 'The global macro regime and market structure are read by two independent loops running in parallel. They meet each symbol\'s own signal only at decision time — and every prediction is written down before the outcome is known.',
+    ko: '글로벌 거시 레짐과 시장 구조는 서로 독립된 두 루프가 병렬로 읽습니다. 두 흐름은 개별 종목의 시그널과 판단 시점에만 합류하고, 모든 예측은 결과가 나오기 전에 기록됩니다.'
+  },
+  arch_in_macro:   { en: 'Bonds · FX · Commodities · VIX', ko: '채권 · 외환 · 원자재 · VIX' },
+  arch_in_etf:     { en: 'Sectors &amp; market structure', ko: '섹터 · 시장 구조' },
+  arch_in_ind:     { en: '1,300+ symbols · 5m – 1d', ko: '1,300여 종목 · 5분 – 일봉' },
+  arch_eng_regime: { en: 'Independent loop', ko: '독립 루프' },
+  arch_eng_struct: { en: 'Independent loop', ko: '독립 루프' },
+  arch_eng_signal: { en: 'Self-play strategies · Thompson sampling', ko: '셀프플레이 전략 · 톰슨 샘플링' },
+  arch_merge_note: { en: 'two overlays, in parallel — they meet only at the per-symbol decision', ko: '두 오버레이는 병렬로 돌고, 종목별 판단 시점에만 만납니다' },
+  arch_llm:        { en: '+ LLM agents — explain, debate, add context', ko: '+ LLM 에이전트 — 해설 · 토론 · 맥락 보강' },
+  arch_llm_sub:    { en: 'grounded in engine numbers; their influence on decisions is capped', ko: '엔진 수치에 근거하며, 판단에 대한 영향력은 상한이 걸려 있습니다' },
+  arch_decision:     { en: 'Decision · Paper Trading', ko: '판단 · 가상매매' },
+  arch_decision_sub: { en: 'Crypto · Korea · US — wins and losses both recorded', ko: '코인 · 국내 · 미국 — 수익도 손실도 모두 기록' },
+  arch_ledger:       { en: 'Timestamped Ledger', ko: '타임스탬프 원장' },
+  arch_ledger_sub:   { en: 'predictions logged before outcomes · daily SHA-256 hash chain · scored after the fact', ko: '결과 이전에 예측 기록 · 일별 SHA-256 해시체인 · 사후 채점' },
   agent_label:  { en: 'OneQAZ Agents', ko: 'OneQAZ 에이전트' },
   agent_title:  { en: 'AI agents for every market', ko: '각 시장을 맡은 AI 에이전트들' },
   agent_desc:   { en: 'They read the movements of different markets and connect them into a single flow of judgment.', ko: '서로 다른 시장의 움직임을 읽고, 하나의 판단 흐름으로 연결합니다.' },
+  stat_symbols: { en: 'Symbols', ko: '종목' },
+  stat_markets: { en: 'Markets', ko: '시장' },
+  stat_macro:   { en: 'Macro Instruments', ko: '거시 지표' },
+  stat_live:    { en: 'Live', ko: '상시 가동' },
+  // Verify — trust anchor
+  verify_label:  { en: 'Trust, verified', ko: '검증 가능한 신뢰' },
+  verify_title:  { en: 'Don\'t take our word for it — check the record', ko: '믿지 말고, 기록을 확인하세요' },
+  verify_desc: {
+    en: 'OneQAZ doesn\'t sell buy/sell calls. It publishes timestamped judgments and calibrated probabilities — hits and misses alike — in a record that can\'t be quietly rewritten afterwards.',
+    ko: 'OneQAZ는 매수·매도 결론을 팔지 않습니다. 타임스탬프가 찍힌 판단과 캘리브레이션된 확률을, 맞힌 것과 틀린 것 모두 사후에 몰래 고칠 수 없는 기록으로 공개합니다.'
+  },
+  verify_ledger:       { en: 'Prediction Ledger', ko: '예측 원장' },
+  verify_ledger_desc:  { en: 'A daily SHA-256 hash chain over every created and resolved prediction, with the recipe published so anyone can recompute it.', ko: '생성·채점된 모든 예측에 대한 일별 SHA-256 해시체인. 계산 방식이 공개되어 있어 누구나 재계산할 수 있습니다.' },
+  verify_ledger_tag:   { en: 'Hash Chain', ko: '해시체인' },
+  verify_anchors:      { en: 'Ledger Anchors', ko: '원장 앵커' },
+  verify_anchors_desc: { en: 'Public anchors of the hash chain, timestamped to the Bitcoin blockchain with OpenTimestamps.', ko: '해시체인의 공개 앵커. OpenTimestamps로 비트코인 블록체인에 타임스탬프됩니다.' },
+  verify_anchors_tag:  { en: 'OpenTimestamps', ko: 'OpenTimestamps' },
+  verify_alltime:      { en: 'All-time Record', ko: '전체 기간 성적' },
+  verify_alltime_desc: { en: 'Every closed paper trade since public attestation began — win rate, win/loss ratio and profit factor, losing stretches included.', ko: '공개 기록을 시작한 날부터의 모든 청산 가상매매 — 승률·손익비·PF, 손실 구간까지 그대로.' },
+  verify_alltime_tag:  { en: 'Paper Trading', ko: '가상매매' },
+  verify_method:       { en: 'Methodology', ko: '방법론' },
+  verify_method_desc:  { en: 'How fills, fees and reporting windows are modeled — including the assumptions that flatter the numbers.', ko: '체결·수수료·집계 구간을 어떻게 가정했는지 — 수치를 좋게 보이게 하는 가정까지 공개합니다.' },
+  verify_method_tag:   { en: 'Assumptions', ko: '가정' },
+  verify_corr:         { en: 'Corrections', ko: '정정 기록' },
+  verify_corr_desc:    { en: 'Defects we found in our own record, and how they were fixed — disclosed in public.', ko: '우리 기록에서 발견한 결함과 그 수정 내역을 공개합니다.' },
+  verify_corr_tag:     { en: 'Disclosure', ko: '공시' },
+  verify_tools:        { en: 'AI agents can run the same checks over MCP:', ko: 'AI 에이전트는 MCP로 같은 검증을 직접 실행할 수 있습니다:' },
+  // Status
   status_label: { en: 'Right Now', ko: '지금 이 순간' },
-  status_title: { en: 'Everything is running', ko: '모든 것이 돌아가고 있습니다' },
+  status_title: { en: 'System status', ko: '시스템 상태' },
+  st_signals:   { en: 'Signal Engine — Crypto · Korea · US', ko: '시그널 엔진 — 코인 · 국내 · 미국' },
+  st_regime:    { en: 'Global Regime Engine', ko: '글로벌 레짐 엔진' },
+  st_ledger:    { en: 'Prediction Ledger', ko: '예측 원장' },
+  st_mcp:       { en: 'MCP Server — Claude · ChatGPT · Cursor', ko: 'MCP 서버 — Claude · ChatGPT · Cursor' },
+  st_paper:     { en: 'Paper Trading — 3 markets', ko: '가상매매 — 3개 시장' },
+  st_llm:       { en: 'LLM Agents &amp; Debate', ko: 'LLM 에이전트 · 토론' },
+  st_blog:      { en: 'Daily Blog &amp; YouTube 24/7 Stream', ko: '데일리 블로그 · 유튜브 24시간 방송' },
+  st_real:      { en: 'Real-money trading', ko: '실계좌 매매' },
+  status_foot: {
+    en: 'Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health" target="_blank" rel="noopener">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.',
+    ko: '● live 표시 항목은 60초마다 <a href="https://api.oneqaz.com/health" target="_blank" rel="noopener">api.oneqaz.com/health</a>로 다시 확인합니다. OneQAZ가 공개하는 모든 수치는 가상매매 기준입니다.'
+  },
   // Content link cards → blog.oneqaz.com
   content_label:        { en: 'Content', ko: '콘텐츠' },
   content_title:        { en: 'Daily, in the open', ko: '매일, 공개적으로' },
   content_desc:         { en: 'Trading journals and market analysis, auto-published every day — readable, citable, and built for AI to learn from.', ko: '일일 매매일지와 시황 분석을 매일 자동 발행합니다. 읽고, 인용하고, AI가 학습하도록 만들어졌습니다.' },
   content_track:        { en: 'Track Record', ko: '트랙 레코드' },
-  content_track_desc:   { en: 'Verified prediction accuracy — the evidence behind every call.', ko: '검증된 예측 적중률 — 모든 판단의 근거.' },
-  content_track_tag:    { en: 'Verified', ko: '검증됨' },
+  content_track_desc:   { en: 'Weekly scorecard of predictions and paper trades — misses included.', ko: '예측과 가상매매의 주간 성적표 — 빗나간 것까지 그대로.' },
+  content_track_tag:    { en: 'Weekly', ko: '주간' },
   content_market:       { en: 'Market', ko: '시황' },
   content_market_desc:  { en: 'Daily regime reads across macro, equities, and crypto.', ko: '거시·주식·코인을 아우르는 매일의 레짐 분석.' },
   content_market_tag:   { en: 'Market Wire', ko: '마켓 와이어' },
@@ -605,17 +843,28 @@ const I18N = {
   content_about_tag:    { en: 'Overview', ko: '개요' },
   // Live status strip (hero) — fed by /health every 60s
   live_regime:        { en: 'Regime',             ko: '레짐' },
-  live_signals:       { en: 'Signals 24h',        ko: '24h 시그널' },
-  live_predictions:   { en: 'Active Predictions', ko: '활성 예측' },
+  live_signals:       { en: 'Signal updates 24h', ko: '24h 시그널 갱신' },
+  live_predictions:   { en: 'Open Predictions',   ko: '미채점 예측' },
   live_tools:         { en: 'MCP Tools',          ko: 'MCP 툴' },
   live_meta_loading:  { en: 'connecting…',        ko: '연결 중…' },
   live_meta_offline:  { en: 'offline',            ko: '오프라인' },
-  live_meta_updated:  { en: 'updated',            ko: '업데이트' },
   connect_label:      { en: 'Connect via MCP',    ko: 'MCP로 연결' },
-  connect_meta:       { en: 'Claude · Cursor · VSCode · ChatGPT', ko: 'Claude · Cursor · VSCode · ChatGPT' },
+  connect_meta:       { en: 'Claude Desktop config · no API key · free 1,500 calls/day', ko: 'Claude Desktop 설정 · API 키 불필요 · 하루 1,500회 무료' },
+  connect_url_label:  { en: 'Remote URL — Claude.ai / ChatGPT connectors, Cursor, VS Code:', ko: '원격 URL — Claude.ai·ChatGPT 커넥터, Cursor, VS Code:' },
   connect_copy:       { en: 'Copy config',        ko: '설정 복사' },
+  connect_copy_url:   { en: 'Copy URL',           ko: 'URL 복사' },
   connect_copy_done:  { en: 'Copied ✓',           ko: '복사됨 ✓' },
-  footer_quote: { en: '"While AI reads the markets, go experience the world."', ko: '"AI가 시장을 읽는 동안, 당신은 세상을 경험하러 떠나라."' },
+  connect_copy_fail:  { en: 'Failed',             ko: '실패' },
+  // Footer
+  footer_pricing:     { en: 'Pricing',            ko: '요금' },
+  footer_method:      { en: 'Methodology',        ko: '방법론' },
+  footer_privacy:     { en: 'Privacy',            ko: '개인정보처리방침' },
+  footer_terms:       { en: 'Terms',              ko: '이용약관' },
+  footer_contact:     { en: 'Contact',            ko: '문의' },
+  footer_disclaimer: {
+    en: 'Research information only — not investment advice. OneQAZ outputs are paper-trading research signals (simulated fills, no fees or taxes); past simulated performance does not predict future real-money returns.',
+    ko: '연구용 정보이며 투자 자문이 아닙니다. OneQAZ의 산출물은 가상매매 기반 연구 시그널(시뮬레이션 체결, 수수료·세금 미반영)이며, 과거 시뮬레이션 성과는 미래의 실계좌 수익을 보장하지 않습니다.'
+  },
 };
 
 const HERO_TEXT = {
@@ -637,7 +886,13 @@ window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e 
   applyTheme(e.matches ? 'light' : 'dark');
 });
 
-let currentLang = localStorage.getItem('oqz-lang') || 'en';
+// localStorage can throw (blocked site data / private mode) — never let that kill the page.
+function lsGet(k){ try { return window.localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k,v){ try { window.localStorage.setItem(k,v); } catch(e){} }
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function t(key){ const e = I18N[key]; return e ? (e[currentLang] || e.en) : key; }
+
+let currentLang = lsGet('oqz-lang') || ((navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en');
 
 // ═══ Blog links — blog.oneqaz.com has a full /en/ mirror (home, categories, rss).
 //     data-blog-path='' → home, 'journal/' → category, 'rss.xml' → feed.
@@ -652,7 +907,7 @@ function updateBlogLinks(lang) {
 
 function setLang(lang) {
   currentLang = lang;
-  localStorage.setItem('oqz-lang', lang);
+  lsSet('oqz-lang', lang);
   document.documentElement.setAttribute('data-lang', lang);
   document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
   document.getElementById('langEn').classList.toggle('active', lang === 'en');
@@ -668,9 +923,11 @@ function setLang(lang) {
   // Blog links follow the site language (EN → blog /en/ mirror)
   updateBlogLinks(lang);
 
-  // Re-run hero typing
-  const heroEl = document.getElementById('heroTyping');
-  if (heroEl) { heroEl.innerHTML = ''; runHeroTyping(); }
+  // Re-run hero typing (initial run is scheduled below, after the loader)
+  if (window.__heroStarted) runHeroTyping();
+
+  // Live strip / status rows carry language-dependent text
+  if (typeof window.__rerenderLive === 'function') window.__rerenderLive();
 
   // Re-render character grid with new language
   if (typeof window.__renderCharGrid === 'function') window.__renderCharGrid();
@@ -681,13 +938,14 @@ function setLang(lang) {
     if (body) { body.innerHTML = ''; window.__chatStarted = false; }
     // will re-trigger via observer
     const panel = document.getElementById('chatPanel');
-    if (panel && chatObs) chatObs.observe(panel);
+    if (panel && window.chatObs) window.chatObs.observe(panel);
   }
 }
 
 // ═══ Loading ═══
 (function(){
   const fill=document.getElementById('loaderFill'),pct=document.getElementById('loaderPct'),loader=document.getElementById('loader');
+  if (REDUCED_MOTION) { loader.remove(); return; }
   let p=0;const msgs=['connecting...','loading modules...','initializing agents...','ready.'];
   const iv=setInterval(()=>{p+=Math.floor(Math.random()*18)+8;if(p>100)p=100;fill.style.width=p+'%';pct.textContent=msgs[Math.min(Math.floor(p/30),3)];if(p>=100){clearInterval(iv);setTimeout(()=>{loader.classList.add('done');setTimeout(()=>loader.remove(),600)},300)}},140);
 })();
@@ -695,9 +953,12 @@ function setLang(lang) {
 // ═══ Hero typing ═══
 let heroTypingTimer = null;
 function runHeroTyping(){
+  window.__heroStarted = true;
   if (heroTypingTimer) { clearTimeout(heroTypingTimer); heroTypingTimer = null; }
   const text = HERO_TEXT[currentLang];
   const el = document.getElementById('heroTyping');
+  if (!el) return;
+  if (REDUCED_MOTION) { el.innerHTML = text.replace(/\n/g,'<br>'); return; }
   let i=0;
   function type(){
     if(i<=text.length){
@@ -711,113 +972,167 @@ function runHeroTyping(){
 setTimeout(runHeroTyping, 1000);
 
 // ═══ Scroll progress ═══
-window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressFill').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'});
+const navEl=document.querySelector('nav');
+window.addEventListener('scroll',()=>{const h=document.documentElement;document.getElementById('progressFill').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';navEl.classList.toggle('scrolled',h.scrollTop>40)},{passive:true});
 
 // ═══ Reveal ═══
 const revealObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
 
-// ═══ Counter ═══
-const cobs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target,target=parseInt(el.dataset.target);let cur=0;const step=Math.max(1,Math.floor(target/40));const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=cur+'+'},30);cobs.unobserve(el)}})},{threshold:.5});
-document.querySelectorAll('.stat-value').forEach(el=>cobs.observe(el));
+// ═══ Counter — static HTML already holds the final value (crawlers / no-JS); animate up to it ═══
+const cobs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target,target=parseInt(el.dataset.target,10),suffix=el.dataset.suffix||'';let cur=0;const step=Math.max(1,Math.floor(target/40));const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=cur.toLocaleString('en-US')+suffix},30);cobs.unobserve(el)}})},{threshold:.5});
+if (!REDUCED_MOTION) document.querySelectorAll('.stat-value[data-target]').forEach(el=>cobs.observe(el));
+
+// ═══ Characters — shared by the Team grid (here) and the chat (module below).
+//     Kept in the classic script so the grid still renders if the chat's CDN import fails.
+//     Names follow the character registry (llm_factory/characters/registry.py); EN names are breed nicknames.
+const CHARS = {
+  orchestrator: { nick:{en:'!QAZ',ko:'!QAZ'},        color:'#ef4444', role:{en:'Orchestrator',ko:'오케스트레이터'},        img:'images/opt/orchestrator.webp' },
+  crypto:       { nick:{en:'Bengal',ko:'벵갈'},      color:'#F59E0B', role:{en:'Crypto',ko:'코인'},                       img:'images/opt/crypto.webp' },
+  kr_stock:     { nick:{en:'Koshort',ko:'코숏'},     color:'#FB923C', role:{en:'KR Stocks',ko:'국내 주식'},               img:'images/opt/kr_stock.webp' },
+  us_stock:     { nick:{en:'Maine',ko:'멘쿤'},       color:'#3B82F6', role:{en:'US Stocks',ko:'미국 주식'},               img:'images/opt/us_stock.webp' },
+  commodity:    { nick:{en:'Noel',ko:'노웰'},        color:'#10B981', role:{en:'Commodity / Inflation',ko:'원자재/인플레'}, img:'images/opt/commodity.webp' },
+  forex:        { nick:{en:'Siam',ko:'샤암'},        color:'#06B6D4', role:{en:'Forex / Liquidity',ko:'외환/유동성'},     img:'images/opt/forex.webp' },
+  bond:         { nick:{en:'Brit',ko:'브숏'},        color:'#64748B', role:{en:'Bond / Credit',ko:'채권/신용'},           img:'images/opt/bond.webp' },
+  news:         { nick:{en:'Ruble',ko:'러블'},       color:'#8B5CF6', role:{en:'News & Events',ko:'뉴스/이벤트'},         img:'images/opt/news.webp' },
+};
+window.OQZ_CHARS = CHARS;
+
+function renderCharGrid() {
+  const grid = document.getElementById('charGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const lang = currentLang;
+  for (const c of Object.values(CHARS)) {
+    const card = document.createElement('div');
+    card.className = 'char-card';
+    const gNick = c.nick[lang] || c.nick.en;
+    const delay = (Math.random() * -3).toFixed(2);
+    const dur = (2.5 + Math.random() * 1.5).toFixed(2);
+    card.innerHTML = `<img src="${c.img}" alt="${gNick} — ${c.role.en}" width="140" height="140" loading="lazy" decoding="async" style="border:2px solid ${c.color}33;animation-delay:${delay}s;animation-duration:${dur}s"><div class="name" style="color:${c.color}">${gNick}</div><div class="role">${c.role[lang]||c.role.en}</div>`;
+    card.onmouseenter = () => { card.querySelector('img').style.borderColor=c.color+'80'; card.style.boxShadow=`0 0 12px ${c.color}20`; };
+    card.onmouseleave = () => { card.querySelector('img').style.borderColor=c.color+'33'; card.style.boxShadow=''; };
+    grid.appendChild(card);
+  }
+}
+window.__renderCharGrid = renderCharGrid;
 
 // ═══ Init lang ═══
 setLang(currentLang);
 
-// ═══ Live Status — polls /health every 60s ═══
+// ═══ Live Status — polls /health every 60s; also drives the "● live" rows in #status ═══
 (function(){
-  const HEALTH_URL = 'https://api.oneqaz.com/health';
-  const POLL_MS    = 60000;
-  const FAIL_GRACE_MS = 5 * POLL_MS; // 5분간 직전 값 유지
+  const HEALTH_URL      = 'https://api.oneqaz.com/health';
+  const POLL_MS         = 60000;
+  const FAIL_GRACE_MS   = 5 * POLL_MS;          // keep the last good values for 5 minutes
+  const SIGNAL_FRESH_MS = 30 * 60 * 1000;       // newest signal older than this → DELAYED
+  const REGIME_FRESH_MS = 6 * 3600 * 1000;      // same 6h budget as the admin freshness probe
 
-  const el = id => document.getElementById(id);
-  const stripPill   = el('liveStripPill');
-  const stripText   = el('liveStripPillText');
-  const valRegime   = el('liveRegime');
-  const valSignals  = el('liveSignals');
-  const valPreds    = el('livePredictions');
-  const valTools    = el('liveTools');
-  const valMeta     = el('liveMeta');
+  const $ = id => document.getElementById(id);
+  const stripPill = $('liveStripPill');
   if (!stripPill) return;
 
+  let last = null;          // last good /health payload
   let lastGoodAt = 0;
+  let offline = false;
 
-  function fmtRelative(iso){
-    if (!iso) return '—';
-    const t = Date.parse(iso);
-    if (isNaN(t)) return '—';
-    const diff = Math.max(0, Date.now() - t);
-    const s = Math.floor(diff / 1000);
-    if (s < 60)   return s + 's ago';
-    const m = Math.floor(s / 60);
-    if (m < 60)   return m + 'm ago';
-    const h = Math.floor(m / 60);
-    return h + 'h ago';
+  function ago(iso){
+    const ts = Date.parse(iso || '');
+    if (isNaN(ts)) return { ms: Infinity, text: '—' };
+    const ms = Math.max(0, Date.now() - ts);
+    const s = Math.floor(ms / 1000), m = Math.floor(s / 60), h = Math.floor(m / 60);
+    const ko = currentLang === 'ko';
+    const text = s < 60 ? (ko ? s + '초 전' : s + 's ago')
+               : m < 60 ? (ko ? m + '분 전' : m + 'm ago')
+               : (ko ? h + '시간 전' : h + 'h ago');
+    return { ms, text };
   }
 
-  function setOffline(){
-    stripPill.classList.remove('degraded');
-    stripPill.classList.add('error');
-    stripText.textContent = 'OFFLINE';
-    const lang = (window.localStorage && localStorage.getItem('oqz-lang')) || 'en';
-    valMeta.innerHTML = '<span data-i18n="live_meta_offline">' +
-      (lang === 'ko' ? '오프라인' : 'offline') + '</span>';
+  function setRow(key, state, detail){
+    const row = document.querySelector('.status-item[data-status="' + key + '"]');
+    if (!row) return;
+    const cls = { active: 'active', delayed: 'delayed', offline: 'offline', unknown: 'planned' }[state];
+    row.querySelector('.status-dot').className = 'status-dot ' + cls;
+    const badge = row.querySelector('.status-badge');
+    badge.className = 'status-badge ' + cls;
+    badge.textContent = state.toUpperCase();
+    const det = row.querySelector('.status-detail');
+    if (det) det.textContent = detail || '';
   }
 
-  function render(d){
-    if (!d || typeof d !== 'object') return;
-    lastGoodAt = Date.now();
-    // pill
-    if (d.degraded) {
-      stripPill.classList.remove('error');
-      stripPill.classList.add('degraded');
-      stripText.textContent = 'DEGRADED';
-    } else {
-      stripPill.classList.remove('degraded','error');
-      stripText.textContent = 'LIVE';
+  function render(){
+    const ko = currentLang === 'ko';
+    if (offline || !last) {
+      if (!offline) return;                     // first fetch still pending — keep static HTML
+      stripPill.classList.remove('degraded');
+      stripPill.classList.add('error');
+      $('liveStripPillText').textContent = 'OFFLINE';
+      $('liveMeta').textContent = t('live_meta_offline');
+      // /health is served by the MCP process itself: unreachable ⇒ MCP is down,
+      // the engines behind it are simply unobservable from here.
+      setRow('mcp', 'offline', '');
+      ['signals', 'regime', 'ledger'].forEach(k => setRow(k, 'unknown', ''));
+      return;
     }
-    // values
-    const overall = (d.regime && d.regime.overall) || '—';
-    valRegime.textContent = overall.toUpperCase ? overall.toUpperCase() : String(overall);
-    const sig24 = (d.signals && d.signals.last_24h_count) || 0;
-    valSignals.textContent = sig24.toLocaleString();
-    const pa = (d.predictions && d.predictions.active_count) || 0;
-    valPreds.textContent = pa.toLocaleString();
-    valTools.textContent = String(d.tools_count || '—');
-    const lastSig = d.signals && d.signals.last_signal_at;
-    const lang = (window.localStorage && localStorage.getItem('oqz-lang')) || 'en';
-    const updatedLabel = lang === 'ko' ? '시그널' : 'last signal';
-    valMeta.textContent = lastSig
-      ? updatedLabel + ' ' + fmtRelative(lastSig)
-      : (lang === 'ko' ? '데이터 대기' : 'awaiting data');
+    const d = last;
+    stripPill.classList.remove('error', 'degraded');
+    if (d.degraded) stripPill.classList.add('degraded');
+    $('liveStripPillText').textContent = d.degraded ? 'DEGRADED' : 'LIVE';
+
+    const regime = (d.regime && d.regime.overall) || '—';
+    $('liveRegime').textContent = String(regime).replace(/_/g, '-').toUpperCase();
+    $('liveSignals').textContent = Number((d.signals && d.signals.last_24h_count) || 0).toLocaleString('en-US');
+    const open = Number((d.predictions && d.predictions.active_count) || 0);
+    $('livePredictions').textContent = open.toLocaleString('en-US');
+    $('liveTools').textContent = String(d.tools_count || '—');
+
+    const sig = ago(d.signals && d.signals.last_signal_at);
+    $('liveMeta').textContent = sig.ms === Infinity
+      ? (ko ? '데이터 대기' : 'awaiting data')
+      : (ko ? '마지막 시그널 ' : 'last signal ') + sig.text;
+
+    const markets = (d.signals && d.signals.active_markets) || [];
+    setRow('signals', sig.ms <= SIGNAL_FRESH_MS ? 'active' : 'delayed',
+      (ko ? '24h 내 활성 시장 ' : 'markets active 24h: ') + markets.length + '/3 · ' + sig.text);
+
+    const reg = ago(d.regime && d.regime.updated_at);
+    setRow('regime', reg.ms <= REGIME_FRESH_MS ? 'active' : 'delayed',
+      String(regime).replace(/_/g, '-').toUpperCase() + ' · ' + reg.text);
+
+    setRow('ledger', d.predictions ? 'active' : 'delayed',
+      ko ? '미채점 예측 ' + open.toLocaleString('en-US') + '건' : open.toLocaleString('en-US') + ' open predictions');
+
+    setRow('mcp', d.degraded ? 'delayed' : 'active',
+      ko ? '툴 ' + (d.tools_count || '—') + '개' : (d.tools_count || '—') + ' tools');
   }
+  window.__rerenderLive = render;
 
   async function tick(){
     try {
       const ctrl = new AbortController();
-      const to = setTimeout(()=>ctrl.abort(), 8000);
-      const res = await fetch(HEALTH_URL, {signal: ctrl.signal, cache: 'no-store'});
+      const to = setTimeout(() => ctrl.abort(), 8000);
+      const res = await fetch(HEALTH_URL, { signal: ctrl.signal, cache: 'no-store' });
       clearTimeout(to);
       if (!res.ok) throw new Error('http ' + res.status);
       const j = await res.json();
-      render(j);
-    } catch(e) {
-      // 일정 시간 안에 실패하면 직전 값 유지, 그 이후엔 OFFLINE
-      if (Date.now() - lastGoodAt > FAIL_GRACE_MS) setOffline();
+      if (!j || typeof j !== 'object') throw new Error('bad payload');
+      last = j; lastGoodAt = Date.now(); offline = false;
+    } catch (e) {
+      if (Date.now() - lastGoodAt > FAIL_GRACE_MS) offline = true;
     }
+    render();
   }
 
   tick();
   setInterval(tick, POLL_MS);
 })();
 
-// ═══ Connect via MCP — copy button ═══
-(function(){
-  const btn = document.getElementById('connectCopy');
-  const pre = document.getElementById('connectSnippet');
-  if (!btn || !pre) return;
+// ═══ Copy buttons (MCP config + remote URL) ═══
+document.querySelectorAll('.connect-copy[data-copy-target]').forEach(btn => {
   btn.addEventListener('click', async () => {
-    const text = pre.textContent || '';
+    const src = document.getElementById(btn.dataset.copyTarget);
+    const text = src ? src.textContent : '';
+    const key = btn.dataset.i18n;
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
@@ -828,43 +1143,38 @@ setLang(currentLang);
         ta.style.left = '-9999px';
         document.body.appendChild(ta);
         ta.select();
-        document.execCommand('copy');
+        const ok = document.execCommand('copy');
         document.body.removeChild(ta);
+        if (!ok) throw new Error('execCommand copy failed');
       }
-      const lang = (window.localStorage && localStorage.getItem('oqz-lang')) || 'en';
-      const original = btn.textContent;
-      btn.textContent = lang === 'ko' ? '복사됨 ✓' : 'Copied ✓';
+      btn.textContent = t('connect_copy_done');
       btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = original;
-        btn.classList.remove('copied');
-      }, 2000);
-    } catch(e) {
-      btn.textContent = 'Failed';
-      setTimeout(() => {
-        btn.textContent = (localStorage.getItem('oqz-lang') === 'ko') ? '설정 복사' : 'Copy config';
-      }, 2000);
+    } catch (e) {
+      btn.textContent = t('connect_copy_fail');
     }
+    setTimeout(() => { btn.textContent = t(key); btn.classList.remove('copied'); }, 2000);
   });
-})();
+});
 </script>
 
 <!-- Module: Pretext + Chat -->
 <script type="module">
-import { prepare, layout } from 'https://esm.sh/@chenglou/pretext@0.0.3';
+// Pretext measures bubble height before typing. It's loaded from a CDN, so never let it block the
+// chat: if the import fails or hangs, bubbles are measured with a hidden DOM clone instead.
+let pretext = null;
+try {
+  pretext = await Promise.race([
+    import('https://esm.sh/@chenglou/pretext@0.0.3'),
+    new Promise((_, rej) => setTimeout(() => rej(new Error('pretext import timeout')), 4000)),
+  ]);
+} catch (e) {
+  console.warn('[oneqaz] pretext unavailable — using DOM measurement', e);
+}
 
-const CHARS = {
-  orchestrator: { nick:{en:'!QAZ',ko:'!QAZ'},           color:'#ef4444', role:{en:'Orchestrator',ko:'오케스트레이터'}, img:'images/orchestrator.png' },
-  crypto:       { nick:{en:'Bengal',ko:'벵갈'},          color:'#F59E0B', role:{en:'Crypto',ko:'Crypto'},              img:'images/cryto.png' },
-  kr_stock:     { nick:{en:'Tiger',ko:'코숏'},           color:'#FB923C', role:{en:'KR Stock',ko:'KR Stock'},          img:'images/tiger.png' },
-  us_stock:     { nick:{en:'Eagle',ko:'멘쿤'},           color:'#3B82F6', role:{en:'US Stock',ko:'US Stock'},          img:'images/eagle.png' },
-  commodity:    { nick:{en:'Noel',ko:'노웰'},            color:'#10B981', role:{en:'Commodity / Inflation',ko:'원자재/인플레'},  img:'images/commodity.png' },
-  forex:        { nick:{en:'Siam',ko:'샤암'},            color:'#06B6D4', role:{en:'Forex / Liquidity',ko:'외환/유동성'},        img:'images/forex.png' },
-  bond:         { nick:{en:'Brit',ko:'브숏'},             color:'#64748B', role:{en:'Bond / Credit',ko:'채권/신용'},             img:'images/bond.png' },
-  news:         { nick:{en:'Ruble',ko:'러블'},           color:'#8B5CF6', role:{en:'Market Wire',ko:'Market Wire'},             img:'images/news.png' },
-};
+const CHARS = window.OQZ_CHARS;
 
 // ═══ Message pool: each slot has multiple variants, one picked at random per visit ═══
+// Claims here must match what the system actually does (coverage, cadence, verification status).
 const POOL = {
   // --- Opening ---
   opening: [
@@ -876,15 +1186,15 @@ const POOL = {
   ],
   // --- US Stock ---
   us_stock_intro: [
-    { who:'us_stock', en:'I\'m in charge of US equities. I monitor the entire S&P 500 universe in <span class="hl" style="color:#3B82F6">real-time</span> — every tick, every candle, every shift in momentum. When the market regime changes, I catch it first.', ko:'난 미국 주식 전담이야. S&P 500 전 종목을 <span class="hl" style="color:#3B82F6">실시간으로 모니터링</span>하고 있어. 모든 캔들, 모든 모멘텀 변화를 잡아내지. 시장 국면이 바뀌면 내가 제일 먼저 알아채.' },
+    { who:'us_stock', en:'I\'m in charge of US equities. I track the whole S&P 500 — 500-odd names, <span class="hl" style="color:#3B82F6">5-minute bars up to daily</span>. When the market regime shifts, I call it, and the call goes on the record.', ko:'난 미국 주식 전담이야. S&P 500 전 종목, 500여 개를 <span class="hl" style="color:#3B82F6">5분봉부터 일봉까지</span> 추적해. 시장 국면이 바뀌면 짚어내고, 그 판단은 기록으로 남아.' },
     { who:'us_stock', en:'US market is my battlefield. Hundreds of stocks, <span class="hl" style="color:#3B82F6">analyzed simultaneously</span>, every single trading session. I don\'t sleep when New York is open.', ko:'미국 시장이 내 전쟁터야. 수백 개 종목을 매 거래 세션마다 <span class="hl" style="color:#3B82F6">동시에 분석</span>해. 뉴욕이 열려 있는 한 난 안 자.' },
-    { who:'us_stock', en:'I watch every corner of the US market — from mega-caps to mid-caps. <span class="hl" style="color:#3B82F6">Real-time regime detection</span> is my specialty. I know when the mood shifts before most traders feel it.', ko:'미국 시장 구석구석을 다 봐. 대형주부터 중형주까지. <span class="hl" style="color:#3B82F6">실시간 레짐 감지</span>가 내 특기야. 대부분의 트레이더가 느끼기 전에 분위기 변화를 알아채.' },
-    { who:'us_stock', en:'Every day the US market opens, I\'m already running. <span class="hl" style="color:#3B82F6">Continuous analysis</span> across the full S&P universe — momentum, trend, volatility, all of it tracked in real-time.', ko:'매일 미국 시장이 열리면 난 이미 돌아가고 있어. S&P 전 종목에 대한 <span class="hl" style="color:#3B82F6">연속 분석</span>. 모멘텀, 추세, 변동성 전부 실시간으로 추적해.' },
-    { who:'us_stock', en:'I cover the biggest equity market on the planet. <span class="hl" style="color:#3B82F6">Full coverage, real-time</span>. When something moves, I see it — and I figure out if it\'s noise or a real regime shift.', ko:'지구상에서 가장 큰 주식 시장을 커버해. <span class="hl" style="color:#3B82F6">전수 분석, 실시간</span>. 뭔가 움직이면 난 보여. 그리고 그게 노이즈인지 진짜 국면 전환인지 판단해.' },
+    { who:'us_stock', en:'I cover the whole S&P 500, from the mega-caps on down. <span class="hl" style="color:#3B82F6">Regime detection</span> is my specialty — trending, ranging or turning volatile, I read which one we\'re in.', ko:'S&P 500 전체를 봐. 초대형주부터 끝까지. <span class="hl" style="color:#3B82F6">레짐 감지</span>가 내 특기야. 지금이 추세장인지, 횡보장인지, 변동성이 커지는 중인지 읽어내.' },
+    { who:'us_stock', en:'Every day the US market opens, I\'m already running. <span class="hl" style="color:#3B82F6">Continuous analysis</span> across the full S&P universe — momentum, trend, volatility, tracked bar by bar.', ko:'매일 미국 시장이 열리면 난 이미 돌아가고 있어. S&P 전 종목에 대한 <span class="hl" style="color:#3B82F6">연속 분석</span>. 모멘텀, 추세, 변동성을 봉마다 추적해.' },
+    { who:'us_stock', en:'I cover the biggest equity market on the planet. <span class="hl" style="color:#3B82F6">Full S&P 500 coverage</span>. When something moves, I see it — and I figure out if it\'s noise or a real regime shift.', ko:'지구상에서 가장 큰 주식 시장을 커버해. <span class="hl" style="color:#3B82F6">S&P 500 전수 분석</span>. 뭔가 움직이면 난 보여. 그리고 그게 노이즈인지 진짜 국면 전환인지 판단해.' },
   ],
   // --- KR Stock ---
   kr_stock_intro: [
-    { who:'kr_stock', en:'Korean stocks are my domain — KOSPI and KOSDAQ. I specialize in <span class="hl" style="color:#d4a853">regime detection</span>, figuring out whether the market is trending, ranging, or about to turn volatile.', ko:'국내 주식은 내 영역이야. KOSPI랑 KOSDAQ 전부. 내 전문은 <span class="hl" style="color:#d4a853">레짐 감지</span>야. 지금 시장이 추세장인지, 횡보장인지, 아니면 변동성이 터지려는 건지.' },
+    { who:'kr_stock', en:'Korean stocks are my domain — KOSPI 200 and KOSDAQ 150. I specialize in <span class="hl" style="color:#d4a853">regime detection</span>, figuring out whether the market is trending, ranging, or about to turn volatile.', ko:'국내 주식은 내 영역이야. KOSPI 200이랑 KOSDAQ 150. 내 전문은 <span class="hl" style="color:#d4a853">레짐 감지</span>야. 지금 시장이 추세장인지, 횡보장인지, 아니면 변동성이 터지려는 건지.' },
     { who:'kr_stock', en:'I handle the Korean market end-to-end. <span class="hl" style="color:#d4a853">Understanding market context</span> is everything here — a strategy that works in a trending market will fail in a sideways one.', ko:'국내 시장은 처음부터 끝까지 내가 맡아. <span class="hl" style="color:#d4a853">시장 맥락을 이해하는 게</span> 여기선 전부야. 추세장에서 먹히는 전략이 횡보장에서는 망하거든.' },
     { who:'kr_stock', en:'KOSPI, KOSDAQ — I read the pulse of Korea\'s markets. My focus is <span class="hl" style="color:#d4a853">classifying the current regime</span> so the right approach is applied at the right time.', ko:'KOSPI, KOSDAQ. 한국 시장의 맥박을 읽어. 내 핵심은 <span class="hl" style="color:#d4a853">현재 레짐을 분류</span>해서 적시에 맞는 접근법을 적용하는 거야.' },
     { who:'kr_stock', en:'Korean equities are unique — they react to global flows differently. I track <span class="hl" style="color:#d4a853">local regime patterns</span> that only make sense in the Korean context.', ko:'한국 주식은 특이해. 글로벌 흐름에 대한 반응이 달라. 한국 맥락에서만 의미 있는 <span class="hl" style="color:#d4a853">로컬 레짐 패턴</span>을 추적하지.' },
@@ -892,70 +1202,70 @@ const POOL = {
   ],
   // --- Crypto ---
   crypto_intro: [
-    { who:'crypto', en:'Crypto market never closes, so neither do I. I run <span class="hl" style="color:#d4a853">24/7 signal generation</span> across major coins — adapting to whatever the market throws at me.', ko:'코인 시장은 절대 안 닫아. 그러니까 나도 절대 안 쉬어. 주요 코인들에 대해 <span class="hl" style="color:#d4a853">24시간 시그널을 생성</span>하고, 시장이 뭘 던지든 적응해.' },
-    { who:'crypto', en:'24 hours, 7 days, 365 days. That\'s my schedule. While other markets sleep, I\'m still tracking <span class="hl" style="color:#d4a853">crypto price action</span> and adapting signals in real-time.', ko:'24시간, 7일, 365일. 그게 내 스케줄이야. 다른 시장이 잘 때도 난 <span class="hl" style="color:#d4a853">코인 가격 움직임</span>을 추적하고 실시간으로 시그널을 조정해.' },
-    { who:'crypto', en:'Crypto is chaos — and I love it. <span class="hl" style="color:#d4a853">Non-stop monitoring</span>, adaptive signals, and zero downtime. The market doesn\'t rest, so I don\'t either.', ko:'코인은 카오스야. 그리고 난 그게 좋아. <span class="hl" style="color:#d4a853">멈추지 않는 모니터링</span>, 적응형 시그널, 다운타임 제로. 시장이 안 쉬니까 나도 안 쉬어.' },
+    { who:'crypto', en:'Crypto market never closes, so neither do I. I run <span class="hl" style="color:#d4a853">24/7 signal generation</span> across every coin listed on Bithumb — adapting to whatever the market throws at me.', ko:'코인 시장은 절대 안 닫아. 그러니까 나도 절대 안 쉬어. 빗썸 상장 코인 전부에 대해 <span class="hl" style="color:#d4a853">24시간 시그널을 생성</span>하고, 시장이 뭘 던지든 적응해.' },
+    { who:'crypto', en:'24 hours, 7 days, 365 days. That\'s my schedule. While other markets sleep, I\'m still tracking <span class="hl" style="color:#d4a853">crypto price action</span> and updating signals bar by bar.', ko:'24시간, 7일, 365일. 그게 내 스케줄이야. 다른 시장이 잘 때도 난 <span class="hl" style="color:#d4a853">코인 가격 움직임</span>을 추적하고 봉마다 시그널을 갱신해.' },
+    { who:'crypto', en:'Crypto is chaos — and I love it. <span class="hl" style="color:#d4a853">Non-stop monitoring</span>, adaptive signals, and no closing bell. The market doesn\'t rest, so I don\'t either.', ko:'코인은 카오스야. 그리고 난 그게 좋아. <span class="hl" style="color:#d4a853">멈추지 않는 모니터링</span>, 적응형 시그널, 마감 없음. 시장이 안 쉬니까 나도 안 쉬어.' },
     { who:'crypto', en:'I handle digital assets — Bitcoin, Ethereum, altcoins. The <span class="hl" style="color:#d4a853">always-on nature of crypto</span> means I need to be faster and more adaptive than anyone else on the team.', ko:'디지털 자산을 담당해. 비트코인, 이더리움, 알트코인. <span class="hl" style="color:#d4a853">코인의 항시 운영 특성</span> 때문에 팀에서 누구보다 빠르고 적응력이 좋아야 해.' },
-    { who:'crypto', en:'The crypto market is my playground. <span class="hl" style="color:#d4a853">Round-the-clock analysis</span> — I catch opportunities that only exist at 3am on a Sunday. That\'s when the magic happens.', ko:'코인 시장은 내 놀이터야. <span class="hl" style="color:#d4a853">24시간 분석</span>. 일요일 새벽 3시에만 존재하는 기회를 잡아내지. 진짜 매직은 그때 일어나.' },
+    { who:'crypto', en:'The crypto market is my playground. <span class="hl" style="color:#d4a853">Round-the-clock analysis</span> — some of the biggest moves happen at 3am on a Sunday, and somebody has to be watching.', ko:'코인 시장은 내 놀이터야. <span class="hl" style="color:#d4a853">24시간 분석</span>. 큰 움직임이 일요일 새벽 3시에 나오기도 하거든. 누군가는 지켜봐야지.' },
   ],
   // --- Bond ---
   bond_intro: [
     { who:'bond', en:'I watch the bond market — yield curves, credit spreads, sovereign risk. These are the <span class="hl" style="color:#6b9fc9">macro risk signals</span> that tell you whether the world is in risk-on or risk-off mode.', ko:'채권 시장을 감시해. 수익률 커브, 신용 스프레드, 국가 리스크. 세상이 risk-on인지 risk-off인지 알려주는 <span class="hl" style="color:#6b9fc9">매크로 리스크 시그널</span>이야.' },
-    { who:'bond', en:'Bonds are the foundation. When <span class="hl" style="color:#6b9fc9">credit conditions tighten</span>, everything else follows. I read those signals so the team knows what\'s coming before it hits equities.', ko:'채권이 기초야. <span class="hl" style="color:#6b9fc9">신용 조건이 긴축</span>되면 나머지가 다 따라와. 주식에 충격이 오기 전에 팀이 알 수 있도록 그 시그널을 읽어.' },
-    { who:'bond', en:'I\'m the team\'s early warning system. <span class="hl" style="color:#6b9fc9">Bond markets price in risk</span> faster than anything else — by the time stocks react, I\'ve already seen it.', ko:'난 팀의 조기경보 시스템이야. <span class="hl" style="color:#6b9fc9">채권 시장은 리스크를 가장 빨리 반영</span>해. 주식이 반응할 때쯤이면 난 이미 봤어.' },
-    { who:'bond', en:'Yield curves, swap spreads, high-yield vs investment-grade — I track the signals that most equity traders ignore. That\'s where the <span class="hl" style="color:#6b9fc9">real edge</span> comes from.', ko:'수익률 커브, 스왑 스프레드, 하이일드 대 투자등급. 대부분의 주식 트레이더가 무시하는 시그널을 추적해. <span class="hl" style="color:#6b9fc9">진짜 엣지</span>는 거기서 나와.' },
+    { who:'bond', en:'Bonds are the foundation. When <span class="hl" style="color:#6b9fc9">credit conditions tighten</span>, everything else feels it. I read those signals so every desk on the team sees the credit backdrop.', ko:'채권이 기초야. <span class="hl" style="color:#6b9fc9">신용 조건이 긴축</span>되면 나머지가 다 영향을 받아. 그 시그널을 읽어서 팀 전체가 신용 환경을 같이 보게 해.' },
+    { who:'bond', en:'I\'m the team\'s risk gauge. <span class="hl" style="color:#6b9fc9">Bond markets often price risk early</span> — I track whether that holds, and every macro-to-market call I make gets scored later.', ko:'난 팀의 리스크 계기판이야. <span class="hl" style="color:#6b9fc9">채권 시장은 리스크를 먼저 반영하곤 해</span>. 그게 정말 맞는지 추적하고, 내 거시→시장 예측은 전부 나중에 채점돼.' },
+    { who:'bond', en:'Yield curves, T-bills to long bonds, high-yield vs investment-grade — I track the signals most equity traders ignore. That\'s <span class="hl" style="color:#6b9fc9">context a stock screen leaves out</span>.', ko:'수익률 커브, 단기채부터 장기채, 하이일드 대 투자등급. 대부분의 주식 트레이더가 무시하는 시그널을 추적해. <span class="hl" style="color:#6b9fc9">주식 화면엔 안 나오는 맥락</span>이지.' },
     { who:'bond', en:'The bond market is the world\'s biggest. I read its movements to understand <span class="hl" style="color:#6b9fc9">the macro backdrop</span> that every other market trades against.', ko:'채권 시장은 세계 최대 규모야. 그 움직임을 읽어서 다른 모든 시장이 거래하는 <span class="hl" style="color:#6b9fc9">매크로 배경</span>을 이해해.' },
   ],
   // --- Forex ---
   forex_intro: [
     { who:'forex', en:'Forex and global liquidity are mine. I track <span class="hl" style="color:#5cb85c">where the money is flowing</span> around the world and what that means for every other asset class.', ko:'외환이랑 글로벌 유동성은 내 담당이야. <span class="hl" style="color:#5cb85c">돈이 세계 어디로 흐르는지</span> 추적하고, 그게 다른 자산군에 뭘 의미하는지 읽어.' },
     { who:'forex', en:'Currencies tell a story that stocks can\'t. <span class="hl" style="color:#5cb85c">Capital flows across borders</span> reveal what\'s really happening in the global economy. That\'s my job — reading the flow.', ko:'통화는 주식이 못 하는 이야기를 해. <span class="hl" style="color:#5cb85c">국경을 넘는 자본 흐름</span>이 글로벌 경제에서 진짜 무슨 일이 벌어지는지 보여줘. 그 흐름을 읽는 게 내 일이야.' },
-    { who:'forex', en:'I monitor the dollar index, yen crosses, euro pairs — <span class="hl" style="color:#5cb85c">every major FX move</span> gets factored into our regime analysis. Currency is the backbone of global finance.', ko:'달러 인덱스, 엔 크로스, 유로 페어를 모니터링해. <span class="hl" style="color:#5cb85c">모든 주요 외환 움직임</span>이 레짐 분석에 반영돼. 통화는 글로벌 금융의 척추야.' },
+    { who:'forex', en:'I monitor the dollar index, yen, euro, won and yuan — <span class="hl" style="color:#5cb85c">every major FX move</span> gets factored into our regime analysis. Currency is the backbone of global finance.', ko:'달러 인덱스, 엔, 유로, 원, 위안을 모니터링해. <span class="hl" style="color:#5cb85c">모든 주요 외환 움직임</span>이 레짐 분석에 반영돼. 통화는 글로벌 금융의 척추야.' },
     { who:'forex', en:'When the dollar strengthens, emerging markets feel it. When yen weakens, carry trades unwind. I connect <span class="hl" style="color:#5cb85c">FX movements to cross-asset impact</span>.', ko:'달러가 강해지면 이머징이 타격받아. 엔화가 약해지면 캐리 트레이드가 풀려. <span class="hl" style="color:#5cb85c">외환 움직임을 크로스에셋 영향</span>으로 연결하지.' },
-    { who:'forex', en:'Global liquidity conditions are invisible to most — but not to me. I track <span class="hl" style="color:#5cb85c">cross-border capital movement</span> that drives regime shifts.', ko:'글로벌 유동성 상황은 대부분에게 안 보여. 하지만 나한텐 보여. 레짐 전환을 이끄는 <span class="hl" style="color:#5cb85c">국경 간 자본 이동</span>을 추적하지.' },
+    { who:'forex', en:'Global liquidity conditions are easy to miss. I track <span class="hl" style="color:#5cb85c">cross-border capital movement</span> that can drive regime shifts.', ko:'글로벌 유동성 상황은 놓치기 쉬워. 레짐 전환을 이끌 수 있는 <span class="hl" style="color:#5cb85c">국경 간 자본 이동</span>을 추적하지.' },
   ],
   // --- Commodity ---
   commodity_intro: [
-    { who:'commodity', en:'Gold, crude oil, copper — I monitor the raw materials that drive the real economy. <span class="hl" style="color:#10B981">Inflation signals</span> show up here first, long before official data.', ko:'금, 원유, 구리. 실물 경제를 움직이는 원자재를 모니터링해. <span class="hl" style="color:#10B981">인플레이션 시그널</span>은 공식 데이터보다 여기서 먼저 보여.' },
+    { who:'commodity', en:'Gold, crude oil, copper — I monitor the raw materials that drive the real economy. <span class="hl" style="color:#10B981">Inflation signals</span> often show up here before the official data.', ko:'금, 원유, 구리. 실물 경제를 움직이는 원자재를 모니터링해. <span class="hl" style="color:#10B981">인플레이션 시그널</span>은 공식 데이터보다 여기서 먼저 보이곤 해.' },
     { who:'commodity', en:'When commodity prices move, it\'s the real economy talking. I listen to <span class="hl" style="color:#10B981">what raw materials are saying</span> about inflation, growth, and global demand.', ko:'원자재 가격이 움직이면 실물 경제가 말하는 거야. <span class="hl" style="color:#10B981">원자재가 인플레이션, 성장, 글로벌 수요에 대해 뭘 말하는지</span> 들어.' },
     { who:'commodity', en:'I\'m the inflation canary. Gold, oil, copper, grains — when these move together, it\'s a <span class="hl" style="color:#10B981">macro signal you can\'t ignore</span>. I make sure the team sees it.', ko:'난 인플레이션의 카나리아야. 금, 원유, 구리, 곡물. 이것들이 함께 움직이면 <span class="hl" style="color:#10B981">무시 못 할 매크로 시그널</span>이지. 팀이 확실히 볼 수 있게 해.' },
-    { who:'commodity', en:'Commodities are the physical layer of finance. <span class="hl" style="color:#10B981">Supply chain stress, energy shocks, food inflation</span> — I detect these signals before they cascade into equities.', ko:'원자재는 금융의 물리적 레이어야. <span class="hl" style="color:#10B981">공급망 스트레스, 에너지 쇼크, 식량 인플레이션</span>. 이 시그널들이 주식으로 전이되기 전에 감지해.' },
-    { who:'commodity', en:'From precious metals to energy to agriculture — I track the <span class="hl" style="color:#10B981">commodities complex</span> and translate price movements into actionable macro context.', ko:'귀금속에서 에너지, 농산물까지. <span class="hl" style="color:#10B981">원자재 전체</span>를 추적하고 가격 움직임을 실행 가능한 매크로 맥락으로 번역해.' },
+    { who:'commodity', en:'Commodities are the physical layer of finance. <span class="hl" style="color:#10B981">Supply chain stress, energy shocks, food inflation</span> — I watch for these signals and how they spill over into equities.', ko:'원자재는 금융의 물리적 레이어야. <span class="hl" style="color:#10B981">공급망 스트레스, 에너지 쇼크, 식량 인플레이션</span>. 이 시그널들이 주식으로 어떻게 번지는지 지켜봐.' },
+    { who:'commodity', en:'From precious metals to energy to agriculture — I track the <span class="hl" style="color:#10B981">commodities complex</span> and translate price movements into macro context.', ko:'귀금속에서 에너지, 농산물까지. <span class="hl" style="color:#10B981">원자재 전체</span>를 추적하고 가격 움직임을 매크로 맥락으로 번역해.' },
   ],
-  // --- News ---
+  // --- News (lead-time claims stay UNVERIFIED until they pass testing — don't promise "before prices react") ---
   news_intro: [
-    { who:'news', en:'I scan thousands of news sources in real-time. When something is about to <span class="hl" style="color:#d9534f">move the market</span> — earnings, policy, geopolitics — I flag it before prices react.', ko:'수천 개 뉴스 소스를 실시간으로 스캔해. 어닝, 정책, 지정학처럼 <span class="hl" style="color:#d9534f">시장을 움직일 무언가</span>가 있으면 가격이 반응하기 전에 잡아내.' },
-    { who:'news', en:'News moves markets — but only some news matters. I separate <span class="hl" style="color:#d9534f">signal from noise</span> in real-time, so the team only sees what actually impacts prices.', ko:'뉴스가 시장을 움직여. 하지만 중요한 뉴스만. 실시간으로 <span class="hl" style="color:#d9534f">시그널과 노이즈를 분리</span>해서 팀에게는 실제로 가격에 영향주는 것만 보여줘.' },
-    { who:'news', en:'I\'m the team\'s eyes and ears on the outside world. <span class="hl" style="color:#d9534f">Breaking events, policy shifts, surprise data</span> — I catch it all and assess market impact instantly.', ko:'난 팀의 외부 세계에 대한 눈과 귀야. <span class="hl" style="color:#d9534f">속보, 정책 전환, 서프라이즈 데이터</span>. 전부 잡아내고 시장 영향을 즉시 평가해.' },
-    { who:'news', en:'Thousands of headlines every hour, but only a handful move prices. I find those <span class="hl" style="color:#d9534f">critical few</span> and make sure nothing catches us off guard.', ko:'매시간 수천 개 헤드라인이 나오지만 가격을 움직이는 건 소수야. 그 <span class="hl" style="color:#d9534f">결정적인 몇 개</span>를 찾아내서 우리가 허를 찔리지 않게 해.' },
-    { who:'news', en:'Real-time news intelligence is my domain. I <span class="hl" style="color:#d9534f">filter, score, and prioritize</span> market-moving information so it reaches the right agent at the right time.', ko:'실시간 뉴스 인텔리전스가 내 영역이야. 시장을 움직이는 정보를 <span class="hl" style="color:#d9534f">필터링, 스코어링, 우선순위화</span>해서 적시에 맞는 에이전트에게 전달해.' },
+    { who:'news', en:'I collect market news and the economic calendar around the clock and tag each event: <span class="hl" style="color:#d9534f">priced in, or a surprise?</span> Every tag stays on the record so it can be checked later.', ko:'시장 뉴스랑 경제 캘린더를 24시간 모아서 이벤트마다 태그를 달아. <span class="hl" style="color:#d9534f">시장이 미리 반영했는지, 돌발인지</span>. 그 태그는 전부 기록에 남아서 나중에 검증받아.' },
+    { who:'news', en:'News moves markets — but only some news matters. I try to separate <span class="hl" style="color:#d9534f">signal from noise</span>, and I keep score of how often I get it right.', ko:'뉴스가 시장을 움직여. 하지만 중요한 뉴스만. <span class="hl" style="color:#d9534f">시그널과 노이즈를 가려내려고</span> 하고, 내가 얼마나 맞히는지도 계속 기록해.' },
+    { who:'news', en:'I\'m the team\'s eyes and ears on the outside world. <span class="hl" style="color:#d9534f">Breaking events, policy shifts, surprise data</span> — I bring them into every analysis cycle so the others can weigh them.', ko:'난 팀의 외부 세계에 대한 눈과 귀야. <span class="hl" style="color:#d9534f">속보, 정책 전환, 서프라이즈 데이터</span>. 매 분석 사이클마다 가져와서 다른 친구들이 판단에 반영하게 해.' },
+    { who:'news', en:'Headlines pour in every hour, but only a handful move prices. I look for that <span class="hl" style="color:#d9534f">critical few</span> — and until my hit rate is proven, it\'s labeled unverified. No pretending.', ko:'매시간 헤드라인은 쏟아지지만 가격을 움직이는 건 소수야. 그 <span class="hl" style="color:#d9534f">결정적인 몇 개</span>를 찾고, 내 적중률이 검증되기 전까진 \'미검증\'이라고 그대로 표시해.' },
+    { who:'news', en:'News intelligence is my domain. I <span class="hl" style="color:#d9534f">filter, score, and prioritize</span> market-moving information so it reaches the right agent at the right time.', ko:'뉴스 인텔리전스가 내 영역이야. 시장을 움직이는 정보를 <span class="hl" style="color:#d9534f">필터링, 스코어링, 우선순위화</span>해서 적시에 맞는 에이전트에게 전달해.' },
   ],
   // --- Cross-talk: agents responding to each other ---
   cross_talk: [
-    { who:'bond', en:'When I see credit spreads widening, I ping Eagle and Tiger immediately. <span class="hl" style="color:#6b9fc9">Macro leads micro</span> — always.', ko:'신용 스프레드가 벌어지면 멘쿤이랑 코숏한테 바로 알려. <span class="hl" style="color:#6b9fc9">매크로가 마이크로를 이끌어</span>. 항상.' },
-    { who:'us_stock', en:'And when Brit flags a risk-off shift, I adjust my analysis instantly. That\'s why <span class="hl" style="color:#3B82F6">we work as a team</span>, not in silos.', ko:'브숏이 risk-off 전환을 알리면 난 즉시 분석을 조정해. 그래서 <span class="hl" style="color:#3B82F6">우리는 팀으로 일해</span>. 따로따로가 아니라.' },
+    { who:'bond', en:'When credit spreads widen, I flag it to Maine and Koshort right away. <span class="hl" style="color:#6b9fc9">Macro sets the backdrop</span> — it doesn\'t overrule their own reads.', ko:'신용 스프레드가 벌어지면 멘쿤이랑 코숏한테 바로 알려. <span class="hl" style="color:#6b9fc9">매크로는 배경을 깔아줄 뿐</span>, 각자의 판단을 덮어쓰진 않아.' },
+    { who:'us_stock', en:'And when Brit flags a risk-off shift, I weigh it in at decision time. That\'s why <span class="hl" style="color:#3B82F6">we work as a team</span>, not in silos.', ko:'브숏이 risk-off 전환을 알리면 판단할 때 그걸 반영해. 그래서 <span class="hl" style="color:#3B82F6">우리는 팀으로 일해</span>. 따로따로가 아니라.' },
     { who:'forex', en:'Same here. When I spot dollar strength, it ripples through everything — stocks, commodities, crypto. <span class="hl" style="color:#5cb85c">Everything is connected</span>.', ko:'나도 마찬가지야. 달러 강세가 보이면 주식, 원자재, 코인 전부에 파급돼. <span class="hl" style="color:#5cb85c">모든 건 연결돼 있어</span>.' },
     { who:'commodity', en:'Exactly. When oil spikes, I tell everyone — because it changes the <span class="hl" style="color:#10B981">inflation outlook</span> for every market we cover.', ko:'맞아. 원유가 급등하면 모두에게 알려. 왜냐면 우리가 커버하는 모든 시장의 <span class="hl" style="color:#10B981">인플레이션 전망</span>이 바뀌거든.' },
-    { who:'news', en:'And I\'m feeding everyone at the same time. When a <span class="hl" style="color:#d9534f">major event breaks</span>, every agent gets the context they need within seconds.', ko:'그리고 난 동시에 모두에게 피딩해. <span class="hl" style="color:#d9534f">주요 이벤트가 터지면</span> 모든 에이전트가 몇 초 안에 필요한 맥락을 받아.' },
-    { who:'crypto', en:'In crypto, things move fast. Having real-time intel from Ruble and macro context from Brit gives me a <span class="hl" style="color:#d4a853">massive edge</span>.', ko:'코인에서는 빠르게 움직여. 러블의 실시간 인텔과 브숏의 매크로 맥락 덕분에 <span class="hl" style="color:#d4a853">엄청난 엣지</span>를 갖게 돼.' },
-    { who:'kr_stock', en:'The beauty of this setup is that no agent works alone. <span class="hl" style="color:#d4a853">Cross-market intelligence</span> makes every individual signal stronger.', ko:'이 구조의 핵심은 어떤 에이전트도 혼자 일하지 않는다는 거야. <span class="hl" style="color:#d4a853">크로스마켓 인텔리전스</span>가 개별 시그널을 더 강하게 만들어.' },
-    { who:'us_stock', en:'That\'s exactly it. My signals are better because I have <span class="hl" style="color:#3B82F6">macro, forex, and news context</span> baked into every decision.', ko:'바로 그거야. 내 시그널이 더 좋은 건 모든 결정에 <span class="hl" style="color:#3B82F6">매크로, 외환, 뉴스 맥락</span>이 녹아들어가 있기 때문이야.' },
+    { who:'news', en:'And I\'m feeding everyone at the same time. When a <span class="hl" style="color:#d9534f">major event breaks</span>, it lands in every agent\'s context on the next analysis cycle.', ko:'그리고 난 동시에 모두에게 피딩해. <span class="hl" style="color:#d9534f">주요 이벤트가 터지면</span> 다음 분석 사이클에서 모든 에이전트가 그 맥락을 받아.' },
+    { who:'crypto', en:'In crypto, things move fast. Ruble\'s news context and Brit\'s macro read give me <span class="hl" style="color:#d4a853">a wider view</span> than price alone.', ko:'코인에서는 빠르게 움직여. 러블의 뉴스 맥락과 브숏의 매크로 판단 덕분에 <span class="hl" style="color:#d4a853">가격만 볼 때보다 넓게</span> 볼 수 있어.' },
+    { who:'kr_stock', en:'The beauty of this setup is that no agent works alone. <span class="hl" style="color:#d4a853">Cross-market context</span> gets weighed into every individual call.', ko:'이 구조의 핵심은 어떤 에이전트도 혼자 일하지 않는다는 거야. <span class="hl" style="color:#d4a853">크로스마켓 맥락</span>이 개별 판단마다 함께 반영돼.' },
+    { who:'us_stock', en:'Every decision I make sees <span class="hl" style="color:#3B82F6">macro, forex, and news context</span> — and whether that actually helps is something we measure, not assume.', ko:'내 모든 판단엔 <span class="hl" style="color:#3B82F6">매크로, 외환, 뉴스 맥락</span>이 같이 들어가. 그게 실제로 도움이 되는지는 가정하지 않고 측정해.' },
   ],
   // --- System explanation ---
   system_explain: [
     { who:'us_stock', en:'We don\'t use a one-size-fits-all approach. Each market regime gets <span class="hl" style="color:#3B82F6">tailored strategies</span> — trending, ranging, volatile, all handled differently.', ko:'우리는 만능 접근법을 쓰지 않아. 시장 국면마다 <span class="hl" style="color:#3B82F6">맞춤 전략</span>이 적용돼. 추세, 횡보, 변동성 모두 다르게 대응해.' },
-    { who:'kr_stock', en:'Nothing goes live without testing. Every signal is validated through <span class="hl" style="color:#d4a853">paper trading</span> — real conditions, simulated trades, verified performance.', ko:'검증 없이 나가는 건 없어. 모든 시그널은 <span class="hl" style="color:#d4a853">가상매매</span>로 검증돼. 실제 조건, 시뮬레이션 거래, 확인된 성과.' },
-    { who:'crypto', en:'Plus, the whole system is <span class="hl" style="color:#d4a853">self-learning</span>. It reviews performance, learns from mistakes, and evolves. No human bias, just data-driven improvement.', ko:'거기다 시스템 전체가 <span class="hl" style="color:#d4a853">자기학습</span>을 해. 성과를 리뷰하고, 실수에서 배우고, 진화해. 사람 편향 없이 데이터가 이끄는 개선이야.' },
+    { who:'kr_stock', en:'Every signal is tested in <span class="hl" style="color:#d4a853">paper trading</span> — live prices, simulated fills, and every result published, good or bad.', ko:'모든 시그널은 <span class="hl" style="color:#d4a853">가상매매</span>로 시험돼. 실시간 가격, 시뮬레이션 체결, 그리고 결과는 좋든 나쁘든 전부 공개.' },
+    { who:'crypto', en:'Plus, the system is <span class="hl" style="color:#d4a853">self-learning</span> — it reweights strategies from paper-trade outcomes. Promoting a new rule still takes a human sign-off.', ko:'거기다 시스템이 <span class="hl" style="color:#d4a853">자기학습</span>을 해. 가상매매 결과로 전략 가중치를 스스로 조정하고, 새 규칙을 승격할 땐 사람이 승인해.' },
     { who:'kr_stock', en:'We also adapt to different market hours and regional characteristics. What works for KOSPI might not work for S&P — <span class="hl" style="color:#d4a853">localization matters</span>.', ko:'시장 시간대랑 지역 특성에도 적응해. KOSPI에서 되는 게 S&P에서 안 될 수도 있어. <span class="hl" style="color:#d4a853">현지화가 중요</span>해.' },
-    { who:'us_stock', en:'The system runs <span class="hl" style="color:#3B82F6">continuously and autonomously</span>. We detect regime changes, generate signals, validate them, and deliver — all without human intervention.', ko:'시스템은 <span class="hl" style="color:#3B82F6">지속적이고 자율적으로</span> 돌아가. 레짐 변화 감지, 시그널 생성, 검증, 전달까지 모두 사람 개입 없이.' },
+    { who:'us_stock', en:'The pipeline runs <span class="hl" style="color:#3B82F6">continuously</span> — detecting regimes, generating signals, recording predictions and scoring them, around the clock.', ko:'파이프라인은 <span class="hl" style="color:#3B82F6">멈추지 않고</span> 돌아가. 레짐 감지, 시그널 생성, 예측 기록과 채점까지 24시간.' },
   ],
   // --- Closing ---
   closing: [
-    { who:'orchestrator', en:'And all of this is available through <span class="hl" style="color:#d4a853">MCP</span> and <span class="hl" style="color:#d4a853">API</span>. Any AI agent can call us directly — regime data, signals, market context, everything. That\'s OneQAZ.', ko:'이 모든 게 <span class="hl" style="color:#d4a853">MCP</span>랑 <span class="hl" style="color:#d4a853">API</span>로 제공돼. 어떤 AI 에이전트든 직접 호출 가능. 레짐 데이터, 시그널, 시장 컨텍스트 전부. 그게 OneQAZ야.' },
-    { who:'orchestrator', en:'We\'re an <span class="hl" style="color:#d4a853">intelligence layer</span> for the financial world. Connect your AI agents to us via MCP or API and get market context that money can\'t buy.', ko:'우리는 금융 세계를 위한 <span class="hl" style="color:#d4a853">인텔리전스 레이어</span>야. MCP나 API로 너희 AI 에이전트를 연결하면 돈으로 살 수 없는 시장 맥락을 얻을 수 있어.' },
-    { who:'orchestrator', en:'8 agents, 3 markets, <span class="hl" style="color:#d4a853">one unified intelligence</span>. We cover macro to micro, 24/7. That\'s the OneQAZ advantage.', ko:'8개 에이전트, 3개 시장, <span class="hl" style="color:#d4a853">하나의 통합 인텔리전스</span>. 매크로부터 마이크로까지, 24/7. 그게 OneQAZ의 강점이야.' },
-    { who:'orchestrator', en:'This isn\'t just data — it\'s <span class="hl" style="color:#d4a853">context-aware market intelligence</span>. Plug into us via MCP or API, and let your AI agents see what we see.', ko:'이건 단순 데이터가 아니야. <span class="hl" style="color:#d4a853">맥락을 이해하는 시장 인텔리전스</span>야. MCP나 API로 연결해서 너희 AI 에이전트가 우리가 보는 걸 보게 해.' },
-    { who:'orchestrator', en:'That\'s the team. We watch every market, every asset class, <span class="hl" style="color:#d4a853">every shift in regime</span> — and make it all available through one API. Welcome to OneQAZ.', ko:'이게 우리 팀이야. 모든 시장, 모든 자산군, <span class="hl" style="color:#d4a853">모든 레짐 변화</span>를 감시하고, 하나의 API로 제공해. OneQAZ에 온 걸 환영해.' },
+    { who:'orchestrator', en:'And all of this is available through <span class="hl" style="color:#d4a853">MCP</span> and <span class="hl" style="color:#d4a853">API</span>. Any AI agent can call us directly — regime data, signals, market context, and the record behind them. That\'s OneQAZ.', ko:'이 모든 게 <span class="hl" style="color:#d4a853">MCP</span>랑 <span class="hl" style="color:#d4a853">API</span>로 제공돼. 어떤 AI 에이전트든 직접 호출 가능. 레짐 데이터, 시그널, 시장 컨텍스트, 그리고 그 뒤의 기록까지. 그게 OneQAZ야.' },
+    { who:'orchestrator', en:'We\'re an <span class="hl" style="color:#d4a853">intelligence layer</span> for AI agents. Connect via MCP or API — and every number comes with a record you can check.', ko:'우리는 AI 에이전트를 위한 <span class="hl" style="color:#d4a853">인텔리전스 레이어</span>야. MCP나 API로 연결하면, 모든 숫자에 확인 가능한 기록이 따라와.' },
+    { who:'orchestrator', en:'8 agents, 3 markets, <span class="hl" style="color:#d4a853">one unified intelligence</span>. We cover macro to micro, 24/7. That\'s OneQAZ.', ko:'8개 에이전트, 3개 시장, <span class="hl" style="color:#d4a853">하나의 통합 인텔리전스</span>. 매크로부터 마이크로까지, 24/7. 그게 OneQAZ야.' },
+    { who:'orchestrator', en:'This isn\'t just data — it\'s <span class="hl" style="color:#d4a853">context-aware market intelligence</span>, hits and misses on the record. Plug into us via MCP or API, and let your AI agents see what we see.', ko:'이건 단순 데이터가 아니야. 맞힌 것도 틀린 것도 기록에 남는 <span class="hl" style="color:#d4a853">맥락 있는 시장 인텔리전스</span>야. MCP나 API로 연결해서 너희 AI 에이전트가 우리가 보는 걸 보게 해.' },
+    { who:'orchestrator', en:'That\'s the team. We watch every market, every asset class, <span class="hl" style="color:#d4a853">every shift in regime</span> — and make it all available through one API. Research, not advice. Welcome to OneQAZ.', ko:'이게 우리 팀이야. 모든 시장, 모든 자산군, <span class="hl" style="color:#d4a853">모든 레짐 변화</span>를 감시하고, 하나의 API로 제공해. 투자 자문이 아니라 연구 정보야. OneQAZ에 온 걸 환영해.' },
   ],
 };
 
@@ -1056,6 +1366,18 @@ function typeIntoBubble(bubble, html, speed, onDone) {
   step();
 }
 
+// Fallback measurement: render the bubble off-screen at the target width and read its height.
+function measureBubble(html, width) {
+  const m = document.createElement('div');
+  m.className = 'msg-bubble';
+  m.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;height:auto;width:' + width + 'px';
+  m.innerHTML = html;
+  document.body.appendChild(m);
+  const h = m.scrollHeight;
+  m.remove();
+  return h || LINE_HEIGHT * 2;
+}
+
 // ═══ Create message with Pretext-measured accordion ═══
 function createAndAnimateMsg(entry, panelWidth, onDone) {
   const lang = document.documentElement.getAttribute('data-lang') || 'en';
@@ -1066,12 +1388,14 @@ function createAndAnimateMsg(entry, panelWidth, onDone) {
   const avatarGap = 42, msgPad = 32;
   const availWidth = panelWidth - avatarGap - msgPad;
 
-  let bubbleHeight = LINE_HEIGHT * 2;
-  try {
-    const prepared = prepare(plainText, FONT);
-    const result = layout(prepared, Math.max(availWidth, 100), LINE_HEIGHT);
-    bubbleHeight = result.height;
-  } catch(e) {}
+  let bubbleHeight = 0;
+  if (pretext) {
+    try {
+      const prepared = pretext.prepare(plainText, FONT);
+      bubbleHeight = pretext.layout(prepared, Math.max(availWidth, 100), LINE_HEIGHT).height;
+    } catch(e) { bubbleHeight = 0; }
+  }
+  if (!bubbleHeight) bubbleHeight = measureBubble(text, Math.max(availWidth, 100));
 
   const div = document.createElement('div');
   div.className = 'msg';
@@ -1121,50 +1445,23 @@ function createAndAnimateMsg(entry, panelWidth, onDone) {
 }
 
 // ═══ Sequential chat ═══
+// A language switch restarts the chat; the generation counter stops the previous run's
+// pending callbacks from appending into the fresh panel.
+let chatGen = 0;
 function startChat() {
+  const gen = ++chatGen;
+  chatPaused = false;
+  chatResumeCallbacks = [];
   const panel = document.getElementById('chatPanel');
   const panelWidth = panel.offsetWidth;
   let i = 0;
-
-  function next() {
-    if (i >= CHAT_MESSAGES.length) return;
-    createAndAnimateMsg(CHAT_MESSAGES[i], panelWidth, () => {
-      i++;
-      next();
-    });
-    i++; // increment here, next() called from callback
-    // Fix: don't double increment
-  }
-
-  // Reset
-  i = 0;
   function run() {
-    if (i >= CHAT_MESSAGES.length) return;
+    if (gen !== chatGen || i >= CHAT_MESSAGES.length) return;
     const idx = i;
     i++;
     createAndAnimateMsg(CHAT_MESSAGES[idx], panelWidth, run);
   }
   run();
-}
-
-// ═══ Character grid ═══
-window.__renderCharGrid = renderCharGrid;
-function renderCharGrid() {
-  const grid = document.getElementById('charGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  const lang = document.documentElement.getAttribute('data-lang') || 'en';
-  for (const [key, c] of Object.entries(CHARS)) {
-    const card = document.createElement('div');
-    card.className = 'char-card';
-    const gNick = c.nick[lang] || c.nick.en;
-    const delay = (Math.random() * -3).toFixed(2);
-    const dur = (2.5 + Math.random() * 1.5).toFixed(2);
-    card.innerHTML = `<img src="${c.img}" alt="${gNick}" style="border:2px solid ${c.color}33;animation-delay:${delay}s;animation-duration:${dur}s"><div class="name" style="color:${c.color}">${gNick}</div><div class="role">${c.role[lang]||c.role.en}</div>`;
-    card.onmouseenter = () => { card.querySelector('img').style.borderColor=c.color+'80'; card.style.boxShadow=`0 0 12px ${c.color}20`; };
-    card.onmouseleave = () => { card.querySelector('img').style.borderColor=c.color+'33'; card.style.boxShadow=''; };
-    grid.appendChild(card);
-  }
 }
 
 // ═══ Observe chat panel: start on first view, pause/resume on visibility ═══
@@ -1188,11 +1485,9 @@ const chatObs = new IntersectionObserver((entries) => {
 
 window.chatObs = chatObs;
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderCharGrid();
-  const panel = document.getElementById('chatPanel');
-  if (panel) chatObs.observe(panel);
-});
+// Module evaluation may finish after DOMContentLoaded (top-level await above), so observe directly.
+const chatPanelEl = document.getElementById('chatPanel');
+if (chatPanelEl) chatObs.observe(chatPanelEl);
 </script>
 </body>
 </html>
