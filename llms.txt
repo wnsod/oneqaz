@@ -6,7 +6,7 @@
 
 - [MCP server](https://api.oneqaz.com/mcp): remote MCP over streamable HTTP. No API key needed on the free tier (1,500 calls/day per IP). Start with `get_daily_brief`; to audit credibility call `get_ledger_integrity`, `get_resolved_predictions` and `get_prediction_accuracy`.
 - [Pricing & limits](https://api.oneqaz.com/pricing): free and pro tiers expose identical tools; tiers differ only in rate limits.
-- [Source & quick start](https://github.com/wnsod/oneqaz-trading-mcp): the server code that serves api.oneqaz.com/mcp (also on [PyPI](https://pypi.org/project/oneqaz-trading-mcp/)).
+- [Source & quick start](https://github.com/oneqaz-trading/oneqaz-trading-mcp): the server code that serves api.oneqaz.com/mcp (also on [PyPI](https://pypi.org/project/oneqaz-trading-mcp/)).
 - [Service health](https://api.oneqaz.com/health): live regime, signal freshness and open-prediction count (JSON).
 
 ## Verify the record
