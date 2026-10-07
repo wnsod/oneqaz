@@ -197,7 +197,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">Legal</div>
   <h1 class="section-title">Privacy Policy</h1>
   <p class="section-desc">OneQAZ Trading Intelligence — MCP Server, API &amp; Website</p>
-  <div class="doc-meta">Last updated 2026-10-07 · Effective 2026-10-07</div>
+  <div class="doc-meta">Last updated 2026-10-08 · Effective 2026-10-08</div>
 
   <div class="toc">
     <a href="#en-purpose">Purpose</a><a href="#en-items">Items</a><a href="#en-retention">Retention</a>
@@ -224,19 +224,22 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li>Diagnose client and protocol compatibility problems.</li>
         <li>Measure aggregate usage (which tools are called, by which client type) to improve the product.</li>
         <li>Enforce access tiers, attribute usage to API keys, and issue and manage the API keys you request.</li>
+        <li>If you choose to connect an AI app to a OneQAZ account (OAuth): authenticate the account, issue, refresh and
+        revoke the app's access tokens, and apply limits per account.</li>
       </ul>
-      <p>We provide the service without accounts or consent screens. Request logs are processed on the basis of our
-      legitimate interest in operating and securing the service, limited to what is reasonably necessary (PIPA
-      Art. 15(1)(6); GDPR Art. 6(1)(f)). The contact email of an API-key holder is processed to issue and manage the key
-      you asked for (PIPA Art. 15(1)(4); GDPR Art. 6(1)(b)).</p>
+      <p>Anonymous use needs no account or consent screen. Request logs are processed on the basis of our legitimate
+      interest in operating and securing the service, limited to what is reasonably necessary (PIPA Art. 15(1)(6); GDPR
+      Art. 6(1)(f)). The contact email of an API-key holder is processed to issue and manage the key you asked for, and
+      account-connection data is processed to provide the connection you asked for (PIPA Art. 15(1)(4); GDPR
+      Art. 6(1)(b)). Connecting an account is optional; anonymous use continues to work without it.</p>
       <p>We do <strong>not</strong> sell your data, build advertising profiles, use request logs to train AI models, or make
       automated decisions about you based on them.</p>
     </section>
 
     <section id="en-items">
       <h2><span class="num">02</span>Personal information we process</h2>
-      <p>We do <strong>not</strong> require user accounts, and we do not collect names or payment details. The following is
-      generated automatically for each request to <code>api.oneqaz.com</code>:</p>
+      <p>Anonymous use does <strong>not</strong> require an account, and we do not collect names or payment details. The
+      following is generated automatically for each request to <code>api.oneqaz.com</code>:</p>
       <dl class="fields">
         <div class="field"><dt>IP address</dt><dd>Rate limiting, abuse prevention, and regional routing. For requests routed
         through Cloudflare this is the client address Cloudflare reports.</dd></div>
@@ -263,8 +266,23 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         keep aggregate usage statistics honest.</dd></div>
         <div class="field"><dt>Contact email (API-key holders only)</dt><dd>Provided by you when you ask for an API key.</dd></div>
       </dl>
-      <p>Of these, the IP address, the derived session key, the API-key fingerprint and the contact email are personal
-      information or can identify you in combination; the other fields describe the request, not you. We do not store the
+      <p>If you connect an AI app to a OneQAZ account (optional), we also process:</p>
+      <dl class="fields">
+        <div class="field"><dt>Account identifier</dt><dd>A random identifier we generate (not derived from your email or key),
+        linked to the API key you signed in with. Requests made through the connected app record this identifier.</dd></div>
+        <div class="field"><dt>Connected app identifier</dt><dd>The address of the metadata document the AI app publishes (for
+        example a <code>claude.ai</code> or <code>chatgpt.com</code> address) or a random identifier issued when the app
+        registered, and the name the app declares. Requests made through the app record this identifier.</dd></div>
+        <div class="field"><dt>Connection record</dt><dd>Which app you connected, the access you granted, when, and when the
+        connection was withdrawn.</dd></div>
+        <div class="field"><dt>Access and refresh tokens</dt><dd>Stored only as one-way hashes; we keep no copy of the tokens
+        themselves.</dd></div>
+        <div class="field"><dt>Sign-in screen records</dt><dd>When a sign-in attempt fails, the IP address and time are written
+        to our server log. The API key you type on the sign-in screen is only checked against our key list — it is
+        <strong>never stored or logged</strong>.</dd></div>
+      </dl>
+      <p>Of these, the IP address, the derived session key, the API-key fingerprint, the contact email and the account
+      identifier are personal information or can identify you in combination; the other fields describe the request, not you. We do not store the
       contents of responses we send you. Visiting <code>oneqaz.com</code> does not send us any personal information (see
       sections 06 and 08).</p>
     </section>
@@ -274,9 +292,13 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <ul>
         <li><strong>IP address and derived session key</strong> — up to <strong>12 months</strong> from the request.</li>
         <li><strong>Other request fields</strong> — kept as usage history. Once the IP-derived fields are replaced they no
-        longer identify you, except that requests made with an API key remain attributable to that key while its contact
-        email exists.</li>
+        longer identify you, except that requests made with an API key or a connected account remain attributable to that
+        key or account while its contact email or the account exists.</li>
         <li><strong>Contact email of an API-key holder</strong> — until the key is revoked or you ask us to delete it.</li>
+        <li><strong>Account connection (if you connect an AI app)</strong> — sign-in codes: deleted within 1 day after use or
+        expiry; token hashes: within 7 days after they expire or are revoked; connection records: 30 days after you withdraw
+        the connection, or 12 months after the connection was last used; app registrations that were never connected: after
+        30 days; the account: until you ask us to delete it.</li>
         <li><strong>Database backups</strong> — rotated and deleted within about four weeks.</li>
       </ul>
       <p>If another law requires us to keep data for longer, we keep only the items it requires, for the period it requires,
@@ -289,7 +311,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>Procedure</strong> — when the retention period ends, IP addresses and session keys are irreversibly
         replaced by a processing job using a one-way transformation whose random key is discarded after each run, so the
         records can no longer be linked to an IP address. Contact emails are deleted without delay when the key is revoked or
-        on your request.</li>
+        on your request. Account-connection records are deleted by a daily job when their retention period ends. When you ask
+        us to delete an account, we revoke all of its connections and tokens immediately and delete the account without
+        delay; the account identifier left in usage history then no longer identifies anyone.</li>
         <li><strong>Method</strong> — electronic records are deleted or overwritten so that they cannot be restored or
         reproduced. We keep no paper records.</li>
       </ul>
@@ -309,7 +333,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <div class="field"><dt>Cloudflare, Inc.</dt><dd><strong>Task</strong> CDN, DDoS protection and secure tunnel (TLS
         termination) for <code>api.oneqaz.com</code> · <strong>Country</strong> United States, and the countries of Cloudflare's
         global data-center network · <strong>Items</strong> IP address, request headers (incl. user-agent) and request contents
-        in transit · <strong>When &amp; how</strong> over the network, each time you call the API · <strong>Retention</strong>
+        in transit (including what you enter on the account sign-in screen) · <strong>When &amp; how</strong> over the network, each time you call the API · <strong>Retention</strong>
         per Cloudflare's processing terms · <strong>Contact</strong> privacyquestions@cloudflare.com, 101 Townsend St.,
         San Francisco, CA 94107, USA</dd></div>
         <div class="field"><dt>GitHub, Inc.</dt><dd><strong>Task</strong> hosting the <code>oneqaz.com</code> website
@@ -337,7 +361,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>Technical</strong> — encrypted transport (HTTPS/TLS); the database is not exposed to the internet and is
         reachable only from our internal network; separate database roles per service; API keys are never written to request
         logs (one-way fingerprint only); only a whitelisted summary of arguments is stored; IP addresses are irreversibly
-        replaced after 12 months.</li>
+        replaced after 12 months. For account connections: tokens stored only as hashes, short-lived (1-hour) access
+        tokens, refresh tokens rotated on every use with reuse detection, PKCE, and a sign-in screen that shows where you
+        will be returned and cannot be embedded in other sites.</li>
         <li><strong>Physical</strong> — servers and storage are kept at a location managed directly by the operator.</li>
       </ul>
     </section>
@@ -346,7 +372,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <h2><span class="num">08</span>Automatic collection devices (cookies)</h2>
       <ul>
         <li>We do not use cookies, analytics, advertising or tracking scripts, and we do not collect behavioural information
-        for targeted advertising.</li>
+        for targeted advertising. The account sign-in screen does not use cookies either.</li>
         <li>The website remembers your language choice (<code>oqz-lang</code>) in your browser's local storage only; it is
         never sent to us. You can remove it by clearing this site's data in your browser.</li>
       </ul>
@@ -360,9 +386,11 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         portability.</li>
         <li>Send requests to <a href="mailto:contact@oneqaz.com">contact@oneqaz.com</a>. A legal representative or an
         authorised agent may act for you with a power of attorney.</li>
-        <li>Because request logs are not tied to accounts, please include the IP address and approximate time of your
-        requests, or the API key concerned (you may send its SHA-256 fingerprint instead of the key itself), so that we can
-        find the records.</li>
+        <li>Requests made without a connected account are not tied to an account, so please include the IP address and
+        approximate time of your requests, or the API key concerned (you may send its SHA-256 fingerprint instead of the key
+        itself), so that we can find the records.</li>
+        <li>If you connected an AI app, you can disconnect it in that app, or ask us to withdraw the connection or delete the
+        account. Withdrawal makes the app's tokens stop working immediately.</li>
         <li>We respond within 10 days. Where the law allows us to limit a request (for example, where another law requires
         retention or it would harm someone else's rights), we will tell you the reason.</li>
         <li>If you are in the EU/EEA or the UK, you may also lodge a complaint with your local data-protection authority.</li>
@@ -394,6 +422,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <p>When an AI client (such as Claude, ChatGPT, or Gemini) calls OneQAZ on your behalf, your request reaches us through
       that client's platform. Every response carries <code>disclaimer</code>, <code>is_investment_advice=false</code>, and
       <code>data_classification=research_information_only</code>.</p>
+      <p>If you connect an AI app to your OneQAZ account, we issue access tokens to that app at your direction. The AI
+      platform stores and uses those tokens under its own policy. You can disconnect at any time (see section 09).</p>
     </section>
 
     <section id="en-na">
@@ -408,7 +438,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="en-changes">
       <h2><span class="num">14</span>Changes</h2>
-      <p>This policy takes effect on 2026-10-07. We announce changes by updating the date above; previous versions are
+      <p>This policy takes effect on 2026-10-08. Change on 2026-10-08: added optional account connection for AI apps (OAuth)
+      — sections 01–04, 06–09 and 12. We announce changes by updating the date above; previous versions are
       available in the <a href="https://github.com/wnsod/oneqaz/commits/main/privacy.html" target="_blank" rel="noopener">public
       change history</a>.</p>
     </section>
@@ -423,7 +454,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">법적 고지</div>
   <h1 class="section-title">개인정보 처리방침</h1>
   <p class="section-desc">OneQAZ 트레이딩 인텔리전스 — MCP 서버, API 및 웹사이트</p>
-  <div class="doc-meta">최종 수정 2026-10-07 · 시행 2026-10-07</div>
+  <div class="doc-meta">최종 수정 2026-10-08 · 시행 2026-10-08</div>
 
   <div class="toc">
     <a href="#ko-purpose">처리 목적</a><a href="#ko-items">처리 항목</a><a href="#ko-retention">보유 기간</a>
@@ -449,18 +480,20 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li>클라이언트·프로토콜 호환성 문제 진단.</li>
         <li>제품 개선을 위한 집계 사용량 측정(어떤 tool 이 어떤 클라이언트에서 호출되는지).</li>
         <li>접근 등급 적용, API 키별 사용량 집계, 이용자가 요청한 API 키의 발급·관리.</li>
+        <li>이용자가 선택한 경우 AI 앱과 OneQAZ 계정의 연결(OAuth): 계정 인증, 앱 접근 토큰의 발급·갱신·폐기, 계정 단위 이용 한도 적용.</li>
       </ul>
-      <p>OneQAZ는 회원가입이나 동의 절차 없이 서비스를 제공합니다. 요청 로그는 서비스 운영·보안이라는 정당한 이익을 달성하기 위해
+      <p>익명 이용에는 회원가입이나 동의 절차가 필요하지 않습니다. 요청 로그는 서비스 운영·보안이라는 정당한 이익을 달성하기 위해
       합리적으로 필요한 범위에서 「개인정보 보호법」 제15조 제1항 제6호에 근거하여 처리합니다. API 키 보유자의 연락 이메일은 이용자가
-      요청한 키를 발급·관리하기 위해 같은 조 제1항 제4호에 근거하여 처리합니다.</p>
+      요청한 키를 발급·관리하기 위해, 계정 연결 정보는 이용자가 요청한 연결을 제공하기 위해 같은 조 제1항 제4호에 근거하여 처리합니다.
+      계정 연결은 선택 사항이며, 연결하지 않아도 익명 이용은 그대로 가능합니다.</p>
       <p>개인정보를 판매하거나 광고 프로필을 만들지 <strong>않으며</strong>, 요청 로그를 AI 모델 학습이나 이용자에 대한 자동화된 결정에
       사용하지 않습니다.</p>
     </section>
 
     <section id="ko-items">
       <h2><span class="num">02</span>처리하는 개인정보 항목</h2>
-      <p>회원 계정을 요구하지 <strong>않으며</strong>, 이름·결제 정보를 수집하지 않습니다. <code>api.oneqaz.com</code>에 대한 요청마다
-      다음 정보가 자동으로 생성·기록됩니다.</p>
+      <p>익명 이용에는 계정이 필요하지 <strong>않으며</strong>, 이름·결제 정보를 수집하지 않습니다. <code>api.oneqaz.com</code>에 대한
+      요청마다 다음 정보가 자동으로 생성·기록됩니다.</p>
       <dl class="fields">
         <div class="field"><dt>IP 주소</dt><dd>요청 수 제한, 남용 방지, 지역 라우팅. Cloudflare를 거친 요청은 Cloudflare가 전달한 클라이언트
         주소입니다.</dd></div>
@@ -480,7 +513,18 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <div class="field"><dt>트래픽 분류</dt><dd>집계 통계를 정직하게 유지하기 위한 파생 라벨(크롤러 / 운영자 자체 점검 / 외부).</dd></div>
         <div class="field"><dt>연락 이메일(API 키 보유자만)</dt><dd>API 키를 신청할 때 이용자가 제공합니다.</dd></div>
       </dl>
-      <p>이 중 IP 주소, 파생 세션 키, API 키 지문, 연락 이메일은 개인정보이거나 다른 정보와 결합하여 이용자를 식별할 수 있는 정보이며,
+      <p>AI 앱을 OneQAZ 계정에 연결하는 경우(선택)에는 다음 정보도 처리합니다.</p>
+      <dl class="fields">
+        <div class="field"><dt>계정 식별자</dt><dd>OneQAZ가 무작위로 생성하는 값(이메일이나 키에서 만들지 않음)으로, 로그인에 사용한 API 키와
+        연결됩니다. 연결된 앱을 통한 요청에는 이 식별자를 기록합니다.</dd></div>
+        <div class="field"><dt>연결된 앱 식별자</dt><dd>AI 앱이 공개한 메타데이터 문서 주소(예: <code>claude.ai</code>·<code>chatgpt.com</code>
+        주소) 또는 앱 등록 시 발급한 무작위 값과, 앱이 스스로 밝힌 이름. 앱을 통한 요청에는 이 식별자를 기록합니다.</dd></div>
+        <div class="field"><dt>연결 기록</dt><dd>연결한 앱, 허용한 접근 범위, 연결 일시, 연결을 철회한 일시.</dd></div>
+        <div class="field"><dt>접근·갱신 토큰</dt><dd>단방향 해시값만 저장하며 토큰 원문은 보관하지 않습니다.</dd></div>
+        <div class="field"><dt>로그인 화면 기록</dt><dd>로그인에 실패하면 IP 주소와 시각을 서버 로그에 남깁니다. 로그인 화면에 입력한 API 키는
+        등록된 키와 대조하는 데에만 쓰며 <strong>저장하거나 기록하지 않습니다</strong>.</dd></div>
+      </dl>
+      <p>이 중 IP 주소, 파생 세션 키, API 키 지문, 연락 이메일, 계정 식별자는 개인정보이거나 다른 정보와 결합하여 이용자를 식별할 수 있는 정보이며,
       나머지는 이용자가 아니라 요청을 설명하는 정보입니다. 이용자에게 보낸 응답 본문은 저장하지 않습니다. <code>oneqaz.com</code>
       방문만으로 OneQAZ에 전달되는 개인정보는 없습니다(06·08 참조).</p>
     </section>
@@ -489,9 +533,11 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <h2><span class="num">03</span>개인정보의 처리 및 보유 기간</h2>
       <ul>
         <li><strong>IP 주소와 파생 세션 키</strong> — 요청일로부터 <strong>최대 12개월</strong>.</li>
-        <li><strong>그 밖의 요청 기록</strong> — 사용 이력으로 보관합니다. IP 파생 항목이 치환된 뒤에는 이용자를 식별하지 않으며, 다만 API 키로
-        한 요청은 그 키의 연락 이메일이 남아 있는 동안 해당 키에 귀속됩니다.</li>
+        <li><strong>그 밖의 요청 기록</strong> — 사용 이력으로 보관합니다. IP 파생 항목이 치환된 뒤에는 이용자를 식별하지 않으며, 다만 API 키나
+        연결된 계정으로 한 요청은 그 키의 연락 이메일 또는 그 계정이 남아 있는 동안 해당 키·계정에 귀속됩니다.</li>
         <li><strong>API 키 보유자의 연락 이메일</strong> — 키를 폐기하거나 이용자가 삭제를 요청할 때까지.</li>
+        <li><strong>계정 연결 정보(AI 앱을 연결한 경우)</strong> — 로그인 코드: 사용 또는 만료 후 1일 이내 삭제 · 토큰 해시: 만료·폐기 후 7일
+        이내 · 연결 기록: 연결 철회 후 30일, 또는 마지막 사용 후 12개월 · 연결되지 않은 앱 등록: 30일 후 · 계정: 이용자가 삭제를 요청할 때까지.</li>
         <li><strong>데이터베이스 백업</strong> — 순환 방식으로 약 4주 이내에 삭제됩니다.</li>
       </ul>
       <p>다른 법령이 더 오래 보존하도록 정한 경우에는 그 법령이 정한 항목만, 정한 기간 동안 다른 정보와 분리하여 보관합니다.</p>
@@ -501,7 +547,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <h2><span class="num">04</span>개인정보의 파기 절차 및 방법</h2>
       <ul>
         <li><strong>파기 절차</strong> — 보유 기간이 지난 IP 주소와 세션 키는 실행마다 폐기되는 임의 키를 쓴 단방향 변환 작업으로 비가역
-        치환하여, 기록을 IP 주소와 연결할 수 없게 합니다. 연락 이메일은 키를 폐기하거나 이용자가 요청하면 지체 없이 삭제합니다.</li>
+        치환하여, 기록을 IP 주소와 연결할 수 없게 합니다. 연락 이메일은 키를 폐기하거나 이용자가 요청하면 지체 없이 삭제합니다. 계정 연결
+        정보는 보유 기간이 끝나면 매일 도는 정리 작업이 삭제합니다. 계정 삭제를 요청하면 그 계정의 연결과 토큰을 즉시 폐기하고 계정을 지체 없이
+        삭제하며, 그 뒤 사용 이력에 남은 계정 식별자로는 누구인지 알 수 없습니다.</li>
         <li><strong>파기 방법</strong> — 전자적 파일 형태의 정보는 복구·재생할 수 없도록 삭제하거나 덮어씁니다. 종이 문서는 보관하지 않습니다.</li>
       </ul>
     </section>
@@ -519,7 +567,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <dl class="fields">
         <div class="field"><dt>Cloudflare, Inc.</dt><dd><strong>위탁 업무</strong> <code>api.oneqaz.com</code>의 CDN, DDoS 방어,
         보안 터널(TLS 종단) · <strong>이전 국가</strong> 미국 및 Cloudflare 글로벌 데이터센터 소재 국가 · <strong>이전 항목</strong> IP 주소,
-        요청 헤더(user-agent 포함), 전송 중인 요청 내용 · <strong>이전 시기·방법</strong> API 호출 시마다 네트워크로 전송 ·
+        요청 헤더(user-agent 포함), 전송 중인 요청 내용(계정 로그인 화면 입력값 포함) · <strong>이전 시기·방법</strong> API 호출 시마다 네트워크로 전송 ·
         <strong>보유 기간</strong> Cloudflare 처리 약관에 따름 · <strong>연락처</strong> privacyquestions@cloudflare.com, 101 Townsend
         St., San Francisco, CA 94107, USA</dd></div>
         <div class="field"><dt>GitHub, Inc.</dt><dd><strong>위탁 업무</strong> <code>oneqaz.com</code> 웹사이트 호스팅(GitHub Pages) ·
@@ -543,7 +591,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>관리적 조치</strong> — 개인정보에 대한 접근 권한을 운영자로 제한합니다.</li>
         <li><strong>기술적 조치</strong> — 전송 구간 암호화(HTTPS/TLS), 데이터베이스는 인터넷에 노출하지 않고 내부망에서만 접근,
         서비스별 데이터베이스 계정 분리, API 키는 요청 로그에 원문 대신 단방향 지문만 기록, 요청 인자는 허용 목록 요약만 저장,
-        12개월이 지난 IP 주소는 비가역 치환.</li>
+        12개월이 지난 IP 주소는 비가역 치환. 계정 연결에는 토큰 해시 저장, 1시간 단기 접근 토큰, 사용할 때마다 갱신 토큰 교체와 재사용 탐지,
+        PKCE, 돌아갈 주소를 표시하고 다른 사이트에 삽입할 수 없는 로그인 화면을 적용합니다.</li>
         <li><strong>물리적 조치</strong> — 서버와 저장장치는 운영자가 직접 관리하는 장소에 둡니다.</li>
       </ul>
     </section>
@@ -551,7 +600,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
     <section id="ko-cookies">
       <h2><span class="num">08</span>개인정보 자동 수집 장치의 설치·운영 및 거부</h2>
       <ul>
-        <li>쿠키, 방문 분석, 광고·추적 스크립트를 사용하지 않으며, 맞춤형 광고를 위한 행태정보를 수집하지 않습니다.</li>
+        <li>쿠키, 방문 분석, 광고·추적 스크립트를 사용하지 않으며, 맞춤형 광고를 위한 행태정보를 수집하지 않습니다. 계정 로그인 화면도 쿠키를
+        사용하지 않습니다.</li>
         <li>웹사이트는 언어 선택(<code>oqz-lang</code>)을 이용자 브라우저의 로컬 저장소에만 기억하며 OneQAZ로 전송하지 않습니다. 브라우저에서
         이 사이트의 데이터를 지우면 삭제됩니다.</li>
       </ul>
@@ -563,8 +613,10 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li>이용자는 언제든지 개인정보의 열람, 정정·삭제, 처리정지를 요구할 수 있습니다(「개인정보 보호법」 제35조~제37조).</li>
         <li>요구는 <a href="mailto:contact@oneqaz.com">contact@oneqaz.com</a>으로 보내 주십시오. 법정대리인이나 위임을 받은 대리인을 통해서도
         할 수 있으며, 이 경우 위임장을 제출해야 합니다.</li>
-        <li>요청 로그는 계정과 연결되어 있지 않으므로, 기록을 찾을 수 있도록 요청에 사용한 IP 주소와 대략적인 이용 시간, 또는 해당 API 키
-        (키 대신 SHA-256 지문을 보내도 됩니다)를 함께 알려 주십시오.</li>
+        <li>계정을 연결하지 않고 한 요청은 계정과 연결되어 있지 않으므로, 기록을 찾을 수 있도록 요청에 사용한 IP 주소와 대략적인 이용 시간, 또는
+        해당 API 키(키 대신 SHA-256 지문을 보내도 됩니다)를 함께 알려 주십시오.</li>
+        <li>AI 앱을 연결한 경우 해당 앱에서 연결을 해제하거나, OneQAZ에 연결 철회 또는 계정 삭제를 요청할 수 있습니다. 철회하면 그 앱의 토큰은
+        즉시 효력을 잃습니다.</li>
         <li>요구를 받은 날부터 10일 이내에 처리 결과를 알려 드립니다. 다른 법령에 따라 보존해야 하거나 다른 사람의 권리를 침해할 우려가 있는 등
         법령상 제한 사유가 있는 경우에는 그 사유를 알려 드립니다.</li>
       </ul>
@@ -594,6 +646,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <p>AI 클라이언트(Claude, ChatGPT, Gemini 등)가 이용자를 대신해 OneQAZ를 호출하면, 요청은 해당 클라이언트의 플랫폼을 거쳐 도달합니다.
       모든 응답에는 <code>disclaimer</code>, <code>is_investment_advice=false</code>,
       <code>data_classification=research_information_only</code> 가 포함됩니다.</p>
+      <p>AI 앱을 OneQAZ 계정에 연결하면 OneQAZ는 이용자의 지시에 따라 그 앱에 접근 토큰을 발급합니다. AI 플랫폼은 자체 방침에 따라 이 토큰을
+      보관·사용합니다. 연결은 언제든지 해제할 수 있습니다(09 참조).</p>
     </section>
 
     <section id="ko-na">
@@ -607,7 +661,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="ko-changes">
       <h2><span class="num">14</span>개인정보 처리방침의 변경</h2>
-      <p>본 방침은 2026년 10월 7일부터 시행합니다. 변경 사항은 상단의 날짜를 갱신하여 알리며, 이전 처리방침은
+      <p>본 방침은 2026년 10월 8일부터 시행합니다. 2026-10-08 변경: AI 앱 계정 연결(OAuth, 선택) 추가 — 01~04·06~09·12절.
+      변경 사항은 상단의 날짜를 갱신하여 알리며, 이전 처리방침은
       <a href="https://github.com/wnsod/oneqaz/commits/main/privacy.html" target="_blank" rel="noopener">공개 변경 이력</a>에서 확인할 수 있습니다.</p>
     </section>
   </div>
