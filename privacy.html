@@ -208,7 +208,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">Legal</div>
   <h1 class="section-title">Privacy Policy</h1>
   <p class="section-desc">OneQAZ Trading Intelligence — MCP Server, API &amp; Website</p>
-  <div class="doc-meta">Last updated 2026-10-14 · Effective 2026-10-14</div>
+  <div class="doc-meta">Last updated 2026-10-16 · Effective 2026-10-16</div>
 
   <div class="toc">
     <a href="#en-purpose">Purpose</a><a href="#en-items">Items</a><a href="#en-retention">Retention</a>
@@ -273,7 +273,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <div class="field"><dt>MCP client &amp; protocol metadata</dt><dd>The client name/version sent at
         <code>initialize</code> (<code>clientInfo</code>), the MCP protocol version, the <code>Accept</code> header (first 200
         characters), the protocol session id header if your client sends one, the call order within a session, and
-        request/response payload sizes.</dd></div>
+        request/response payload sizes, and — if the connection URL you used carries one — a referral label
+        (<code>ref</code>) from a fixed list (for example <code>quickstart</code>); any other value is recorded only as
+        <code>other</code>.</dd></div>
         <div class="field"><dt>Traffic classification</dt><dd>A derived label (crawler / operator-self-test / external) used to
         keep aggregate usage statistics honest.</dd></div>
         <div class="field"><dt>Contact email (API-key holders only)</dt><dd>Provided by you when you ask for an API key.</dd></div>
@@ -455,7 +457,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="en-changes">
       <h2><span class="num">14</span>Changes</h2>
-      <p>This policy takes effect on 2026-10-14. Change on 2026-10-14: an AI app can be connected on the free plan without an
+      <p>This policy takes effect on 2026-10-16. Change on 2026-10-16: added the connection-URL referral label
+      (<code>ref</code>, fixed list) to MCP client &amp; protocol metadata — section 02. Change on 2026-10-14: an AI app can be connected on the free plan without an
       API key (Connect free); such accounts are linked to no key or personal details and are deleted automatically once no
       connection remains — sections 01–04 and 09. Change on 2026-10-08: added optional account connection for AI apps (OAuth)
       — sections 01–04, 06–09 and 12. We announce changes by updating the date above; previous versions are
@@ -473,7 +476,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">법적 고지</div>
   <h1 class="section-title">개인정보 처리방침</h1>
   <p class="section-desc">OneQAZ 트레이딩 인텔리전스 — MCP 서버, API 및 웹사이트</p>
-  <div class="doc-meta">최종 수정 2026-10-14 · 시행 2026-10-14</div>
+  <div class="doc-meta">최종 수정 2026-10-16 · 시행 2026-10-16</div>
 
   <div class="toc">
     <a href="#ko-purpose">처리 목적</a><a href="#ko-items">처리 항목</a><a href="#ko-retention">보유 기간</a>
@@ -529,7 +532,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         인자 없이 호출한 경우 그 사실만 기록합니다. 허용 목록 밖의 인자 내용은 저장하지 <strong>않습니다</strong>.</dd></div>
         <div class="field"><dt>MCP 클라이언트·프로토콜 메타데이터</dt><dd><code>initialize</code> 때 보낸 클라이언트 이름·버전
         (<code>clientInfo</code>), MCP 프로토콜 버전, <code>Accept</code> 헤더(앞 200자), 클라이언트가 보낸 경우 프로토콜 세션 ID
-        헤더, 세션 내 호출 순서, 요청·응답 크기.</dd></div>
+        헤더, 세션 내 호출 순서, 요청·응답 크기, 그리고 이용한 연결 URL 에 붙어 있는 경우 유입 표시(<code>ref</code> —
+        고정 목록의 값, 예: <code>quickstart</code>. 목록 밖 값은 <code>other</code> 로만 기록).</dd></div>
         <div class="field"><dt>트래픽 분류</dt><dd>집계 통계를 정직하게 유지하기 위한 파생 라벨(크롤러 / 운영자 자체 점검 / 외부).</dd></div>
         <div class="field"><dt>연락 이메일(API 키 보유자만)</dt><dd>API 키를 신청할 때 이용자가 제공합니다.</dd></div>
       </dl>
@@ -685,7 +689,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="ko-changes">
       <h2><span class="num">14</span>개인정보 처리방침의 변경</h2>
-      <p>본 방침은 2026년 10월 14일부터 시행합니다. 2026-10-14 변경: API 키 없이 무료 플랜으로 AI 앱을 연결하는 방법('무료로 연결') 추가 —
+      <p>본 방침은 2026년 10월 16일부터 시행합니다. 2026-10-16 변경: MCP 클라이언트·프로토콜 메타데이터에 연결 URL 유입 표시
+      (<code>ref</code>, 고정 목록) 추가 — 02절. 2026-10-14 변경: API 키 없이 무료 플랜으로 AI 앱을 연결하는 방법('무료로 연결') 추가 —
       이 계정은 어떤 키나 이용자 정보와도 연결되지 않으며 연결이 남지 않으면 자동 삭제 — 01~04·09절.
       2026-10-08 변경: AI 앱 계정 연결(OAuth, 선택) 추가 — 01~04·06~09·12절.
       변경 사항은 상단의 날짜를 갱신하여 알리며, 이전 처리방침은
