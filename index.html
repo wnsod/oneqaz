@@ -335,7 +335,7 @@ section{min-height:100vh;display:flex;flex-direction:column;justify-content:cent
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none !important;transition:none !important}
-  .reveal{opacity:1;transform:none}
+  .reveal,.reveal-on .reveal{opacity:1;transform:none}
 }
 
 /* Light theme overrides */
@@ -357,8 +357,11 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
   transition:background-color .4s,color .4s,border-color .4s;
 }
 
-.reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.22,1,.36,1)}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* Reveal hides content only when the head script set html.reveal-on (interactive browsers).
+   Crawlers, headless/screenshot agents, no-JS, reduced-motion and print see every section at once. */
+.reveal-on .reveal{opacity:0;transform:translateY(24px);transition:all .7s cubic-bezier(.22,1,.36,1)}
+.reveal-on .reveal.visible{opacity:1;transform:translateY(0)}
+@media print{.reveal-on .reveal{opacity:1;transform:none}}
 
 .loader{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s}
 .loader.done{opacity:0;pointer-events:none}
@@ -368,6 +371,7 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
 .loader-bar{width:200px;height:3px;background:var(--panel-bg);border-radius:2px;overflow:hidden}
 .loader-fill{height:100%;background:linear-gradient(90deg,var(--amber),var(--gold));width:0;transition:width .1s linear;border-radius:2px}
 .loader-pct{font-size:11px;color:var(--text-muted);margin-top:12px;letter-spacing:1px}
+.loader-pct::after{content:attr(data-msg)} /* drawn by CSS so text crawlers do not read "connecting..." as page copy */
 
 @media(max-width:768px){
   .hero{padding-top:100px}.hero-logo{width:44px;height:44px}
@@ -485,13 +489,19 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
   root.lang = lang;
 })();
 </script>
+<script>/* reveal-on — scroll-in animation only for interactive browsers; crawlers, headless/screenshot agents
+   and reduced-motion users get every section visible from the first paint. Runs before <body> so nothing flashes. */
+(function(){try{var ua=navigator.userAgent||'';
+if(navigator.webdriver||/bot|crawl|spider|slurp|headless|lighthouse/i.test(ua))return;
+if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+document.documentElement.classList.add('reveal-on');}catch(e){}})();</script>
 </head>
 <body>
 
-<div class="loader" id="loader">
+<div class="loader" id="loader" aria-hidden="true">
   <div class="loader-brand"><img src="images/opt/logo-128.webp" alt=""><span>OneQAZ</span></div>
   <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
-  <div class="loader-pct" id="loaderPct">connecting...</div>
+  <div class="loader-pct" id="loaderPct" data-msg="connecting..."></div>
 </div>
 
 <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
@@ -550,7 +560,7 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
         <span class="live-strip-value" id="liveTools">—</span>
       </div>
       <div class="live-strip-meta" id="liveMeta">
-        <span data-i18n="live_meta_loading">connecting…</span>
+        <span data-i18n="live_meta_loading">Live values from <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> (JSON)</span>
       </div>
     </div>
 
@@ -1078,7 +1088,10 @@ const I18N = {
   live_signals:       { en: 'Signal updates 24h', ko: '24h 시그널 갱신' },
   live_predictions:   { en: 'Open Predictions',   ko: '미채점 예측' },
   live_tools:         { en: 'MCP Tools',          ko: 'MCP 툴' },
-  live_meta_loading:  { en: 'connecting…',        ko: '연결 중…' },
+  live_meta_loading: {
+    en: 'Live values from <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> (JSON)',
+    ko: '실시간 값 출처: <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> (JSON)'
+  },
   live_meta_offline:  { en: 'offline',            ko: '오프라인' },
   connect_label:      { en: 'Connect via MCP',    ko: 'MCP로 연결' },
   connect_meta:       { en: 'Claude Desktop config · no API key · free 1,500 calls/day', ko: 'Claude Desktop 설정 · API 키 불필요 · 하루 1,500회 무료' },
@@ -1155,7 +1168,7 @@ function setLang(lang) {
   const fill=document.getElementById('loaderFill'),pct=document.getElementById('loaderPct'),loader=document.getElementById('loader');
   if (REDUCED_MOTION) { loader.remove(); return; }
   let p=0;const msgs=['connecting...','loading modules...','initializing agents...','ready.'];
-  const iv=setInterval(()=>{p+=Math.floor(Math.random()*18)+8;if(p>100)p=100;fill.style.width=p+'%';pct.textContent=msgs[Math.min(Math.floor(p/30),3)];if(p>=100){clearInterval(iv);setTimeout(()=>{loader.classList.add('done');setTimeout(()=>loader.remove(),600)},300)}},140);
+  const iv=setInterval(()=>{p+=Math.floor(Math.random()*18)+8;if(p>100)p=100;fill.style.width=p+'%';pct.dataset.msg=msgs[Math.min(Math.floor(p/30),3)];if(p>=100){clearInterval(iv);setTimeout(()=>{loader.classList.add('done');setTimeout(()=>loader.remove(),600)},300)}},140);
 })();
 
 // ═══ Hero typing ═══
@@ -1185,6 +1198,7 @@ window.addEventListener('scroll',()=>{const h=document.documentElement;const max
 // ═══ Reveal ═══
 const revealObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+window.addEventListener('beforeprint',()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')));
 
 // ═══ Counter — static HTML already holds the final value (crawlers / no-JS); animate up to it ═══
 const cobs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const el=e.target,target=parseInt(el.dataset.target,10),suffix=el.dataset.suffix||'';let cur=0;const step=Math.max(1,Math.floor(target/40));const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=cur.toLocaleString('en-US')+suffix},30);cobs.unobserve(el)}})},{threshold:.5});
