@@ -206,7 +206,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">Legal</div>
   <h1 class="section-title">Terms of Service</h1>
   <p class="section-desc">OneQAZ Trading Intelligence — MCP Server &amp; API</p>
-  <div class="doc-meta">Last updated 2026-10-07 · Effective 2026-10-07</div>
+  <div class="doc-meta">Last updated 2026-10-19 · Effective 2026-10-19</div>
 
   <div class="toc">
     <a href="#en-service">Service</a><a href="#en-advice">Not advice</a><a href="#en-clients">AI clients</a>
@@ -220,14 +220,15 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   you agree to these Terms. If you operate an AI client or integration that connects to OneQAZ, you accept them on behalf
   of that client.</p>
 
-  <div class="note"><strong>Not investment advice.</strong> OneQAZ outputs are paper-trading research signals, not
-  recommendations to buy or sell. We do not execute trades, hold funds, or accept financial transactions.</div>
+  <div class="note"><strong>Not investment advice.</strong> OneQAZ provides market information computed from live market
+  prices; the trades, positions and P&amp;L it shows are paper trading. It does not make buy or sell recommendations.
+  We do not execute trades, hold funds, or accept financial transactions.</div>
 
   <div class="policy">
     <section id="en-service">
       <h2><span class="num">01</span>What this service is</h2>
       <p>OneQAZ exposes live market intelligence (crypto, Korean stocks, US stocks) and global macro context to AI clients
-      over the Model Context Protocol (MCP) and an HTTP API. It is a <strong>research-information service</strong>.</p>
+      over the Model Context Protocol (MCP) and an HTTP API. It is a <strong>market-information service</strong>, not an investment advisory service.</p>
       <p>The service can be used without an account. Access is attributed to the connecting client (AI platform, developer
       or organization) or, when one is used, to an API key — not to individual end users.</p>
     </section>
@@ -236,8 +237,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <h2><span class="num">02</span>Not investment advice</h2>
       <p>This is the most important term in this document.</p>
       <ul>
-        <li>OneQAZ outputs are <strong>research signals and observed market states</strong>, not recommendations to buy, sell or hold any asset.</li>
-        <li>Performance figures come from <strong>paper trading</strong> (simulated, no real money). Past simulated performance does not predict future real-money results.</li>
+        <li>OneQAZ outputs are <strong>signal scores and observed market states computed from live market prices</strong>, not recommendations to buy, sell or hold any asset.</li>
+        <li>Trade, position and P&amp;L figures come from <strong>paper trading</strong> (simulated, no real money). Past hit rates and results do not guarantee future outcomes, and paper-trading results do not predict real-money results.</li>
         <li>OneQAZ is <strong>not</strong> a licensed investment adviser, broker or financial institution and provides no personalized investment advice. Using the service creates no advisory or fiduciary relationship.</li>
         <li>Responses carry <code>disclaimer</code>, <code>is_investment_advice=false</code> and <code>data_classification=research_information_only</code>.</li>
         <li><strong>You are solely responsible for any trading or financial decision you make.</strong></li>
@@ -250,7 +251,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <ul>
         <li>Surface the <code>disclaimer</code> when quoting OneQAZ data to a person.</li>
         <li>Not present OneQAZ output as personalized investment advice or as a buy/sell recommendation.</li>
-        <li>Not strip the paper-trading context from performance figures.</li>
+        <li>Not strip the paper-trading context from trade, position or P&amp;L figures.</li>
         <li>Not attribute to OneQAZ a recommendation it did not make.</li>
         <li>Keep the <code>disclaimer</code>, <code>data_classification</code> and source (<code>_source</code>) fields intact when relaying data.</li>
       </ul>
@@ -327,7 +328,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="en-changes">
       <h2><span class="num">11</span>Changes</h2>
-      <p>These Terms take effect on 2026-10-07. We announce changes by updating the date above; continued use after a change
+      <p>These Terms take effect on 2026-10-19. Change on 2026-10-19: clarified that signal scores are computed from live market prices
+      and that only trade, position and P&amp;L figures are paper trading — sections 01–03 (no change to your rights or
+      obligations). We announce changes by updating the date above; continued use after a change
       means you accept the updated Terms. Previous versions are available in the
       <a href="https://github.com/wnsod/oneqaz/commits/main/terms.html" target="_blank" rel="noopener">public change history</a>.
       These Terms replace the Terms of Use dated 2026-07-08 previously published at <code>api.oneqaz.com/terms</code>.</p>
@@ -357,7 +360,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">법적 고지</div>
   <h1 class="section-title">이용약관</h1>
   <p class="section-desc">OneQAZ 트레이딩 인텔리전스 — MCP 서버 및 API</p>
-  <div class="doc-meta">최종 수정 2026-10-07 · 시행 2026-10-07</div>
+  <div class="doc-meta">최종 수정 2026-10-19 · 시행 2026-10-19</div>
 
   <div class="toc">
     <a href="#ko-service">서비스</a><a href="#ko-advice">투자자문 아님</a><a href="#ko-clients">AI 클라이언트</a>
@@ -371,14 +374,15 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   것으로 봅니다. OneQAZ에 연결하는 AI 클라이언트나 연동 서비스를 운영하는 경우, 해당 클라이언트를 대표하여 본 약관에
   동의한 것으로 봅니다.</p>
 
-  <div class="note"><strong>투자 권유가 아닙니다.</strong> OneQAZ의 결과물은 페이퍼 트레이딩 기반 리서치 신호이며, 매수·매도를
-  권유하지 않습니다. OneQAZ는 매매를 실행하거나 자금을 보관하거나 금융 거래를 받지 않습니다.</div>
+  <div class="note"><strong>투자 권유가 아닙니다.</strong> OneQAZ는 실시간 시세로 계산한 시장 정보를 제공하며, OneQAZ가 보여 주는
+  매매 내역·포지션·손익은 가상매매(페이퍼 트레이딩) 결과입니다. 매수·매도를 권유하지 않으며, 매매를 실행하거나 자금을
+  보관하거나 금융 거래를 받지 않습니다.</div>
 
   <div class="policy">
     <section id="ko-service">
       <h2><span class="num">01</span>서비스의 성격</h2>
       <p>OneQAZ는 MCP(Model Context Protocol)와 HTTP API를 통해 AI 클라이언트에 라이브 시장 정보(암호화폐·국내주식·미국주식)와
-      글로벌 매크로 맥락을 제공하는 <strong>리서치 정보 서비스</strong>입니다.</p>
+      글로벌 매크로 맥락을 제공하는 <strong>시장 정보 서비스</strong>이며, 투자자문 서비스가 아닙니다.</p>
       <p>본 서비스는 계정 없이 이용할 수 있습니다. 이용은 개별 최종 사용자가 아니라 연결하는 클라이언트(AI 플랫폼·개발자·기관)
       또는 API 키를 사용한 경우 해당 키 단위로 귀속됩니다.</p>
     </section>
@@ -387,8 +391,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <h2><span class="num">02</span>투자자문이 아님</h2>
       <p>본 약관에서 가장 중요한 조항입니다.</p>
       <ul>
-        <li>OneQAZ의 결과물은 <strong>리서치 신호와 관측된 시장 상태</strong>이며, 어떤 자산의 매수·매도·보유 권유도 아닙니다.</li>
-        <li>성과 수치는 <strong>페이퍼 트레이딩</strong>(실제 자금 없는 모의매매) 결과이며, 과거 모의 성과가 실제 수익을 보장하지 않습니다.</li>
+        <li>OneQAZ의 결과물은 <strong>실시간 시세로 계산한 신호 점수와 관측된 시장 상태</strong>이며, 어떤 자산의 매수·매도·보유 권유도 아닙니다.</li>
+        <li>매매 내역·포지션·손익 수치는 <strong>페이퍼 트레이딩</strong>(실제 자금 없는 모의매매) 결과입니다. 과거 적중률과 성과는 미래 결과를 보장하지 않으며, 모의 성과가 실제 수익을 뜻하지 않습니다.</li>
         <li>OneQAZ는 투자자문업자·투자중개업자·금융기관이 <strong>아니며</strong>, 개인 맞춤형 투자자문을 제공하지 않습니다. 서비스 이용으로 자문 관계나 신탁 관계가 성립하지 않습니다.</li>
         <li>응답에는 <code>disclaimer</code>, <code>is_investment_advice=false</code>, <code>data_classification=research_information_only</code>가 포함됩니다.</li>
         <li><strong>모든 거래 및 재무 결정의 책임은 이용자 본인에게 있습니다.</strong></li>
@@ -401,7 +405,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <ul>
         <li>OneQAZ 데이터를 사람에게 인용할 때 <code>disclaimer</code>를 함께 표시할 것.</li>
         <li>OneQAZ 결과물을 개인 맞춤형 투자자문이나 매수·매도 권유로 제시하지 말 것.</li>
-        <li>성과 수치에서 페이퍼 트레이딩 맥락을 제거하지 말 것.</li>
+        <li>매매 내역·포지션·손익 수치에서 페이퍼 트레이딩 맥락을 제거하지 말 것.</li>
         <li>OneQAZ가 하지 않은 권유를 OneQAZ 출처로 표시하지 말 것.</li>
         <li>데이터를 전달할 때 <code>disclaimer</code>, <code>data_classification</code>, 출처(<code>_source</code>) 필드를 제거하거나 바꾸지 말 것.</li>
       </ul>
@@ -477,7 +481,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="ko-changes">
       <h2><span class="num">11</span>약관 변경</h2>
-      <p>본 약관은 2026년 10월 7일부터 시행합니다. 변경 사항은 상단의 날짜를 갱신하여 알리며,
+      <p>본 약관은 2026년 10월 19일부터 시행합니다. 2026-10-19 변경: 신호 점수는 실시간 시세로 계산하며 매매 내역·포지션·손익만
+      가상매매임을 명확히 함 — 01~03조(이용자의 권리·의무 변경 없음). 변경 사항은 상단의 날짜를 갱신하여 알리며,
       변경 후 계속 이용하면 변경된 약관에 동의한 것으로 봅니다. 이전 약관은
       <a href="https://github.com/wnsod/oneqaz/commits/main/terms.html" target="_blank" rel="noopener">공개 변경 이력</a>에서 확인할 수 있습니다.
       본 약관은 <code>api.oneqaz.com/terms</code>에 게시돼 있던 2026-07-08 이용약관을 대체합니다.</p>
