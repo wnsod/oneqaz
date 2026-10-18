@@ -1,6 +1,6 @@
 # OneQAZ
 
-> OneQAZ (One Quorum Alpha Zero) is a 24/7 market-reading system for crypto (Bithumb), Korean (KOSPI 200 + KOSDAQ 150) and US (S&P 500) markets — about 1,300 symbols plus 40+ macro instruments. Its purpose is to be a verifiable record of judgment: predictions are written to a timestamped ledger before outcomes are known, hash-chained daily (SHA-256) and anchored publicly, then scored after the fact. Research information only — not investment advice. All performance figures come from paper trading.
+> OneQAZ (One Quorum Alpha Zero) is a 24/7 market-reading system for crypto (Bithumb), Korean (KOSPI 200 + KOSDAQ 150) and US (S&P 500) markets — about 1,300 symbols plus 40+ macro instruments. Its purpose is to be a verifiable record of judgment: predictions are written to a timestamped ledger before outcomes are known, hash-chained daily (SHA-256) and anchored publicly, then scored after the fact. Signal scores are computed from live market prices and recalculated every 5–15 minutes; trade and P&L figures come from paper trading. Not investment advice.
 
 ## Connect (AI agents)
 

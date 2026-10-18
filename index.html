@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OneQAZ — Verifiable Market Intelligence for AI Agents</title>
-<meta name="description" content="OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols 24/7, and records its predictions in a timestamped, hash-chained ledger that AI agents can verify over MCP. Research information only — not investment advice.">
+<meta name="description" content="OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols 24/7, and records its predictions in a timestamped, hash-chained ledger that AI agents can verify over MCP. Computed from live market prices — not investment advice.">
 <link rel="canonical" href="https://oneqaz.com/">
 <meta name="theme-color" content="#1c1c24">
 <link rel="icon" href="https://oneqaz.com/images/opt/favicon-64.png" type="image/png">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="OneQAZ">
 <meta property="og:url" content="https://oneqaz.com/">
 <meta property="og:title" content="OneQAZ — Verifiable Market Intelligence for AI Agents">
-<meta property="og:description" content="24/7 market reads across crypto, Korean and US stocks — every prediction timestamped and hash-chained, served to AI agents over MCP. Research information only.">
+<meta property="og:description" content="24/7 market reads across crypto, Korean and US stocks — every prediction timestamped and hash-chained, served to AI agents over MCP. Not investment advice.">
 <meta property="og:image" content="https://oneqaz.com/images/opt/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -55,7 +55,7 @@
       "operatingSystem": "Any (remote MCP over HTTPS)",
       "url": "https://api.oneqaz.com/mcp",
       "downloadUrl": "https://pypi.org/project/oneqaz-trading-mcp/",
-      "description": "Remote MCP server exposing paper-trading research signals, market regimes and a hash-chained prediction ledger for crypto, Korean and US markets. Research information only — not investment advice.",
+      "description": "Remote MCP server exposing signal scores computed from live market prices, market regimes and a hash-chained prediction ledger for crypto, Korean and US markets. Not investment advice.",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "url": "https://api.oneqaz.com/pricing" },
       "publisher": { "@id": "https://oneqaz.com/#org" }
     }
@@ -554,7 +554,7 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
       </div>
     </div>
 
-    <p class="hero-note" data-i18n="hero_note">Research information only — not investment advice. All performance figures come from paper trading. <a href="https://blog.oneqaz.com/en/methodology/">How the numbers are produced →</a></p>
+    <p class="hero-note" data-i18n="hero_note">Computed from live market prices and recalculated every 5–15 minutes. Not investment advice. <a href="https://blog.oneqaz.com/en/methodology/">How the numbers are produced →</a></p>
   </div>
 </section>
 
@@ -695,7 +695,7 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
     <div class="reveal">
       <div class="section-label" data-i18n="connect_section_label">For AI agents</div>
       <h2 class="section-title" data-i18n="connect_title">Connect once, then just ask</h2>
-      <div class="section-desc" data-i18n="connect_desc">OneQAZ is a remote MCP server. Add it once to Claude, ChatGPT, Cursor or VS Code — no API key on the free tier (1,500 calls/day); if your app shows a OneQAZ connect screen, choose Connect free — and ask in plain language. Every answer carries a research-only disclaimer.</div>
+      <div class="section-desc" data-i18n="connect_desc">OneQAZ is a remote MCP server. Add it once to Claude, ChatGPT, Cursor or VS Code — no API key on the free tier (1,500 calls/day); if your app shows a OneQAZ connect screen, choose Connect free — and ask in plain language. Every answer carries a not-investment-advice disclaimer.</div>
     </div>
     <div class="ask-grid reveal">
       <div class="ask-card"><span class="ask-q" data-i18n="ask1_q">“How’s the market today?”</span><span class="ask-what" data-i18n="ask1_a">Regime, the strongest signals and yesterday’s paper-trading outcomes in one call.</span><span class="ask-tools"><code>get_daily_brief</code></span></div>
@@ -755,7 +755,7 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
       <div class="status-item"><div class="status-dot active"></div><div class="status-name" data-i18n="st_llm">LLM Agents & Debate</div><div class="status-badge active">ACTIVE</div></div>
       <div class="status-item"><div class="status-dot active"></div><div class="status-name" data-i18n="st_blog">Daily Blog & YouTube 24/7 Stream</div><div class="status-badge active">ACTIVE</div></div>
     </div>
-    <div class="status-foot reveal" data-i18n="status_foot">Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.</div>
+    <div class="status-foot reveal" data-i18n="status_foot">Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> every 60 seconds. Signals and predictions are computed from live market prices; trade and P&amp;L figures come from paper trading.</div>
   </div>
 </div>
 
@@ -839,7 +839,7 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
       </ul>
     </div>
   </div>
-  <p class="oqz-footer-disc"><span data-l="en">Research information only — not investment advice. OneQAZ outputs are paper-trading research signals (simulated fills, no fees or taxes); past simulated performance does not predict future real-money returns.</span><span data-l="ko">연구용 정보이며 투자 자문이 아닙니다. OneQAZ의 산출물은 가상매매 기반 연구 시그널(시뮬레이션 체결, 수수료·세금 미반영)이며, 과거 시뮬레이션 성과는 미래의 실계좌 수익을 보장하지 않습니다.</span></p>
+  <p class="oqz-footer-disc"><span data-l="en">Public beta · Computed from live market prices and recalculated every 5–15 minutes. Not investment advice or a recommendation to buy or sell. Past hit rates and results do not guarantee future outcomes.</span><span data-l="ko">공개 베타 · 실시간 시세로 5~15분마다 다시 계산합니다. 투자 자문이 아니며 매수·매도를 권유하지 않습니다. 과거 적중률과 성과는 미래 결과를 보장하지 않습니다.</span></p>
   <p class="oqz-footer-copy">&copy; 2026 OneQAZ. All rights reserved.</p>
 </footer>
 <!-- /oqz:chrome-footer -->
@@ -957,8 +957,8 @@ const I18N = {
     ko: 'OneQAZ는 거시 레짐과 시장 구조, 그리고 코인·국내·미국 1,300여 종목을 24시간 읽습니다. 예측은 결과가 나오기 전에 타임스탬프와 함께 기록되고 하루 단위로 SHA-256 해시체인에 봉인되어, 사람도 AI 에이전트도 그 기록을 직접 검증할 수 있습니다.'
   },
   hero_note: {
-    en: 'Research information only — not investment advice. All performance figures come from paper trading. <a href="https://blog.oneqaz.com/en/methodology/">How the numbers are produced →</a>',
-    ko: '연구용 정보이며 투자 자문이 아닙니다. 모든 성과 수치는 가상매매 기준입니다. <a href="https://blog.oneqaz.com/methodology/">수치 산출 방식 →</a>'
+    en: 'Computed from live market prices and recalculated every 5–15 minutes. Not investment advice. <a href="https://blog.oneqaz.com/en/methodology/">How the numbers are produced →</a>',
+    ko: '실시간 시세로 5~15분마다 다시 계산합니다. 투자 자문이 아닙니다. <a href="https://blog.oneqaz.com/methodology/">수치 산출 방식 →</a>'
   },
   hero_title:      { en: 'Verifiable market intelligence\nfor AI agents', ko: 'AI 에이전트를 위한\n검증 가능한 시장 인텔리전스' },
   cta_connect:     { en: 'Connect via MCP', ko: 'MCP로 연결' },
@@ -969,8 +969,8 @@ const I18N = {
   connect_section_label: { en: 'For AI agents', ko: 'AI 에이전트용' },
   connect_title:   { en: 'Connect once, then just ask', ko: '한 번 연결하고, 그냥 물어보세요' },
   connect_desc: {
-    en: 'OneQAZ is a remote MCP server. Add it once to Claude, ChatGPT, Cursor or VS Code — no API key on the free tier (1,500 calls/day); if your app shows a OneQAZ connect screen, choose Connect free — and ask in plain language. Every answer carries a research-only disclaimer.',
-    ko: 'OneQAZ는 원격 MCP 서버입니다. Claude·ChatGPT·Cursor·VS Code에 한 번 추가하면(무료 티어는 API 키 없이 하루 1,500회 — 앱이 OneQAZ 연결 화면을 띄우면 ‘무료로 연결’을 누르세요) 평소 말투로 물어보면 됩니다. 모든 답변에는 연구용 정보라는 면책 문구가 붙습니다.'
+    en: 'OneQAZ is a remote MCP server. Add it once to Claude, ChatGPT, Cursor or VS Code — no API key on the free tier (1,500 calls/day); if your app shows a OneQAZ connect screen, choose Connect free — and ask in plain language. Every answer carries a not-investment-advice disclaimer.',
+    ko: 'OneQAZ는 원격 MCP 서버입니다. Claude·ChatGPT·Cursor·VS Code에 한 번 추가하면(무료 티어는 API 키 없이 하루 1,500회 — 앱이 OneQAZ 연결 화면을 띄우면 ‘무료로 연결’을 누르세요) 평소 말투로 물어보면 됩니다. 모든 답변에는 투자 자문이 아니라는 면책 문구가 붙습니다.'
   },
   ask1_q: { en: '“How’s the market today?”', ko: '“오늘 장 어때?”' },
   ask1_a: { en: 'Regime, the strongest signals and yesterday’s paper-trading outcomes in one call.', ko: '레짐, 가장 강한 시그널, 어제 가상매매 결과를 한 번에.' },
@@ -1051,8 +1051,8 @@ const I18N = {
   st_llm:       { en: 'LLM Agents &amp; Debate', ko: 'LLM 에이전트 · 토론' },
   st_blog:      { en: 'Daily Blog &amp; YouTube 24/7 Stream', ko: '데일리 블로그 · 유튜브 24시간 방송' },
   status_foot: {
-    en: 'Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> every 60 seconds. Every figure OneQAZ publishes comes from paper trading.',
-    ko: '● live 표시 항목은 60초마다 <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a>로 다시 확인합니다. OneQAZ가 공개하는 모든 수치는 가상매매 기준입니다.'
+    en: 'Rows marked ● live are re-checked against <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a> every 60 seconds. Signals and predictions are computed from live market prices; trade and P&amp;L figures come from paper trading.',
+    ko: '● live 표시 항목은 60초마다 <a href="https://api.oneqaz.com/health">api.oneqaz.com/health</a>로 다시 확인합니다. 시그널과 예측은 실시간 시세로 계산하며, 매매·손익 수치는 가상매매 기준입니다.'
   },
   // Content link cards → blog.oneqaz.com
   content_label:        { en: 'Content', ko: '콘텐츠' },
