@@ -2,7 +2,7 @@
 <html lang="en" data-lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>OneQAZ — Verifiable Market Intelligence for AI Agents</title>
 <meta name="description" content="OneQAZ reads macro regimes, market structure and 1,300+ crypto, Korean and US symbols 24/7, and records its predictions in a timestamped, hash-chained ledger that AI agents can verify over MCP. Computed from live market prices — not investment advice.">
 <link rel="canonical" href="https://oneqaz.com/">
@@ -75,7 +75,6 @@
   --border:#3a3a4a;--hover:rgba(255,255,255,0.02);
   --font:'Outfit','Noto Sans KR',sans-serif;
   --scrollbar-thumb:rgba(255,255,255,0.1);
-  --nav-bg:rgba(28,28,36,0.9);
 }
 [data-theme="light"]{
   --bg:#e8e4de;--panel-bg:#f2efe9;--card-bg:#ece9e3;
@@ -83,10 +82,9 @@
   --amber:#9e7520;--green:#2d7a3a;--red:#b03225;--blue:#4272a0;--gold:#8c6a38;
   --border:#cdc7bc;--hover:rgba(0,0,0,0.03);
   --scrollbar-thumb:rgba(0,0,0,0.15);
-  --nav-bg:rgba(242,239,233,0.9);
 }
-html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden}
+html{scroll-behavior:smooth;font-size:16px;background:var(--bg)}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;overflow-x:hidden;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
 ::selection{background:var(--amber);color:var(--bg)}
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.06) 2px,rgba(0,0,0,0.06) 4px);transition:opacity .4s}
 [data-theme="light"] body::after{opacity:0.3}
@@ -100,8 +98,6 @@ body::before{
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:2px}
 /* /oqz:tokens */
 
-.progress-bar{position:fixed;top:0;left:0;width:100%;height:2px;z-index:1000;background:var(--panel-bg)}
-.progress-bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--gold));transition:width .3s}
 
 
 .container{max-width:1080px;width:100%;margin:0 auto;padding:0 40px}
@@ -417,9 +413,11 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
    Keep this block byte-identical in every page (tests/validation/test_site_chrome_sync.py).
    No backslashes, no triple quotes: the api.oneqaz.com copies live inside Python strings. */
 [data-lang="en"] [data-l="ko"],[data-lang="ko"] [data-l="en"]{display:none !important}
-[id]{scroll-margin-top:72px}
-.oqz-header{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:6px 24px;transition:background-color .3s,box-shadow .3s}
-.oqz-header.scrolled,.oqz-header.open{background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--border)}
+[id]{scroll-margin-top:calc(72px + env(safe-area-inset-top))}
+.oqz-header{position:fixed;top:0;left:0;right:0;z-index:999;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px;padding:calc(6px + env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) 6px max(24px,env(safe-area-inset-left));transition:background-color .3s,box-shadow .3s}
+.oqz-header.scrolled,.oqz-header.open{background:var(--bg);box-shadow:0 1px 0 var(--border)}
+.oqz-header .progress-bar{position:absolute;left:0;right:0;bottom:0;height:2px;pointer-events:none}
+.oqz-header .progress-bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--gold));transition:width .3s}
 .oqz-brand{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding-right:8px;color:var(--amber);text-decoration:none;font-family:var(--font);font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase}
 .oqz-brand img{width:26px;height:28px;filter:drop-shadow(0 0 6px rgba(212,168,83,0.3))}
 [data-theme="light"] .oqz-brand img{filter:brightness(0.3)}
@@ -444,9 +442,9 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
 .oqz-header.open .oqz-menu-icon::after{transform:translateY(-6px) rotate(-45deg)}
 .oqz-header a:focus-visible,.oqz-header button:focus-visible,.oqz-footer a:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 @media (max-width:860px){
-  .oqz-header{padding:6px 12px;background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--border)}
+  .oqz-header{padding:calc(6px + env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) 6px max(12px,env(safe-area-inset-left));background:var(--bg);box-shadow:0 1px 0 var(--border)}
   .oqz-menu-btn{display:inline-flex}
-  .oqz-menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100vh - 56px);overflow-y:auto;padding:4px 16px 20px;background:var(--bg);border-bottom:1px solid var(--border);box-shadow:0 12px 24px rgba(0,0,0,0.25)}
+  .oqz-menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100vh - 56px - env(safe-area-inset-top));overflow-y:auto;padding:4px 16px 20px;background:var(--bg);border-bottom:1px solid var(--border);box-shadow:0 12px 24px rgba(0,0,0,0.25)}
   .oqz-header.open .oqz-menu{display:flex}
   .oqz-menu a{min-height:52px;padding:0 4px;border-radius:0;border-bottom:1px solid var(--border);font-size:14px;letter-spacing:1px}
   .oqz-menu a.oqz-cta{justify-content:center;margin:16px 0 0;border-radius:8px}
@@ -474,7 +472,11 @@ body,.chat-panel,.stat,.status-item,.arch-node,.arch-output-item,.char-card,.loa
 (function () {
   var root = document.documentElement, mq = null;
   try { mq = window.matchMedia('(prefers-color-scheme: light)'); } catch (e) {}
-  function applyTheme() { root.setAttribute('data-theme', mq && mq.matches ? 'light' : 'dark'); }
+  function applyTheme() {
+    var light = !!(mq && mq.matches), tc = document.querySelector('meta[name=theme-color]');
+    root.setAttribute('data-theme', light ? 'light' : 'dark');
+    if (tc) tc.setAttribute('content', light ? '#e8e4de' : '#1c1c24');
+  }
   applyTheme();
   if (mq) {
     try { mq.addEventListener('change', applyTheme); }
@@ -504,7 +506,6 @@ document.documentElement.classList.add('reveal-on');}catch(e){}})();</script>
   <div class="loader-pct" id="loaderPct" data-msg="connecting..."></div>
 </div>
 
-<div class="progress-bar"><div class="fill" id="progressFill"></div></div>
 <!-- oqz:chrome-header v1 — identical on every oneqaz.com / api.oneqaz.com page -->
 <header class="oqz-header" id="oqzHeader">
   <a class="oqz-brand" href="https://oneqaz.com/" data-anchor="hero" data-xlang><img src="https://oneqaz.com/images/opt/logo-128.webp" alt="" width="26" height="28"><span>OneQAZ</span></a>
@@ -518,6 +519,7 @@ document.documentElement.classList.add('reveal-on');}catch(e){}})();</script>
     <a class="oqz-cta" href="https://blog.oneqaz.com/en/" data-blog-path=""><span data-l="en">Daily Reads</span><span data-l="ko">데일리 리포트</span></a>
     <div class="oqz-lang" role="group" aria-label="Language"><button id="langEn" type="button" onclick="setLang('en')">EN</button><button id="langKo" type="button" onclick="setLang('ko')">KO</button></div>
   </nav>
+  <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
 </header>
 <!-- /oqz:chrome-header -->
 
