@@ -136,6 +136,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 @media (max-width:860px){
   .oqz-header{padding:6px 12px;background:var(--nav-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--border)}
   .oqz-header.oqz-hidden{transform:translateY(-100%);box-shadow:none}
+  .oqz-nav-hidden .progress-bar{transform:translateY(-100%)}
   .oqz-menu-btn{display:inline-flex}
   .oqz-menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100vh - 56px);overflow-y:auto;padding:4px 16px 20px;background:var(--bg);border-bottom:1px solid var(--border);box-shadow:0 12px 24px rgba(0,0,0,0.25)}
   .oqz-header.open .oqz-menu{display:flex}
@@ -157,7 +158,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   .oqz-footer-grid{grid-template-columns:repeat(2,1fr);gap:20px 16px}
   .oqz-footer li a{min-height:44px}
 }
-@media (prefers-reduced-motion:reduce){.oqz-header{transition:none}}
+.progress-bar{transition:transform .25s ease}
+@media (prefers-reduced-motion:reduce){.oqz-header,.progress-bar{transition:none}}
 /* /oqz:chrome-css */
 </style>
 <script>
@@ -293,14 +295,14 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
   function setOpen(open) {
     header.classList.toggle('open', open);
-    if (open) header.classList.remove('oqz-hidden');
+    if (open) setHidden(false);
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
   btn.addEventListener('click', function (e) { e.stopPropagation(); setOpen(!header.classList.contains('open')); });
   doc.addEventListener('click', function (e) { if (!header.contains(e.target)) setOpen(false); });
   doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
-  window.addEventListener('resize', function () { if (window.innerWidth > 860) { setOpen(false); header.classList.remove('oqz-hidden'); } });
-  header.addEventListener('focusin', function () { header.classList.remove('oqz-hidden'); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 860) { setOpen(false); setHidden(false); } });
+  header.addEventListener('focusin', function () { setHidden(false); });
   header.querySelector('.oqz-menu').addEventListener('click', function (e) {
     if (e.target.closest && e.target.closest('a')) setOpen(false);
   });
@@ -380,15 +382,17 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
   // Phone widths: scrolling down slides the header away, scrolling up brings it back. Near the top,
   // with the menu open, or with focus inside the header it always stays. iOS bounce past the end is ignored.
+  // The scroll progress bar (top edge) hides and returns together with the header.
+  function setHidden(h) { header.classList.toggle('oqz-hidden', h); root.classList.toggle('oqz-nav-hidden', h); }
   var lastY = 0;
   function onScroll() {
     var y = Math.min(window.pageYOffset || root.scrollTop, root.scrollHeight - window.innerHeight);
     header.classList.toggle('scrolled', y > 12);
     if (y < 120 || window.innerWidth > 860 || header.classList.contains('open') || header.contains(doc.activeElement)) {
-      header.classList.remove('oqz-hidden'); lastY = y; return;
+      setHidden(false); lastY = y; return;
     }
     if (Math.abs(y - lastY) < 8) return;
-    header.classList.toggle('oqz-hidden', y > lastY);
+    setHidden(y > lastY);
     lastY = y;
   }
   window.addEventListener('scroll', onScroll, { passive: true });
