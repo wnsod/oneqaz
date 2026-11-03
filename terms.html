@@ -210,7 +210,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">Legal</div>
   <h1 class="section-title">Terms of Service</h1>
   <p class="section-desc">OneQAZ Trading Intelligence — MCP Server &amp; API</p>
-  <div class="doc-meta">Last updated 2026-10-19 · Effective 2026-10-19</div>
+  <div class="doc-meta">Last updated 2026-11-03 · Effective 2026-11-10</div>
 
   <div class="toc">
     <a href="#en-service">Service</a><a href="#en-advice">Not advice</a><a href="#en-clients">AI clients</a>
@@ -277,11 +277,12 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
     <section id="en-access">
       <h2><span class="num">05</span>Access, API keys and rate limits</h2>
       <dl class="fields">
-        <div class="field"><dt>Free — no key</dt><dd>1,500 requests per day · 60 per minute</dd></div>
-        <div class="field"><dt>Pro — API key</dt><dd>50,000 requests per day · 200 per minute</dd></div>
+        <div class="field"><dt>Free — no key</dt><dd>1,500 requests per day · 60 per minute · core and verification tools</dd></div>
+        <div class="field"><dt>Pro — API key</dt><dd>50,000 requests per day · 200 per minute · adds operational data</dd></div>
       </dl>
       <ul>
         <li>Requests without a key use the Free tier. A request with an <strong>invalid, inactive or expired key is rejected</strong> with HTTP 401 and a <code>WWW-Authenticate</code> header; it is not silently downgraded.</li>
+        <li>The tools available depend on the tier. The Free tier includes the core tools and every track-record verification tool; on the Free tier, trade history lists closed trades 24 hours after the close. Pro adds paper-trading positions and the decision logs behind them, real-time trade history, bulk export and correlation / lead-lag maps. Tool names that were replaced keep working as hidden aliases and name their replacement in <code>_meta.deprecated</code>.</li>
         <li>Exceeding a limit returns HTTP 429 with a <code>Retry-After</code> header. Current limits are reported in <code>X-RateLimit-*</code> response headers.</li>
         <li>API keys are issued to the requester, must be kept confidential and must not be shared or resold. We may revoke a key that is misused or exposed.</li>
         <li>The Free tier is free of charge. Terms for paid (Pro) access or metered billing will be published before they take effect; unpaid Pro access may be suspended.</li>
@@ -332,7 +333,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="en-changes">
       <h2><span class="num">11</span>Changes</h2>
-      <p>These Terms take effect on 2026-10-19. Change on 2026-10-19: clarified that signal scores are computed from live market prices
+      <p>These Terms take effect on 2026-11-10; until then the version of 2026-10-19 applies. Change on 2026-11-10 (announced 2026-11-03):
+      the tools available now depend on the tier — section 05 (the Free tier keeps the core tools and every track-record verification
+      tool, with trade history delayed 24 hours after the close; Pro adds operational data). Change on 2026-10-19: clarified that signal scores are computed from live market prices
       and that only trade, position and P&amp;L figures are paper trading — sections 01–03 (no change to your rights or
       obligations). We announce changes by updating the date above; continued use after a change
       means you accept the updated Terms. Previous versions are available in the
@@ -364,7 +367,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">법적 고지</div>
   <h1 class="section-title">이용약관</h1>
   <p class="section-desc">OneQAZ 트레이딩 인텔리전스 — MCP 서버 및 API</p>
-  <div class="doc-meta">최종 수정 2026-10-19 · 시행 2026-10-19</div>
+  <div class="doc-meta">최종 수정 2026-11-03 · 시행 2026-11-10</div>
 
   <div class="toc">
     <a href="#ko-service">서비스</a><a href="#ko-advice">투자자문 아님</a><a href="#ko-clients">AI 클라이언트</a>
@@ -431,12 +434,13 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
     <section id="ko-access">
       <h2><span class="num">05</span>접근, API 키 및 호출 제한</h2>
       <dl class="fields">
-        <div class="field"><dt>Free — 키 없음</dt><dd>하루 1,500회 · 분당 60회</dd></div>
-        <div class="field"><dt>Pro — API 키</dt><dd>하루 50,000회 · 분당 200회</dd></div>
+        <div class="field"><dt>Free — 키 없음</dt><dd>하루 1,500회 · 분당 60회 · 핵심·검증 툴</dd></div>
+        <div class="field"><dt>Pro — API 키</dt><dd>하루 50,000회 · 분당 200회 · 운영 데이터 추가</dd></div>
       </dl>
       <ul>
         <li>키 없이 보낸 요청은 Free 등급으로 처리됩니다. <strong>유효하지 않거나 비활성·만료된 키로 보낸 요청은 거부</strong>되며
         HTTP 401과 <code>WWW-Authenticate</code> 헤더가 반환됩니다(무료 등급으로 조용히 낮춰 처리하지 않습니다).</li>
+        <li>쓸 수 있는 툴은 등급에 따라 다릅니다. Free 등급에는 핵심 툴과 모든 기록 검증 툴이 포함되며, Free 등급의 체결 이력은 청산 후 24시간이 지난 거래부터 보입니다. Pro는 가상매매 포지션과 그 결정 기록, 실시간 체결 이력, 일괄 내보내기, 상관·선후행 지도를 더합니다. 이름이 바뀐 툴은 숨김 별칭으로 계속 동작하며 <code>_meta.deprecated</code>에 대체 툴을 알려 줍니다.</li>
         <li>제한을 초과하면 HTTP 429와 <code>Retry-After</code> 헤더가 반환됩니다. 현재 한도는 <code>X-RateLimit-*</code> 응답 헤더로 안내됩니다.</li>
         <li>API 키는 요청자에게 발급되며 비밀로 유지해야 하고, 공유·재판매할 수 없습니다. 오용되거나 노출된 키는 폐기할 수 있습니다.</li>
         <li>Free 등급은 무료입니다. 유료(Pro) 이용이나 사용량 기반 과금 조건은 시행 전에 공개하며, 미납 시 Pro 이용이 중지될 수 있습니다.</li>
@@ -485,7 +489,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="ko-changes">
       <h2><span class="num">11</span>약관 변경</h2>
-      <p>본 약관은 2026년 10월 19일부터 시행합니다. 2026-10-19 변경: 신호 점수는 실시간 시세로 계산하며 매매 내역·포지션·손익만
+      <p>본 약관은 2026년 11월 10일부터 시행하며, 그 전까지는 2026-10-19 약관을 적용합니다. 2026-11-10 변경(2026-11-03 공지):
+      쓸 수 있는 툴이 등급에 따라 달라집니다 — 05조(Free 등급은 핵심 툴과 모든 기록 검증 툴을 유지하며 체결 이력은 청산 후 24시간 뒤부터 보이고,
+      Pro는 운영 데이터를 더함). 2026-10-19 변경: 신호 점수는 실시간 시세로 계산하며 매매 내역·포지션·손익만
       가상매매임을 명확히 함 — 01~03조(이용자의 권리·의무 변경 없음). 변경 사항은 상단의 날짜를 갱신하여 알리며,
       변경 후 계속 이용하면 변경된 약관에 동의한 것으로 봅니다. 이전 약관은
       <a href="https://github.com/wnsod/oneqaz/commits/main/terms.html" target="_blank" rel="noopener">공개 변경 이력</a>에서 확인할 수 있습니다.
