@@ -212,7 +212,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">Legal</div>
   <h1 class="section-title">Privacy Policy</h1>
   <p class="section-desc">OneQAZ Trading Intelligence — MCP Server, API &amp; Website</p>
-  <div class="doc-meta">Last updated 2026-10-19 · Effective 2026-10-19</div>
+  <div class="doc-meta">Last updated 2026-11-04 · Effective 2026-11-04</div>
 
   <div class="toc">
     <a href="#en-purpose">Purpose</a><a href="#en-items">Items</a><a href="#en-retention">Retention</a>
@@ -238,18 +238,20 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <ul>
         <li>Operate and secure the service (rate limiting, abuse prevention, debugging).</li>
         <li>Diagnose client and protocol compatibility problems.</li>
+        <li>Check problems you report: we keep the responses we sent, so the <code>request_id</code> of a response shows
+        exactly what you received.</li>
         <li>Measure aggregate usage (which tools are called, by which client type) to improve the product.</li>
         <li>Enforce access tiers, attribute usage to API keys, and issue and manage the API keys you request.</li>
         <li>If you choose to connect an AI app to a OneQAZ account (OAuth): create a free account when you choose
         <strong>Connect free</strong>, authenticate the account, issue, refresh and revoke the app's access tokens, and apply
         limits per account.</li>
       </ul>
-      <p>Anonymous use needs no account or consent screen. Request logs are processed on the basis of our legitimate
+      <p>Anonymous use needs no account or consent screen. Request logs and stored responses are processed on the basis of our legitimate
       interest in operating and securing the service, limited to what is reasonably necessary (PIPA Art. 15(1)(6); GDPR
       Art. 6(1)(f)). The contact email of an API-key holder is processed to issue and manage the key you asked for, and
       account-connection data is processed to provide the connection you asked for (PIPA Art. 15(1)(4); GDPR
       Art. 6(1)(b)). Connecting an account is optional; anonymous use continues to work without it.</p>
-      <p>We do <strong>not</strong> sell your data, build advertising profiles, use request logs to train AI models, or make
+      <p>We do <strong>not</strong> sell your data, build advertising profiles, use request logs or stored responses to train AI models, or make
       automated decisions about you based on them.</p>
     </section>
 
@@ -266,6 +268,15 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <div class="field"><dt>Outcome metadata</dt><dd>Success/failure, HTTP status, JSON-RPC error code, a short error
         description (at most 200 characters; input values echoed back by validation errors are redacted), latency (ms), and
         the shape of the result (rows returned, total available, whether it was truncated or empty).</dd></div>
+        <div class="field"><dt>Response identifier</dt><dd>The random <code>request_id</code> that every tool and resource
+        response carries, recorded with the request so that a response you report can be matched to its record. We generate
+        it; it says nothing about you.</dd></div>
+        <div class="field"><dt>Response contents</dt><dd>What we sent back: tool and resource responses, and protocol
+        responses such as the tool list. Parts that change on every response (identifiers, timestamps) are removed, and
+        identical responses are stored once. If a response repeats a free-text value you sent outside the whitelist below (for
+        example a question or a news keyword), or a whitelisted value longer than 60 characters, that value is replaced before
+        storage with a placeholder such as <code>[arg:question len=12]</code>; values chosen from a fixed list of options are
+        kept as they are.</dd></div>
         <div class="field"><dt>Derived session key</dt><dd>A hash of IP + user-agent + a 30-minute time bucket. No cookie or
         other persistent identifier is set on your client.</dd></div>
         <div class="field"><dt>API key (if provided)</dt><dd>Used to determine your rate-limit tier and access level. With each
@@ -274,7 +285,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <div class="field"><dt>Whitelisted request parameters</dt><dd>A limited summary of tool arguments (e.g.
         <code>symbol</code>, <code>market</code>, <code>interval</code>, <code>category</code>, date ranges, result limits,
         identifiers) and, for the <code>search</code> tool, the search keyword truncated to 60 characters. Calls made without
-        arguments are recorded as such. Argument content outside this whitelist is <strong>not</strong> stored.</dd></div>
+        arguments are recorded as such. Argument content outside this whitelist is <strong>not</strong> stored in the request
+        record (for values a response repeats, see Response contents above).</dd></div>
         <div class="field"><dt>MCP client &amp; protocol metadata</dt><dd>The client name/version sent at
         <code>initialize</code> (<code>clientInfo</code>), the MCP protocol version, the <code>Accept</code> header (first 200
         characters), the protocol session id header if your client sends one, the call order within a session, and
@@ -303,8 +315,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <strong>never stored or logged</strong>.</dd></div>
       </dl>
       <p>Of these, the IP address, the derived session key, the API-key fingerprint, the contact email and the account
-      identifier are personal information or can identify you in combination; the other fields describe the request, not you. We do not store the
-      contents of responses we send you. Visiting <code>oneqaz.com</code> does not send us any personal information (see
+      identifier are personal information or can identify you in combination; the other fields describe the request, not you. Stored response contents
+      describe market data, not you, but are linked to the request that received them. Visiting <code>oneqaz.com</code> does not send us any personal information (see
       sections 06 and 08).</p>
     </section>
 
@@ -316,6 +328,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         longer identify you, except that requests made with an API key or a connected account remain attributable to that
         key or account while its contact email or the account exists.</li>
         <li><strong>Contact email of an API-key holder</strong> — until the key is revoked or you ask us to delete it.</li>
+        <li><strong>Response contents</strong> — up to <strong>90 days</strong> after the same response was last sent, then
+        deleted. The request record keeps only a fingerprint (hash) of the response, which cannot be used to rebuild it.</li>
         <li><strong>Account connection (if you connect an AI app)</strong> — sign-in codes: deleted within 1 day after use or
         expiry; token hashes: within 7 days after they expire or are revoked; connection records: 30 days after you withdraw
         the connection, or 12 months after the connection was last used; app registrations that were never connected: after
@@ -333,7 +347,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>Procedure</strong> — when the retention period ends, IP addresses and session keys are irreversibly
         replaced by a processing job using a one-way transformation whose random key is discarded after each run, so the
         records can no longer be linked to an IP address. Contact emails are deleted without delay when the key is revoked or
-        on your request. Account-connection records, and accounts created with Connect free that no longer have a connection,
+        on your request. Stored response contents are deleted by a job that runs every six hours once their retention
+        period ends. Account-connection records, and accounts created with Connect free that no longer have a connection,
         are deleted by a daily job when their retention period ends. When you ask
         us to delete an account, we revoke all of its connections and tokens immediately and delete the account without
         delay; the account identifier left in usage history then no longer identifies anyone.</li>
@@ -384,7 +399,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>Technical</strong> — encrypted transport (HTTPS/TLS); the database is not exposed to the internet and is
         reachable only from our internal network; separate database roles per service; API keys are never written to request
         logs (one-way fingerprint only); only a whitelisted summary of arguments is stored; IP addresses are irreversibly
-        replaced after 12 months. For account connections: tokens stored only as hashes, short-lived (1-hour) access
+        replaced after 12 months; stored responses have free-text arguments masked before they are written. For account
+        connections: tokens stored only as hashes, short-lived (1-hour) access
         tokens, refresh tokens rotated on every use with reuse detection, PKCE, and a sign-in screen that shows where you
         will be returned and cannot be embedded in other sites.</li>
         <li><strong>Physical</strong> — servers and storage are kept at a location managed directly by the operator.</li>
@@ -462,7 +478,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="en-changes">
       <h2><span class="num">14</span>Changes</h2>
-      <p>This policy takes effect on 2026-10-19. Change on 2026-10-19: clarified the service description — market information
+      <p>This policy takes effect on 2026-11-04. Change on 2026-11-04: each request record now keeps the
+      response's <code>request_id</code>, and the responses we send are kept for up to 90 days to check reported
+      problems (free-text arguments masked) — sections 01–04 and 07. Change on 2026-10-19: clarified the service description — market information
       computed from live market prices, with only trades, positions and P&amp;L being paper trading (no change to how
       personal information is processed). Change on 2026-10-16: added the connection-URL referral label
       (<code>ref</code>, fixed list) to MCP client &amp; protocol metadata — section 02. Change on 2026-10-14: an AI app can be connected on the free plan without an
@@ -483,7 +501,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">법적 고지</div>
   <h1 class="section-title">개인정보 처리방침</h1>
   <p class="section-desc">OneQAZ 트레이딩 인텔리전스 — MCP 서버, API 및 웹사이트</p>
-  <div class="doc-meta">최종 수정 2026-10-19 · 시행 2026-10-19</div>
+  <div class="doc-meta">최종 수정 2026-11-04 · 시행 2026-11-04</div>
 
   <div class="toc">
     <a href="#ko-purpose">처리 목적</a><a href="#ko-items">처리 항목</a><a href="#ko-retention">보유 기간</a>
@@ -508,16 +526,18 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <ul>
         <li>서비스 운영·보안(요청 수 제한, 남용 방지, 디버깅).</li>
         <li>클라이언트·프로토콜 호환성 문제 진단.</li>
+        <li>이용자가 신고한 문제의 확인 — 보낸 응답을 보관해, 응답의 <code>request_id</code> 로 이용자가 실제로 받은 내용을 다시
+        봅니다.</li>
         <li>제품 개선을 위한 집계 사용량 측정(어떤 tool 이 어떤 클라이언트에서 호출되는지).</li>
         <li>접근 등급 적용, API 키별 사용량 집계, 이용자가 요청한 API 키의 발급·관리.</li>
         <li>이용자가 선택한 경우 AI 앱과 OneQAZ 계정의 연결(OAuth): <strong>무료로 연결</strong>을 선택하면 무료 계정 생성, 계정 인증,
         앱 접근 토큰의 발급·갱신·폐기, 계정 단위 이용 한도 적용.</li>
       </ul>
-      <p>익명 이용에는 회원가입이나 동의 절차가 필요하지 않습니다. 요청 로그는 서비스 운영·보안이라는 정당한 이익을 달성하기 위해
+      <p>익명 이용에는 회원가입이나 동의 절차가 필요하지 않습니다. 요청 로그와 보관한 응답은 서비스 운영·보안이라는 정당한 이익을 달성하기 위해
       합리적으로 필요한 범위에서 「개인정보 보호법」 제15조 제1항 제6호에 근거하여 처리합니다. API 키 보유자의 연락 이메일은 이용자가
       요청한 키를 발급·관리하기 위해, 계정 연결 정보는 이용자가 요청한 연결을 제공하기 위해 같은 조 제1항 제4호에 근거하여 처리합니다.
       계정 연결은 선택 사항이며, 연결하지 않아도 익명 이용은 그대로 가능합니다.</p>
-      <p>개인정보를 판매하거나 광고 프로필을 만들지 <strong>않으며</strong>, 요청 로그를 AI 모델 학습이나 이용자에 대한 자동화된 결정에
+      <p>개인정보를 판매하거나 광고 프로필을 만들지 <strong>않으며</strong>, 요청 로그와 보관한 응답을 AI 모델 학습이나 이용자에 대한 자동화된 결정에
       사용하지 않습니다.</p>
     </section>
 
@@ -532,12 +552,19 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <div class="field"><dt>tool / resource 이름</dt><dd>요청한 tool 또는 resource 와 요청 유형(예: <code>get_daily_brief</code>).</dd></div>
         <div class="field"><dt>결과 메타데이터</dt><dd>성공·실패, HTTP 상태, JSON-RPC 오류 코드, 짧은 오류 설명(최대 200자 — 검증 오류가 되돌려
         보낸 입력값은 가림), 응답 시간(ms), 결과 형태(반환 행 수, 전체 건수, 잘림·빈 결과 여부).</dd></div>
+        <div class="field"><dt>응답 식별자</dt><dd>모든 tool·resource 응답에 실리는 무작위 값 <code>request_id</code>. 이용자가
+        신고한 응답을 해당 요청 기록과 맞춰 보기 위해 요청과 함께 기록합니다. OneQAZ가 만드는 값이며 이용자에 관한 정보가 아닙니다.</dd></div>
+        <div class="field"><dt>응답 내용</dt><dd>OneQAZ가 보낸 응답 — tool·resource 응답과 도구 목록 같은 프로토콜 응답. 응답마다
+        바뀌는 부분(식별자·시각)은 빼고, 같은 응답은 한 번만 저장합니다. 응답이 아래 허용 목록 밖에서 이용자가 보낸 자유 입력 값(예: 질문,
+        뉴스 키워드)이나 60자를 넘는 허용 목록 값을 되풀이하면, 저장 전에 <code>[arg:question len=12]</code> 같은 표시로 바꿉니다.
+        정해진 선택지에서 고른 값은 그대로 둡니다.</dd></div>
         <div class="field"><dt>파생 세션 키</dt><dd>IP + user-agent + 30분 구간의 해시. 이용자 기기에 쿠키나 기타 영구 식별자를 남기지 않습니다.</dd></div>
         <div class="field"><dt>API 키(제공한 경우)</dt><dd>요청 한도 등급과 접근 수준 판정에 사용합니다. 요청마다 판정된 등급과 키의 단방향
         지문(SHA-256 해시 앞 16자리)을 기록합니다. 키 자체는 요청 로그에 기록하지 않습니다.</dd></div>
         <div class="field"><dt>허용 목록 요청 인자</dt><dd>tool 인자의 제한된 요약(<code>symbol</code>, <code>market</code>,
         <code>interval</code>, <code>category</code>, 기간, 결과 개수, 식별자 등)과 <code>search</code> 도구의 검색어(최대 60자).
-        인자 없이 호출한 경우 그 사실만 기록합니다. 허용 목록 밖의 인자 내용은 저장하지 <strong>않습니다</strong>.</dd></div>
+        인자 없이 호출한 경우 그 사실만 기록합니다. 허용 목록 밖의 인자 내용은 요청 기록에 저장하지
+        <strong>않습니다</strong>(응답이 되풀이한 값은 위 '응답 내용' 참조).</dd></div>
         <div class="field"><dt>MCP 클라이언트·프로토콜 메타데이터</dt><dd><code>initialize</code> 때 보낸 클라이언트 이름·버전
         (<code>clientInfo</code>), MCP 프로토콜 버전, <code>Accept</code> 헤더(앞 200자), 클라이언트가 보낸 경우 프로토콜 세션 ID
         헤더, 세션 내 호출 순서, 요청·응답 크기, 그리고 이용한 연결 URL 에 붙어 있는 경우 유입 표시(<code>ref</code> —
@@ -558,7 +585,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         등록된 키와 대조하는 데에만 쓰며 <strong>저장하거나 기록하지 않습니다</strong>.</dd></div>
       </dl>
       <p>이 중 IP 주소, 파생 세션 키, API 키 지문, 연락 이메일, 계정 식별자는 개인정보이거나 다른 정보와 결합하여 이용자를 식별할 수 있는 정보이며,
-      나머지는 이용자가 아니라 요청을 설명하는 정보입니다. 이용자에게 보낸 응답 본문은 저장하지 않습니다. <code>oneqaz.com</code>
+      나머지는 이용자가 아니라 요청을 설명하는 정보입니다. 보관한 응답 내용은 이용자가 아니라 시장 데이터를 담지만, 그 응답을 받은 요청 기록과 연결됩니다. <code>oneqaz.com</code>
       방문만으로 OneQAZ에 전달되는 개인정보는 없습니다(06·08 참조).</p>
     </section>
 
@@ -569,6 +596,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>그 밖의 요청 기록</strong> — 사용 이력으로 보관합니다. IP 파생 항목이 치환된 뒤에는 이용자를 식별하지 않으며, 다만 API 키나
         연결된 계정으로 한 요청은 그 키의 연락 이메일 또는 그 계정이 남아 있는 동안 해당 키·계정에 귀속됩니다.</li>
         <li><strong>API 키 보유자의 연락 이메일</strong> — 키를 폐기하거나 이용자가 삭제를 요청할 때까지.</li>
+        <li><strong>응답 내용</strong> — 같은 응답을 마지막으로 보낸 때부터 <strong>최대 90일</strong>, 이후 삭제합니다. 요청 기록에는
+        응답을 복원할 수 없는 지문(해시)만 남습니다.</li>
         <li><strong>계정 연결 정보(AI 앱을 연결한 경우)</strong> — 로그인 코드: 사용 또는 만료 후 1일 이내 삭제 · 토큰 해시: 만료·폐기 후 7일
         이내 · 연결 기록: 연결 철회 후 30일, 또는 마지막 사용 후 12개월 · 연결되지 않은 앱 등록: 30일 후 · 무료로 연결해 만든 계정: 마지막
         연결 기록이 삭제된 다음 날 자동 삭제 · API 키에 연결된 계정: 이용자가 삭제를 요청할 때까지.</li>
@@ -581,7 +610,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <h2><span class="num">04</span>개인정보의 파기 절차 및 방법</h2>
       <ul>
         <li><strong>파기 절차</strong> — 보유 기간이 지난 IP 주소와 세션 키는 실행마다 폐기되는 임의 키를 쓴 단방향 변환 작업으로 비가역
-        치환하여, 기록을 IP 주소와 연결할 수 없게 합니다. 연락 이메일은 키를 폐기하거나 이용자가 요청하면 지체 없이 삭제합니다. 계정 연결
+        치환하여, 기록을 IP 주소와 연결할 수 없게 합니다. 연락 이메일은 키를 폐기하거나 이용자가 요청하면 지체 없이 삭제합니다. 보관한 응답 내용은 보유 기간이 끝나면
+        6시간마다 도는 처리 작업이 삭제합니다. 계정 연결
         정보와 연결이 남지 않은 '무료로 연결' 계정은 보유 기간이 끝나면 매일 도는 정리 작업이 삭제합니다. 계정 삭제를 요청하면 그 계정의
         연결과 토큰을 즉시 폐기하고 계정을 지체 없이
         삭제하며, 그 뒤 사용 이력에 남은 계정 식별자로는 누구인지 알 수 없습니다.</li>
@@ -626,7 +656,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>관리적 조치</strong> — 개인정보에 대한 접근 권한을 운영자로 제한합니다.</li>
         <li><strong>기술적 조치</strong> — 전송 구간 암호화(HTTPS/TLS), 데이터베이스는 인터넷에 노출하지 않고 내부망에서만 접근,
         서비스별 데이터베이스 계정 분리, API 키는 요청 로그에 원문 대신 단방향 지문만 기록, 요청 인자는 허용 목록 요약만 저장,
-        12개월이 지난 IP 주소는 비가역 치환. 계정 연결에는 토큰 해시 저장, 1시간 단기 접근 토큰, 사용할 때마다 갱신 토큰 교체와 재사용 탐지,
+        12개월이 지난 IP 주소는 비가역 치환, 보관하는 응답은 저장 전에 자유 입력 인자를 가림. 계정 연결에는 토큰 해시 저장, 1시간 단기 접근 토큰, 사용할 때마다 갱신 토큰 교체와 재사용 탐지,
         PKCE, 돌아갈 주소를 표시하고 다른 사이트에 삽입할 수 없는 로그인 화면을 적용합니다.</li>
         <li><strong>물리적 조치</strong> — 서버와 저장장치는 운영자가 직접 관리하는 장소에 둡니다.</li>
       </ul>
@@ -697,7 +727,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="ko-changes">
       <h2><span class="num">14</span>개인정보 처리방침의 변경</h2>
-      <p>본 방침은 2026년 10월 19일부터 시행합니다. 2026-10-19 변경: 서비스 설명 정정 — 실시간 시세로 계산한 시장 정보이며 매매 내역·
+      <p>본 방침은 2026년 11월 4일부터 시행합니다. 2026-11-04 변경: 요청 기록에 응답의 <code>request_id</code> 를
+      함께 남기고, 신고된 문제 확인을 위해 보낸 응답 내용을 최대 90일 보관(자유 입력 인자는 가림) — 01~04·07절. 2026-10-19 변경: 서비스 설명 정정 — 실시간 시세로 계산한 시장 정보이며 매매 내역·
       포지션·손익만 가상매매(개인정보 처리 방식은 바뀌지 않음). 2026-10-16 변경: MCP 클라이언트·프로토콜 메타데이터에 연결 URL 유입 표시
       (<code>ref</code>, 고정 목록) 추가 — 02절. 2026-10-14 변경: API 키 없이 무료 플랜으로 AI 앱을 연결하는 방법('무료로 연결') 추가 —
       이 계정은 어떤 키나 이용자 정보와도 연결되지 않으며 연결이 남지 않으면 자동 삭제 — 01~04·09절.
