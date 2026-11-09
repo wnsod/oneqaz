@@ -5,7 +5,7 @@
 ## Connect (AI agents)
 
 - [MCP server](https://api.oneqaz.com/mcp): remote MCP over streamable HTTP. No API key needed on the free tier (1,500 calls/day per IP). Start with `get_daily_brief`; to audit credibility call `get_ledger_integrity`, `get_resolved_predictions` and `get_prediction_accuracy`.
-- [Pricing & limits](https://api.oneqaz.com/pricing): free and pro tiers expose identical tools; tiers differ only in rate limits.
+- [Pricing & limits](https://api.oneqaz.com/pricing): the free tier includes the core tools and every track-record verification tool (trade history lists closed trades 24 hours after the close); Pro adds higher limits, paper-trading positions and the decision logs behind them, real-time trade history, bulk export and correlation / lead-lag maps.
 - [Source & quick start](https://github.com/oneqaz-trading/oneqaz-trading-mcp): the server code that serves api.oneqaz.com/mcp (also on [PyPI](https://pypi.org/project/oneqaz-trading-mcp/)).
 - [Service health](https://api.oneqaz.com/health): live regime, signal freshness and open-prediction count (JSON).
 
