@@ -714,8 +714,8 @@ document.documentElement.classList.add('reveal-on');}catch(e){}})();</script>
     <div class="ask-grid reveal">
       <div class="ask-card"><span class="ask-q" data-i18n="ask1_q">“How’s the market today?”</span><span class="ask-what" data-i18n="ask1_a">Regime, the strongest signals and yesterday’s paper-trading outcomes in one call.</span><span class="ask-tools"><code>get_daily_brief</code></span></div>
       <div class="ask-card"><span class="ask-q" data-i18n="ask2_q">“What does OneQAZ make of BTC?”</span><span class="ask-what" data-i18n="ask2_a">The research signal and score for a symbol, and why the system decided what it did.</span><span class="ask-tools"><code>get_signals</code> <code>explain_decision</code></span></div>
-      <div class="ask-card"><span class="ask-q" data-i18n="ask3_q">“Is the macro backdrop risk-on or risk-off?”</span><span class="ask-what" data-i18n="ask3_a">Eight macro categories and the macro → market hypotheses, with their lags.</span><span class="ask-tools"><code>market://global/summary</code> <code>get_macro_influence_map</code></span></div>
-      <div class="ask-card"><span class="ask-q" data-i18n="ask4_q">“What are you holding, and how did it go?”</span><span class="ask-what" data-i18n="ask4_a">Open paper positions, closed trades, drawdown and Sharpe — losses included, before fees.</span><span class="ask-tools"><code>get_positions</code> <code>get_trade_history</code> <code>get_performance_metrics</code></span></div>
+      <div class="ask-card"><span class="ask-q" data-i18n="ask3_q">“Is the macro backdrop risk-on or risk-off?”</span><span class="ask-what" data-i18n="ask3_a">Eight macro categories, their regimes, and the markets and stocks each one is linked to.</span><span class="ask-tools"><code>market://global/summary</code> <code>get_macro_context</code></span></div>
+      <div class="ask-card"><span class="ask-q" data-i18n="ask4_q">“How did your paper trades go?”</span><span class="ask-what" data-i18n="ask4_a">Closed paper trades (on the free plan, 24 hours after the close), drawdown and Sharpe — losses included, before fees.</span><span class="ask-tools"><code>get_trade_history</code> <code>get_performance_metrics</code></span></div>
       <div class="ask-card"><span class="ask-q" data-i18n="ask5_q">“How accurate are your predictions?”</span><span class="ask-what" data-i18n="ask5_a">Hit rates against persistence and majority-class baselines, and whether stated confidence matches reality.</span><span class="ask-tools"><code>get_prediction_accuracy</code> <code>get_signal_calibration</code></span></div>
       <div class="ask-card"><span class="ask-q" data-i18n="ask6_q">“How do I know it wasn’t edited later?”</span><span class="ask-what" data-i18n="ask6_a">A daily SHA-256 chain over the prediction ledger, plus the raw rows to recompute it yourself.</span><span class="ask-tools"><code>get_ledger_integrity</code> <code>get_resolved_predictions</code></span></div>
     </div>
@@ -1007,9 +1007,9 @@ const I18N = {
   ask2_q: { en: '“What does OneQAZ make of BTC?”', ko: '“BTC는 어떻게 보고 있어?”' },
   ask2_a: { en: 'The research signal and score for a symbol, and why the system decided what it did.', ko: '종목별 연구 시그널과 점수, 그리고 시스템이 그렇게 판단한 이유.' },
   ask3_q: { en: '“Is the macro backdrop risk-on or risk-off?”', ko: '“지금 거시 환경은 리스크온이야, 리스크오프야?”' },
-  ask3_a: { en: 'Eight macro categories and the macro → market hypotheses, with their lags.', ko: '8개 거시 카테고리와 거시 → 시장 가설, 그리고 그 시차.' },
-  ask4_q: { en: '“What are you holding, and how did it go?”', ko: '“지금 뭘 들고 있고, 성과는 어땠어?”' },
-  ask4_a: { en: 'Open paper positions, closed trades, drawdown and Sharpe — losses included, before fees.', ko: '가상 포지션, 청산 내역, 낙폭과 샤프 — 손실 포함, 수수료 반영 전.' },
+  ask3_a: { en: 'Eight macro categories, their regimes, and the markets and stocks each one is linked to.', ko: '8개 거시 카테고리의 레짐과, 각각이 연결된 시장·종목.' },
+  ask4_q: { en: '“How did your paper trades go?”', ko: '“가상매매 성과는 어땠어?”' },
+  ask4_a: { en: 'Closed paper trades (on the free plan, 24 hours after the close), drawdown and Sharpe — losses included, before fees.', ko: '청산 내역(무료는 청산 24시간 뒤 공개), 낙폭과 샤프 — 손실 포함, 수수료 반영 전.' },
   ask5_q: { en: '“How accurate are your predictions?”', ko: '“예측 얼마나 잘 맞아?”' },
   ask5_a: { en: 'Hit rates against persistence and majority-class baselines, and whether stated confidence matches reality.', ko: 'persistence·다수결 기준선 대비 적중률과, 제시한 신뢰도가 실제와 맞는지.' },
   ask6_q: { en: '“How do I know it wasn’t edited later?”', ko: '“나중에 고친 게 아니라는 걸 어떻게 알아?”' },
