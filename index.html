@@ -1228,14 +1228,14 @@ if (!REDUCED_MOTION) document.querySelectorAll('.stat-value[data-target]').forEa
 //     Kept in the classic script so the grid still renders if the chat's CDN import fails.
 //     Names follow the character registry (llm_factory/characters/registry.py); EN names are breed nicknames.
 const CHARS = {
-  orchestrator: { nick:{en:'!QAZ',ko:'!QAZ'},        color:'#ef4444', role:{en:'Orchestrator',ko:'오케스트레이터'},        img:'images/opt/orchestrator.webp' },
-  crypto:       { nick:{en:'Bengal',ko:'벵갈'},      color:'#F59E0B', role:{en:'Crypto',ko:'코인'},                       img:'images/opt/crypto.webp' },
-  kr_stock:     { nick:{en:'Kosho',ko:'코숏'},     color:'#FB923C', role:{en:'KR Stocks',ko:'국내 주식'},               img:'images/opt/kr_stock.webp' },
-  us_stock:     { nick:{en:'Maine',ko:'멘쿤'},       color:'#3B82F6', role:{en:'US Stocks',ko:'미국 주식'},               img:'images/opt/us_stock.webp' },
-  commodity:    { nick:{en:'Noel',ko:'노웰'},        color:'#10B981', role:{en:'Commodity / Inflation',ko:'원자재/인플레'}, img:'images/opt/commodity.webp' },
-  forex:        { nick:{en:'Siam',ko:'샤암'},        color:'#06B6D4', role:{en:'Forex / Liquidity',ko:'외환/유동성'},     img:'images/opt/forex.webp' },
-  bond:         { nick:{en:'Brit',ko:'브숏'},        color:'#64748B', role:{en:'Bond / Credit',ko:'채권/신용'},           img:'images/opt/bond.webp' },
-  news:         { nick:{en:'Ruble',ko:'러블'},       color:'#8B5CF6', role:{en:'News & Events',ko:'뉴스/이벤트'},         img:'images/opt/news.webp' },
+  orchestrator: { nick:{en:'!QAZ',ko:'!QAZ'},        color:'#ef4444', role:{en:'Orchestrator',ko:'오케스트레이터'},        img:'images/opt/orchestrator.webp', avatar:'images/opt/avatars/qaz.webp' },
+  crypto:       { nick:{en:'Bengal',ko:'벵갈'},      color:'#F59E0B', role:{en:'Crypto',ko:'코인'},                       img:'images/opt/crypto.webp', avatar:'images/opt/avatars/bengal.webp' },
+  kr_stock:     { nick:{en:'Kosho',ko:'코숏'},     color:'#FB923C', role:{en:'KR Stocks',ko:'국내 주식'},               img:'images/opt/kr_stock.webp', avatar:'images/opt/avatars/kosot.webp' },
+  us_stock:     { nick:{en:'Maine',ko:'멘쿤'},       color:'#3B82F6', role:{en:'US Stocks',ko:'미국 주식'},               img:'images/opt/us_stock.webp', avatar:'images/opt/avatars/mecoon.webp' },
+  commodity:    { nick:{en:'Noel',ko:'노웰'},        color:'#10B981', role:{en:'Commodity / Inflation',ko:'원자재/인플레'}, img:'images/opt/commodity.webp', avatar:'images/opt/avatars/nowel.webp' },
+  forex:        { nick:{en:'Siam',ko:'샤암'},        color:'#06B6D4', role:{en:'Forex / Liquidity',ko:'외환/유동성'},     img:'images/opt/forex.webp', avatar:'images/opt/avatars/siam.webp' },
+  bond:         { nick:{en:'Brit',ko:'브숏'},        color:'#64748B', role:{en:'Bond / Credit',ko:'채권/신용'},           img:'images/opt/bond.webp', avatar:'images/opt/avatars/bsot.webp' },
+  news:         { nick:{en:'Ruble',ko:'러블'},       color:'#8B5CF6', role:{en:'News & Events',ko:'뉴스/이벤트'},         img:'images/opt/news.webp', avatar:'images/opt/avatars/ruble.webp' },
 };
 window.OQZ_CHARS = CHARS;
 
@@ -1642,7 +1642,7 @@ function createAndAnimateMsg(entry, panelWidth, onDone) {
   div.className = 'msg';
   const nickName = c.nick[lang] || c.nick.en;
   div.innerHTML = `
-    <img class="msg-avatar" src="${c.img}" alt="${nickName}" style="border-color:${c.color}55">
+    <img class="msg-avatar" src="${c.avatar||c.img}" alt="${nickName}" style="border-color:${c.color}55">
     <div class="msg-content">
       <div class="msg-header">
         <span class="msg-nick" style="color:${c.color}">${nickName}</span>
