@@ -212,7 +212,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">Legal</div>
   <h1 class="section-title">Privacy Policy</h1>
   <p class="section-desc">OneQAZ Trading Intelligence — MCP Server, API &amp; Website</p>
-  <div class="doc-meta">Last updated 2026-11-04 · Effective 2026-11-04</div>
+  <div class="doc-meta">Last updated 2026-11-11 · Effective 2026-11-11</div>
 
   <div class="toc">
     <a href="#en-purpose">Purpose</a><a href="#en-items">Items</a><a href="#en-retention">Retention</a>
@@ -281,10 +281,12 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         other persistent identifier is set on your client.</dd></div>
         <div class="field"><dt>API key (if provided)</dt><dd>Used to determine your rate-limit tier and access level. With each
         request we record the resolved tier and a one-way fingerprint of the key (the first 16 hex characters of its SHA-256
-        hash). The key itself is never written to request logs.</dd></div>
+        hash). The key itself is never written to request logs, and issued keys are stored only as SHA-256 hashes — we
+        keep no copy of the key itself.</dd></div>
         <div class="field"><dt>Whitelisted request parameters</dt><dd>A limited summary of tool arguments (e.g.
         <code>symbol</code>, <code>market</code>, <code>interval</code>, <code>category</code>, date ranges, result limits,
-        identifiers) and, for the <code>search</code> tool, the search keyword truncated to 60 characters. Calls made without
+        identifiers) and, for the <code>search</code> tool, the search keyword truncated to 60 characters (removed after 90
+        days). Calls made without
         arguments are recorded as such. Argument content outside this whitelist is <strong>not</strong> stored in the request
         record (for values a response repeats, see Response contents above).</dd></div>
         <div class="field"><dt>MCP client &amp; protocol metadata</dt><dd>The client name/version sent at
@@ -310,8 +312,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         connection was withdrawn.</dd></div>
         <div class="field"><dt>Access and refresh tokens</dt><dd>Stored only as one-way hashes; we keep no copy of the tokens
         themselves.</dd></div>
-        <div class="field"><dt>Sign-in screen records</dt><dd>When a sign-in attempt fails, the IP address and time are written
-        to our server log. The API key you type on the sign-in screen is only checked against our key list — it is
+        <div class="field"><dt>Sign-in screen records</dt><dd>When a sign-in attempt fails, the IP address (last part masked,
+        e.g. 203.0.113.x) and time are written to our server log. The API key you type on the sign-in screen is only checked against our key list — it is
         <strong>never stored or logged</strong>.</dd></div>
       </dl>
       <p>Of these, the IP address, the derived session key, the API-key fingerprint, the contact email and the account
@@ -323,10 +325,16 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
     <section id="en-retention">
       <h2><span class="num">03</span>Retention period</h2>
       <ul>
-        <li><strong>IP address and derived session key</strong> — up to <strong>12 months</strong> from the request.</li>
-        <li><strong>Other request fields</strong> — kept as usage history. Once the IP-derived fields are replaced they no
-        longer identify you, except that requests made with an API key or a connected account remain attributable to that
-        key or account while its contact email or the account exists.</li>
+        <li><strong>Identifying request fields</strong> — IP address, derived session key, user-agent, protocol session ID,
+        API-key fingerprint, account identifier and the <code>search</code> keyword: up to <strong>90 days</strong> from the
+        request. After that the IP address and session key are irreversibly replaced (one-way transformation whose random
+        key is discarded after each run) and the other fields are deleted.</li>
+        <li><strong>Other request fields</strong> — time, tool or resource name, outcome, latency, client name and version
+        and the like are kept as usage statistics. After 90 days they no longer identify you or link to an API key or
+        account.</li>
+        <li><strong>Server logs</strong> — IP addresses are written with the last part masked (e.g. 203.0.113.x). Logs are
+        emptied after at most <strong>90 days</strong> (earlier if they grow past 200 MB); the last 20 MB of the previous
+        period, masked the same way, is kept until the next rotation.</li>
         <li><strong>Contact email of an API-key holder</strong> — until the key is revoked or you ask us to delete it.</li>
         <li><strong>Response contents</strong> — up to <strong>90 days</strong> after the same response was last sent, then
         deleted. The request record keeps only a fingerprint (hash) of the response, which cannot be used to rebuild it.</li>
@@ -398,12 +406,17 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         <li><strong>Administrative</strong> — access to personal information is limited to the operator.</li>
         <li><strong>Technical</strong> — encrypted transport (HTTPS/TLS); the database is not exposed to the internet and is
         reachable only from our internal network; separate database roles per service; API keys are never written to request
-        logs (one-way fingerprint only); only a whitelisted summary of arguments is stored; IP addresses are irreversibly
-        replaced after 12 months; stored responses have free-text arguments masked before they are written. For account
+        logs (one-way fingerprint only) and issued keys are stored only as hashes; only a whitelisted summary of arguments
+        is stored; identifying request fields are irreversibly replaced or deleted after 90 days; server logs mask IP
+        addresses; stored responses have free-text arguments masked before they are written. For account
         connections: tokens stored only as hashes, short-lived (1-hour) access
         tokens, refresh tokens rotated on every use with reuse detection, PKCE, and a sign-in screen that shows where you
         will be returned and cannot be embedded in other sites.</li>
         <li><strong>Physical</strong> — servers and storage are kept at a location managed directly by the operator.</li>
+        <li><strong>Incidents</strong> — if we learn of a leak, alteration, damage or loss of personal information, or that
+        one is likely, we notify affected users within 72 hours (where we cannot reach them, by a notice on this page and on
+        oneqaz.com for at least 30 days) and report to the Personal Information Protection Commission or KISA where the law
+        requires.</li>
       </ul>
     </section>
 
@@ -459,7 +472,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="en-ai">
       <h2><span class="num">12</span>AI client disclosure</h2>
-      <p>When an AI client (such as Claude, ChatGPT, or Gemini) calls OneQAZ on your behalf, your request reaches us through
+      <p>When an AI client (such as Claude, ChatGPT, Gemini, Grok or Meta Muse) calls OneQAZ on your behalf, your request reaches us through
       that client's platform. Every response carries <code>disclaimer</code>, <code>is_investment_advice=false</code>, and
       <code>data_classification=research_information_only</code>.</p>
       <p>If you connect an AI app to your OneQAZ account, we issue access tokens to that app at your direction. The AI
@@ -478,7 +491,11 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="en-changes">
       <h2><span class="num">14</span>Changes</h2>
-      <p>This policy takes effect on 2026-11-04. Change on 2026-11-04: each request record now keeps the
+      <p>This policy takes effect on 2026-11-11. Change on 2026-11-11: identifying request fields are kept up to 90 days
+      (IP address and session key: 12 months to 90 days; user-agent, protocol session ID, API-key fingerprint, account
+      identifier and search keyword now have the same limit), server logs mask IP addresses and are emptied within 90
+      days, API keys are stored only as hashes, and incident notification is described — sections 02, 03 and 07
+      (client examples in 12). Change on 2026-11-04: each request record now keeps the
       response's <code>request_id</code>, and the responses we send are kept for up to 90 days to check reported
       problems (free-text arguments masked) — sections 01–04 and 07. Change on 2026-10-19: clarified the service description — market information
       computed from live market prices, with only trades, positions and P&amp;L being paper trading (no change to how
@@ -501,7 +518,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
   <div class="section-label">법적 고지</div>
   <h1 class="section-title">개인정보 처리방침</h1>
   <p class="section-desc">OneQAZ 트레이딩 인텔리전스 — MCP 서버, API 및 웹사이트</p>
-  <div class="doc-meta">최종 수정 2026-11-04 · 시행 2026-11-04</div>
+  <div class="doc-meta">최종 수정 2026-11-11 · 시행 2026-11-11</div>
 
   <div class="toc">
     <a href="#ko-purpose">처리 목적</a><a href="#ko-items">처리 항목</a><a href="#ko-retention">보유 기간</a>
@@ -560,9 +577,11 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         정해진 선택지에서 고른 값은 그대로 둡니다.</dd></div>
         <div class="field"><dt>파생 세션 키</dt><dd>IP + user-agent + 30분 구간의 해시. 이용자 기기에 쿠키나 기타 영구 식별자를 남기지 않습니다.</dd></div>
         <div class="field"><dt>API 키(제공한 경우)</dt><dd>요청 한도 등급과 접근 수준 판정에 사용합니다. 요청마다 판정된 등급과 키의 단방향
-        지문(SHA-256 해시 앞 16자리)을 기록합니다. 키 자체는 요청 로그에 기록하지 않습니다.</dd></div>
+        지문(SHA-256 해시 앞 16자리)을 기록합니다. 키 자체는 요청 로그에 기록하지 않으며, 발급한 키는 원문 없이 SHA-256
+        해시로만 보관합니다.</dd></div>
         <div class="field"><dt>허용 목록 요청 인자</dt><dd>tool 인자의 제한된 요약(<code>symbol</code>, <code>market</code>,
-        <code>interval</code>, <code>category</code>, 기간, 결과 개수, 식별자 등)과 <code>search</code> 도구의 검색어(최대 60자).
+        <code>interval</code>, <code>category</code>, 기간, 결과 개수, 식별자 등)과 <code>search</code> 도구의 검색어(최대 60자,
+        90일 뒤 삭제).
         인자 없이 호출한 경우 그 사실만 기록합니다. 허용 목록 밖의 인자 내용은 요청 기록에 저장하지
         <strong>않습니다</strong>(응답이 되풀이한 값은 위 '응답 내용' 참조).</dd></div>
         <div class="field"><dt>MCP 클라이언트·프로토콜 메타데이터</dt><dd><code>initialize</code> 때 보낸 클라이언트 이름·버전
@@ -581,7 +600,8 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
         주소) 또는 앱 등록 시 발급한 무작위 값과, 앱이 스스로 밝힌 이름. 앱을 통한 요청에는 이 식별자를 기록합니다.</dd></div>
         <div class="field"><dt>연결 기록</dt><dd>연결한 앱, 허용한 접근 범위, 연결 일시, 연결을 철회한 일시.</dd></div>
         <div class="field"><dt>접근·갱신 토큰</dt><dd>단방향 해시값만 저장하며 토큰 원문은 보관하지 않습니다.</dd></div>
-        <div class="field"><dt>로그인 화면 기록</dt><dd>로그인에 실패하면 IP 주소와 시각을 서버 로그에 남깁니다. 로그인 화면에 입력한 API 키는
+        <div class="field"><dt>로그인 화면 기록</dt><dd>로그인에 실패하면 끝자리를 가린 IP 주소(예: 203.0.113.x)와 시각을 서버 로그에
+        남깁니다. 로그인 화면에 입력한 API 키는
         등록된 키와 대조하는 데에만 쓰며 <strong>저장하거나 기록하지 않습니다</strong>.</dd></div>
       </dl>
       <p>이 중 IP 주소, 파생 세션 키, API 키 지문, 연락 이메일, 계정 식별자는 개인정보이거나 다른 정보와 결합하여 이용자를 식별할 수 있는 정보이며,
@@ -592,9 +612,13 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
     <section id="ko-retention">
       <h2><span class="num">03</span>개인정보의 처리 및 보유 기간</h2>
       <ul>
-        <li><strong>IP 주소와 파생 세션 키</strong> — 요청일로부터 <strong>최대 12개월</strong>.</li>
-        <li><strong>그 밖의 요청 기록</strong> — 사용 이력으로 보관합니다. IP 파생 항목이 치환된 뒤에는 이용자를 식별하지 않으며, 다만 API 키나
-        연결된 계정으로 한 요청은 그 키의 연락 이메일 또는 그 계정이 남아 있는 동안 해당 키·계정에 귀속됩니다.</li>
+        <li><strong>요청 기록의 식별 항목</strong> — IP 주소, 파생 세션 키, User-agent, 프로토콜 세션 ID, API 키 지문, 계정 식별자,
+        <code>search</code> 도구의 검색어: 요청일로부터 <strong>최대 90일</strong>. 그 뒤 IP 주소와 세션 키는 실행마다 버리는
+        무작위 키로 비가역 치환하고 나머지는 삭제합니다.</li>
+        <li><strong>그 밖의 요청 기록</strong> — 시각, tool·리소스 이름, 결과, 응답 시간, 클라이언트 이름·버전 등은 사용 통계로
+        보관합니다. 90일이 지나면 이용자를 식별하지 않으며 API 키나 계정과도 연결되지 않습니다.</li>
+        <li><strong>서버 로그</strong> — IP 주소는 끝자리를 가려(예: 203.0.113.x) 기록합니다. 로그는 최대 <strong>90일</strong>
+        (200MB 를 넘으면 그 전에) 뒤 비우며, 직전 기간의 마지막 20MB 는 같은 방식으로 가린 채 다음 회전까지 남습니다.</li>
         <li><strong>API 키 보유자의 연락 이메일</strong> — 키를 폐기하거나 이용자가 삭제를 요청할 때까지.</li>
         <li><strong>응답 내용</strong> — 같은 응답을 마지막으로 보낸 때부터 <strong>최대 90일</strong>, 이후 삭제합니다. 요청 기록에는
         응답을 복원할 수 없는 지문(해시)만 남습니다.</li>
@@ -655,10 +679,13 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
       <ul>
         <li><strong>관리적 조치</strong> — 개인정보에 대한 접근 권한을 운영자로 제한합니다.</li>
         <li><strong>기술적 조치</strong> — 전송 구간 암호화(HTTPS/TLS), 데이터베이스는 인터넷에 노출하지 않고 내부망에서만 접근,
-        서비스별 데이터베이스 계정 분리, API 키는 요청 로그에 원문 대신 단방향 지문만 기록, 요청 인자는 허용 목록 요약만 저장,
-        12개월이 지난 IP 주소는 비가역 치환, 보관하는 응답은 저장 전에 자유 입력 인자를 가림. 계정 연결에는 토큰 해시 저장, 1시간 단기 접근 토큰, 사용할 때마다 갱신 토큰 교체와 재사용 탐지,
+        서비스별 데이터베이스 계정 분리, API 키는 요청 로그에 원문 대신 단방향 지문만 기록하고 발급 키도 해시로만 보관, 요청 인자는 허용 목록 요약만 저장,
+        90일이 지난 요청 기록의 식별 항목은 비가역 치환·삭제, 서버 로그의 IP 주소는 끝자리를 가림, 보관하는 응답은 저장 전에 자유 입력 인자를 가림. 계정 연결에는 토큰 해시 저장, 1시간 단기 접근 토큰, 사용할 때마다 갱신 토큰 교체와 재사용 탐지,
         PKCE, 돌아갈 주소를 표시하고 다른 사이트에 삽입할 수 없는 로그인 화면을 적용합니다.</li>
         <li><strong>물리적 조치</strong> — 서버와 저장장치는 운영자가 직접 관리하는 장소에 둡니다.</li>
+        <li><strong>사고 대응</strong> — 개인정보의 유출·위조·변조·훼손 등이 생겼거나 그럴 가능성을 알게 되면 72시간 이내에
+        이용자에게 알리고(연락처를 알 수 없으면 이 페이지와 oneqaz.com 에 30일 이상 게시), 법령이 정한 경우
+        개인정보보호위원회 또는 한국인터넷진흥원에 신고합니다.</li>
       </ul>
     </section>
 
@@ -709,7 +736,7 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="ko-ai">
       <h2><span class="num">12</span>AI 클라이언트 고지</h2>
-      <p>AI 클라이언트(Claude, ChatGPT, Gemini 등)가 이용자를 대신해 OneQAZ를 호출하면, 요청은 해당 클라이언트의 플랫폼을 거쳐 도달합니다.
+      <p>AI 클라이언트(Claude, ChatGPT, Gemini, Grok, Meta Muse 등)가 이용자를 대신해 OneQAZ를 호출하면, 요청은 해당 클라이언트의 플랫폼을 거쳐 도달합니다.
       모든 응답에는 <code>disclaimer</code>, <code>is_investment_advice=false</code>,
       <code>data_classification=research_information_only</code> 가 포함됩니다.</p>
       <p>AI 앱을 OneQAZ 계정에 연결하면 OneQAZ는 이용자의 지시에 따라 그 앱에 접근 토큰을 발급합니다. AI 플랫폼은 자체 방침에 따라 이 토큰을
@@ -727,7 +754,9 @@ body,.fields,.note{transition:background-color .4s,color .4s,border-color .4s}
 
     <section id="ko-changes">
       <h2><span class="num">14</span>개인정보 처리방침의 변경</h2>
-      <p>본 방침은 2026년 11월 4일부터 시행합니다. 2026-11-04 변경: 요청 기록에 응답의 <code>request_id</code> 를
+      <p>본 방침은 2026년 11월 11일부터 시행합니다. 2026-11-11 변경: 요청 기록의 식별 항목을 최대 90일까지만 보관(IP 주소·세션 키
+      12개월 → 90일, User-agent·프로토콜 세션 ID·API 키 지문·계정 식별자·검색어도 같은 기한), 서버 로그의 IP 주소 가림과
+      90일 안 비움, API 키 해시 보관, 사고 통지 절차 — 02·03·07절(12절 예시 추가). 2026-11-04 변경: 요청 기록에 응답의 <code>request_id</code> 를
       함께 남기고, 신고된 문제 확인을 위해 보낸 응답 내용을 최대 90일 보관(자유 입력 인자는 가림) — 01~04·07절. 2026-10-19 변경: 서비스 설명 정정 — 실시간 시세로 계산한 시장 정보이며 매매 내역·
       포지션·손익만 가상매매(개인정보 처리 방식은 바뀌지 않음). 2026-10-16 변경: MCP 클라이언트·프로토콜 메타데이터에 연결 URL 유입 표시
       (<code>ref</code>, 고정 목록) 추가 — 02절. 2026-10-14 변경: API 키 없이 무료 플랜으로 AI 앱을 연결하는 방법('무료로 연결') 추가 —
